@@ -43,7 +43,7 @@ export default function AnomaliesPage() {
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {kpis.map(({ label, value, Icon, color, bg }) => (
-                    <div key={label} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-center gap-4 shadow-sm">
+                    <div key={label} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-center gap-4 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                         <div className={`p-2.5 rounded-xl ${bg}`}><Icon size={20} className={color} /></div>
                         <div>
                             <p className="text-2xl font-bold text-slate-900 dark:text-white">{value}</p>
@@ -54,7 +54,7 @@ export default function AnomaliesPage() {
             </div>
 
             <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6">
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                         <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Anomaly Feed</h2>
                         <div className="flex flex-wrap gap-2">
@@ -69,7 +69,7 @@ export default function AnomaliesPage() {
                     <AnomalyFeed anomalies={ANOMALIES} filterSeverity={filterSeverity} />
                 </div>
 
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                     <h2 className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Anomaly Aging</h2>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">Count by severity × age bucket</p>
                     <AgingBarChart />

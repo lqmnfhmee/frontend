@@ -70,9 +70,8 @@ export default function RadialModuleCard({
         rounded-xl px-6 pt-4 pb-6 flex flex-col items-center
         bg-white dark:bg-slate-900
         border border-slate-200 dark:border-slate-800
-        shadow-lg shadow-indigo-500/5
-        dark:shadow-indigo-500/10
-        hover:-translate-y-1 hover:shadow-xl
+        shadow-md shadow-slate-200/50 dark:shadow-none
+        hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
         transition-all duration-300
       "
     >
@@ -106,7 +105,7 @@ export default function RadialModuleCard({
             absolute top-2 w-24 h-24 rounded-full
             bg-white dark:bg-slate-800
             border border-slate-200 dark:border-slate-700
-            shadow-md dark:shadow-indigo-500/10
+            shadow-md shadow-slate-200/60 dark:shadow-none
             flex flex-col items-center justify-center text-center
             z-10 cursor-pointer
             transition-all duration-300
@@ -143,7 +142,7 @@ export default function RadialModuleCard({
                 w-12 h-12 rounded-full
                 bg-white dark:bg-slate-800
                 border border-slate-200 dark:border-slate-700
-                shadow-sm dark:shadow-indigo-500/10
+                shadow-sm dark:shadow-none
                 flex items-center justify-center
                 transition-all duration-300
               "

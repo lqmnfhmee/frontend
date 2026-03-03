@@ -119,10 +119,10 @@ export default function AssetManagementPage() {
           rounded-2xl
           p-6
           border border-slate-200 dark:border-slate-800
-          shadow-sm dark:shadow-[0_0_40px_rgba(59,130,246,0.08)]
+          shadow-md shadow-slate-200/50 dark:shadow-none
           transition-all duration-300
-          dark:hover:shadow-[0_0_60px_rgba(59,130,246,0.18)]
-          hover:-translate-y-1
+          dark:hover:shadow-none
+          hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
         ">
                     <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
                         Asset Distribution
@@ -137,10 +137,10 @@ export default function AssetManagementPage() {
           rounded-2xl
           p-6
           border border-slate-200 dark:border-slate-800
-          shadow-sm dark:shadow-[0_0_40px_rgba(59,130,246,0.08)]
+          shadow-md shadow-slate-200/50 dark:shadow-none
           transition-all duration-300
-          dark:hover:shadow-[0_0_60px_rgba(59,130,246,0.18)]
-          hover:-translate-y-1
+          dark:hover:shadow-none
+          hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
         ">
                     <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
                         Asset Status Summary
@@ -160,10 +160,10 @@ export default function AssetManagementPage() {
           rounded-2xl
           p-6
           border border-slate-200 dark:border-slate-800
-          shadow-sm dark:shadow-[0_0_40px_rgba(59,130,246,0.08)]
+          shadow-md shadow-slate-200/50 dark:shadow-none
           transition-all duration-300
-          dark:hover:shadow-[0_0_60px_rgba(59,130,246,0.18)]
-          hover:-translate-y-1
+          dark:hover:shadow-none
+          hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
         ">
                     <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
                         Asset Growth Trend
@@ -178,10 +178,10 @@ export default function AssetManagementPage() {
           rounded-2xl
           p-6
           border border-slate-200 dark:border-slate-800
-          shadow-sm dark:shadow-[0_0_40px_rgba(59,130,246,0.08)]
+          shadow-md shadow-slate-200/50 dark:shadow-none
           transition-all duration-300
-          dark:hover:shadow-[0_0_60px_rgba(59,130,246,0.18)]
-          hover:-translate-y-1
+          dark:hover:shadow-none
+          hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
         ">
                     <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
                         Recent Assets

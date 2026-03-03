@@ -16,6 +16,7 @@ export default function AssetStatusSummary({ items }: Props) {
       border border-slate-200 dark:border-slate-800
       divide-y divide-slate-200 dark:divide-slate-800/60
       overflow-hidden
+      shadow-md shadow-slate-200/50 dark:shadow-none
     ">
       {items.map((item) => (
         <div

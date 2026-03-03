@@ -119,9 +119,9 @@ export default function AssetManagementPage() {
           rounded-2xl
           p-6
           border border-slate-200 dark:border-slate-800
-          shadow-sm dark:shadow-[0_0_40px_rgba(59,130,246,0.08)]
+          shadow-sm dark:shadow-none
           transition-all duration-300
-          dark:hover:shadow-[0_0_60px_rgba(59,130,246,0.18)]
+          dark:hover:shadow-none
           hover:-translate-y-1
         ">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
@@ -137,9 +137,9 @@ export default function AssetManagementPage() {
           rounded-2xl
           p-6
           border border-slate-200 dark:border-slate-800
-          shadow-sm dark:shadow-[0_0_40px_rgba(59,130,246,0.08)]
+          shadow-sm dark:shadow-none
           transition-all duration-300
-          dark:hover:shadow-[0_0_60px_rgba(59,130,246,0.18)]
+          dark:hover:shadow-none
           hover:-translate-y-1
         ">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
@@ -160,9 +160,9 @@ export default function AssetManagementPage() {
           rounded-2xl
           p-6
           border border-slate-200 dark:border-slate-800
-          shadow-sm dark:shadow-[0_0_40px_rgba(59,130,246,0.08)]
+          shadow-sm dark:shadow-none
           transition-all duration-300
-          dark:hover:shadow-[0_0_60px_rgba(59,130,246,0.18)]
+          dark:hover:shadow-none
           hover:-translate-y-1
         ">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
@@ -178,9 +178,9 @@ export default function AssetManagementPage() {
           rounded-2xl
           p-6
           border border-slate-200 dark:border-slate-800
-          shadow-sm dark:shadow-[0_0_40px_rgba(59,130,246,0.08)]
+          shadow-sm dark:shadow-none
           transition-all duration-300
-          dark:hover:shadow-[0_0_60px_rgba(59,130,246,0.18)]
+          dark:hover:shadow-none
           hover:-translate-y-1
         ">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">

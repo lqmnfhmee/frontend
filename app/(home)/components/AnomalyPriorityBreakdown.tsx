@@ -15,127 +15,126 @@ export default function AnomalyPriorityBreakdown() {
       rounded-xl p-5
       bg-white dark:bg-slate-900
       border border-slate-200 dark:border-slate-800
-      shadow-lg shadow-indigo-500/5
-      dark:shadow-indigo-500/10
-      hover:-translate-y-1 hover:shadow-xl
+      shadow-md shadow-slate-200/50 dark:shadow-none
+      hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
       transition-all duration-300
     ">
       <h3 className="relative font-semibold mb-6 text-slate-900 dark:text-slate-100">
-          Anomaly Priority Breakdown
+        Anomaly Priority Breakdown
         <span className="absolute -bottom-2 left-0 w-12 h-[2px] bg-indigo-500 rounded-full"></span>
       </h3>
 
       <table className="w-full text-center text-sm border border-slate-400 dark:border-slate-600 border-collapse">
 
-  <thead>
+        <thead>
 
-    {/* Priority Title */}
-    <tr>
-      <th
-        colSpan={8}
-        className="py-2 font-semibold bg-slate-50 dark:bg-slate-800 border border-slate-400 dark:border-slate-600"
-      >
-        Priority
-      </th>
-    </tr>
+          {/* Priority Title */}
+          <tr>
+            <th
+              colSpan={8}
+              className="py-2 font-semibold bg-slate-50 dark:bg-slate-800 border border-slate-400 dark:border-slate-600"
+            >
+              Priority
+            </th>
+          </tr>
 
-    {/* Color Row */}
-    <tr>
+          {/* Color Row */}
+          <tr>
 
-      <th colSpan={2} className="bg-red-500 text-white py-2 border border-slate-400 dark:border-slate-600">
-        P1
-      </th>
+            <th colSpan={2} className="bg-red-500 text-white py-2 border border-slate-400 dark:border-slate-600">
+              P1
+            </th>
 
-      <th colSpan={2} className="bg-orange-400 text-white py-2 border border-slate-400 dark:border-slate-600">
-        P2
-      </th>
+            <th colSpan={2} className="bg-orange-400 text-white py-2 border border-slate-400 dark:border-slate-600">
+              P2
+            </th>
 
-      <th colSpan={2} className="bg-yellow-400 py-2 border border-slate-400 dark:border-slate-600">
-        P3
-      </th>
+            <th colSpan={2} className="bg-yellow-400 py-2 border border-slate-400 dark:border-slate-600">
+              P3
+            </th>
 
-      <th colSpan={2} className="bg-emerald-600 text-white py-2 border border-slate-400 dark:border-slate-600">
-        P4
-      </th>
+            <th colSpan={2} className="bg-emerald-600 text-white py-2 border border-slate-400 dark:border-slate-600">
+              P4
+            </th>
 
-    </tr>
+          </tr>
 
-    {/* Totals Row */}
-    <tr>
+          {/* Totals Row */}
+          <tr>
 
-      <th colSpan={2} className="py-2 border border-slate-400 dark:border-slate-600">
-        {data.P1.total}
-      </th>
+            <th colSpan={2} className="py-2 border border-slate-400 dark:border-slate-600">
+              {data.P1.total}
+            </th>
 
-      <th colSpan={2} className="py-2 border border-slate-400 dark:border-slate-600">
-        {data.P2.total}
-      </th>
+            <th colSpan={2} className="py-2 border border-slate-400 dark:border-slate-600">
+              {data.P2.total}
+            </th>
 
-      <th colSpan={2} className="py-2 border border-slate-400 dark:border-slate-600">
-        {data.P3.total}
-      </th>
+            <th colSpan={2} className="py-2 border border-slate-400 dark:border-slate-600">
+              {data.P3.total}
+            </th>
 
-      <th colSpan={2} className="py-2 border border-slate-400 dark:border-slate-600">
-        {data.P4.total}
-      </th>
+            <th colSpan={2} className="py-2 border border-slate-400 dark:border-slate-600">
+              {data.P4.total}
+            </th>
 
-    </tr>
+          </tr>
 
-    {/* Active / Completed Header */}
-    <tr className="text-xs text-slate-500 dark:text-slate-400">
+          {/* Active / Completed Header */}
+          <tr className="text-xs text-slate-500 dark:text-slate-400">
 
-      {Array(4).fill(null).map((_, i) => (
-        <>
-          <th key={`a-${i}`} className="py-2 border border-slate-400 dark:border-slate-600">
-            Active
-          </th>
-          <th key={`c-${i}`} className="py-2 border border-slate-400 dark:border-slate-600">
-            Completed
-          </th>
-        </>
-      ))}
+            {Array(4).fill(null).map((_, i) => (
+              <>
+                <th key={`a-${i}`} className="py-2 border border-slate-400 dark:border-slate-600">
+                  Active
+                </th>
+                <th key={`c-${i}`} className="py-2 border border-slate-400 dark:border-slate-600">
+                  Completed
+                </th>
+              </>
+            ))}
 
-    </tr>
+          </tr>
 
-  </thead>
+        </thead>
 
-  <tbody>
+        <tbody>
 
-    <tr>
+          <tr>
 
-      <td className="py-3 border border-slate-400 dark:border-slate-600">
-        {data.P1.active}
-      </td>
-      <td className="py-3 border border-slate-400 dark:border-slate-600">
-        {data.P1.completed}
-      </td>
+            <td className="py-3 border border-slate-400 dark:border-slate-600">
+              {data.P1.active}
+            </td>
+            <td className="py-3 border border-slate-400 dark:border-slate-600">
+              {data.P1.completed}
+            </td>
 
-      <td className="py-3 border border-slate-400 dark:border-slate-600">
-        {data.P2.active}
-      </td>
-      <td className="py-3 border border-slate-400 dark:border-slate-600">
-        {data.P2.completed}
-      </td>
+            <td className="py-3 border border-slate-400 dark:border-slate-600">
+              {data.P2.active}
+            </td>
+            <td className="py-3 border border-slate-400 dark:border-slate-600">
+              {data.P2.completed}
+            </td>
 
-      <td className="py-3 border border-slate-400 dark:border-slate-600">
-        {data.P3.active}
-      </td>
-      <td className="py-3 border border-slate-400 dark:border-slate-600">
-        {data.P3.completed}
-      </td>
+            <td className="py-3 border border-slate-400 dark:border-slate-600">
+              {data.P3.active}
+            </td>
+            <td className="py-3 border border-slate-400 dark:border-slate-600">
+              {data.P3.completed}
+            </td>
 
-      <td className="py-3 border border-slate-400 dark:border-slate-600">
-        {data.P4.active}
-      </td>
-      <td className="py-3 border border-slate-400 dark:border-slate-600">
-        {data.P4.completed}
-      </td>
+            <td className="py-3 border border-slate-400 dark:border-slate-600">
+              {data.P4.active}
+            </td>
+            <td className="py-3 border border-slate-400 dark:border-slate-600">
+              {data.P4.completed}
+            </td>
 
-    </tr>
+          </tr>
 
-  </tbody>
+        </tbody>
 
-</table>
+      </table>
       <div className="
         mt-4 rounded-md px-3 py-2 text-xs
         bg-slate-100 dark:bg-slate-800/80

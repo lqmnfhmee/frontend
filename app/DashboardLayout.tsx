@@ -33,20 +33,12 @@ export default function DashboardLayout({
         <main className="
           flex-1
           overflow-y-auto
-          px-6 lg:px-8
-          py-6
+          p-6
+          lg:p-8
         ">
 
           {/* ⭐ CONTENT SURFACE (VERY IMPORTANT) */}
-          <div className="
-            min-h-full
-            rounded-2xl
-            bg-white
-            dark:bg-slate-900
-            border border-slate-200 dark:border-slate-800
-            shadow-sm
-            p-6
-          ">
+          <div className="min-h-full">
             {children}
           </div>
 

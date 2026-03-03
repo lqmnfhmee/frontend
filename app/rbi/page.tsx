@@ -56,7 +56,7 @@ export default function RbiPage() {
 
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                     {kpis.map(({ label, value, Icon, color, bg }) => (
-                        <div key={label} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-center gap-4 shadow-sm">
+                        <div key={label} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-center gap-4 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                             <div className={`p-2.5 rounded-xl ${bg}`}><Icon size={20} className={color} /></div>
                             <div>
                                 <p className="text-2xl font-bold text-slate-900 dark:text-white">{value}</p>
@@ -67,7 +67,7 @@ export default function RbiPage() {
                 </div>
 
                 <div className="grid grid-cols-1 xl:grid-cols-[380px_1fr] gap-6">
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                         <div className="flex items-center justify-between mb-4">
                             <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Risk Matrix</h2>
                             {selectedCell && (
@@ -85,7 +85,7 @@ export default function RbiPage() {
                         )}
                     </div>
 
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                         <div className="flex items-center justify-between mb-3">
                             <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Asset Register</h2>
                         </div>

@@ -59,7 +59,7 @@ export default function IntegrityPage() {
             {/* Global KPI Strip */}
             <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
                 {globalKpis.map(({ label, value, sub, Icon, iconColor, iconBg, badge }) => (
-                    <div key={label} className="relative bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm overflow-hidden">
+                    <div key={label} className="relative bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300 overflow-hidden">
                         <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-slate-100 dark:bg-slate-800 opacity-40" />
                         <div className="relative flex items-center justify-between mb-4">
                             <div className={`p-2.5 rounded-xl ${iconBg}`}><Icon size={20} className={iconColor} /></div>
@@ -77,7 +77,7 @@ export default function IntegrityPage() {
                 <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">Modules</p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {modules.map((mod) => (
-                        <div key={mod.title} className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm flex flex-col justify-between gap-5 hover:border-indigo-200 dark:hover:border-indigo-500/40 hover:shadow-md transition-all">
+                        <div key={mod.title} className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-md shadow-slate-200/50 dark:shadow-none flex flex-col justify-between gap-5 hover:border-indigo-200 dark:hover:border-indigo-500/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                             <div>
                                 <div className="flex items-center gap-2 mb-3">
                                     <div className="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700">{mod.icon}</div>

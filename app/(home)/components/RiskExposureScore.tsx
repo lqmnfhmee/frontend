@@ -86,8 +86,8 @@ export default function RiskExposureScore() {
       w-full rounded-xl p-8
       bg-white dark:bg-slate-900
       border border-slate-200 dark:border-slate-800
-      shadow-lg shadow-indigo-500/5
-      dark:shadow-indigo-500/10
+      shadow-md shadow-slate-200/50 dark:shadow-none
+      hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none max-h-min
       transition-all duration-300
     ">
 

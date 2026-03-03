@@ -24,7 +24,7 @@ export default function SCEAssessmentsPage() {
             </div>
 
             {/* Main Container Card */}
-            <div className="bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden min-h-[calc(100vh-140px)] flex flex-col">
+            <div className="bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-md shadow-slate-200/50 dark:shadow-none overflow-hidden min-h-[calc(100vh-140px)] flex flex-col">
 
                 {/* Card Header */}
                 <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">

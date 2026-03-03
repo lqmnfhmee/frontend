@@ -33,8 +33,8 @@ export default function KpiCard({
   const iconBg = isPositive
     ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
     : growth !== undefined
-    ? "bg-red-500/10 text-red-600 dark:text-red-400"
-    : "bg-blue-500/10 text-blue-600 dark:text-blue-400";
+      ? "bg-red-500/10 text-red-600 dark:text-red-400"
+      : "bg-blue-500/10 text-blue-600 dark:text-blue-400";
 
   return (
     <motion.div
@@ -46,7 +46,7 @@ export default function KpiCard({
         rounded-2xl
         p-6
         border border-slate-200 dark:border-slate-800
-        shadow-sm dark:shadow-lg dark:shadow-black/30
+        shadow-md shadow-slate-200/50 dark:shadow-none hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
         transition-all duration-300
       "
     >
@@ -89,11 +89,10 @@ export default function KpiCard({
 
         {growth !== undefined && (
           <span
-            className={`text-sm font-medium ${
-              isPositive
+            className={`text-sm font-medium ${isPositive
                 ? "text-emerald-600 dark:text-emerald-400"
                 : "text-red-600 dark:text-red-400"
-            }`}
+              }`}
           >
             {isPositive ? "+" : ""}
             {growth}%
