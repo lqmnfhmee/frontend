@@ -2,7 +2,7 @@ import AssetDistributionChart from "./components/AssetDistributionChart";
 import AssetStatusSummary from "./components/AssetStatusSummary";
 import AssetTrendChart from "./components/AssetTrendChart";
 import { Factory, Boxes, Package, Layers } from "lucide-react";
-import KpiCard from "@/components/shared/KpiCard";
+import KpiCard from "@/app/components/shared/KpiCard";
 import RecentAssets from "../(home)/components/RecentAssets";
 
 export default function AssetManagementPage() {

@@ -1,7 +1,7 @@
-import RiskExposureScore from "@/(home)/components/RiskExposureScore";
-import AnomalyPriorityBreakdown from "@/(home)/components/AnomalyPriorityBreakdown";
-import TotalRiskMatrix from "@/(home)/components/TotalRiskMatrix";
-import RadialModuleCard from "@/(home)/components/RadialModuleCard";
+import RiskExposureScore from "@/app/(home)/components/RiskExposureScore";
+import AnomalyPriorityBreakdown from "@/app/(home)/components/AnomalyPriorityBreakdown";
+import TotalRiskMatrix from "@/app/(home)/components/TotalRiskMatrix";
+import RadialModuleCard from "@/app/(home)/components/RadialModuleCard";
 
 export default function Home() {
   return (
