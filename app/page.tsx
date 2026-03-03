@@ -1,7 +1,7 @@
-import RiskExposureScore from "@/components/RiskExposureScore/RiskExposureScore";
-import AnomalyPriorityBreakdown from "@/components/Dashboard/AnomalyPriorityBreakdown";
-import TotalRiskMatrix from "@/components/Dashboard/TotalRiskMatrix";
-import RadialModuleCard from "@/components/Dashboard/RadialModuleCard";
+import RiskExposureScore from "@/(home)/components/RiskExposureScore";
+import AnomalyPriorityBreakdown from "@/(home)/components/AnomalyPriorityBreakdown";
+import TotalRiskMatrix from "@/(home)/components/TotalRiskMatrix";
+import RadialModuleCard from "@/(home)/components/RadialModuleCard";
 
 export default function Home() {
   return (
@@ -108,7 +108,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="border-t border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-900/40 backdrop-blur-sm">
         <div className="max-w-[1500px] mx-auto px-6 lg:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-sm text-slate-600 dark:text-slate-400">
-          
+
           <span>
             © {new Date().getFullYear()} EPOMS Global Solution Sdn. Bhd.
           </span>

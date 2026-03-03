@@ -1,6 +1,7 @@
 "use client";
 
 import SidebarItem from "./SidebarItem";
+import SidebarAccordion from "./SidebarAccordion";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -103,15 +104,27 @@ export default function Sidebar({ collapsed }: SidebarProps) {
               href="/asset-management"
               collapsed={collapsed}
             />
-            <SidebarItem
+            <SidebarAccordion
               label="Asset Registration"
-              href="/asset-registration"
+              baseHref="/asset-registration"
               collapsed={collapsed}
+              subItems={[
+                { label: "Facilities", href: "/asset-registration/facilities" },
+                { label: "System", href: "/asset-registration/system" },
+                { label: "Package", href: "/asset-registration/package" },
+                { label: "Assets", href: "/asset-registration/assets" }
+              ]}
             />
-            <SidebarItem
+            <SidebarAccordion
               label="Asset Settings"
-              href="/asset-settings"
+              baseHref="/asset-settings"
               collapsed={collapsed}
+              subItems={[
+                { label: "Asset Categories", href: "/asset-settings/asset-categories" },
+                { label: "Asset Groups", href: "/asset-settings/asset-groups" },
+                { label: "Processes", href: "/asset-settings/processes" },
+                { label: "Deleted Items", href: "/asset-settings/deleted-items" }
+              ]}
             />
           </div>
         </div>
@@ -131,7 +144,7 @@ export default function Sidebar({ collapsed }: SidebarProps) {
             />
             <SidebarItem
               label="SCE Assessments"
-              href="/sce-assessments"
+              href="/sce/assessments"
               collapsed={collapsed}
             />
           </div>
