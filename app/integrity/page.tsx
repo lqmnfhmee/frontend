@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
     BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
     PieChart, Pie, Cell,
@@ -9,16 +9,61 @@ import {
 import {
     ShieldAlert, AlertTriangle, CalendarClock, AlertCircle,
     Download, FileSpreadsheet, FileText, TrendingDown, CheckCircle2,
+    X, Info, ArrowRight, TrendingUp,
 } from "lucide-react";
 
 // ─── Mock Data ───────────────────────────────────────────────────────────────
 
-const riskDistribution = [
-    { name: "Low", value: 20, fill: "#22c55e" },
-    { name: "Medium", value: 6, fill: "#eab308" },
-    { name: "High", value: 2, fill: "#f97316" },
-    { name: "Very High", value: 0, fill: "#ef4444" },
+// POF (row) × COF (col) risk level matrix — rows: POF 5→1, cols: A→E
+type RiskLevel = "Low" | "Medium" | "High" | "Very High";
+
+const RISK_LEVELS: Record<"row" | "col", string[]> = {
+    row: ["5", "4", "3", "2", "1"],
+    col: ["A", "B", "C", "D", "E"],
+};
+
+// Color for each cell based on POF/COF intersection
+const riskMatrix: RiskLevel[][] = [
+    ["Medium", "High", "Very High", "Very High", "Very High"], // POF 5
+    ["Low", "Medium", "High", "Very High", "Very High"], // POF 4
+    ["Low", "Low", "Medium", "High", "Very High"], // POF 3
+    ["Low", "Low", "Low", "Medium", "High"],      // POF 2
+    ["Low", "Low", "Low", "Low", "Medium"],    // POF 1
 ];
+
+const riskLevelColor: Record<RiskLevel, string> = {
+    "Low": "#22c55e",
+    "Medium": "#eab308",
+    "High": "#f97316",
+    "Very High": "#ef4444",
+};
+
+// Equipment counts per cell [POF row 5→1][COF col A→E]
+const riskMatrixCounts: Record<string, number[][]> = {
+    Total: [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0],
+    ],
+    Vessel: [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 1, 1, 0, 0],
+    ],
+    Piping: [
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+    ],
+};
+
+const riskTabs = ["Total", "Vessel", "Piping"];
 
 const inspectionCompliance = [
     { name: "Completed", value: 12, color: "#22c55e" },
@@ -63,8 +108,32 @@ const alerts = [
     { id: 4, icon: TrendingDown, color: "text-blue-500", bg: "bg-blue-50 dark:bg-blue-500/10", border: "border-blue-100 dark:border-blue-500/20", text: "1 equipment with remaining life < 3 years identified", level: "Info" },
 ];
 
-// ─── Score config ─────────────────────────────────────────────────────────────
+// ─── Score config —————————————————————————————————————————————————————
 const SCORE = 85;
+
+// ─── Score breakdown mock data ————————————————————————————————————————
+
+const SCORE_BREAKDOWN = [
+    { label: "RBI Risk", pct: 88, color: "#6366f1", icon: ShieldAlert, sub: "1 High-risk equipment item" },
+    { label: "Inspection Compliance", pct: 75, color: "#22c55e", icon: CalendarClock, sub: "50% compliance rate" },
+    { label: "Anomalies", pct: 80, color: "#f97316", icon: AlertCircle, sub: "5 open, 2 P1/P2" },
+    { label: "Remaining Life", pct: 90, color: "#eab308", icon: AlertTriangle, sub: "1 asset < 3 yrs" },
+];
+
+const TOP_DRIVERS = [
+    { text: "1 high-risk equipment item identified in RBI assessment", color: "#ef4444" },
+    { text: "Inspection compliance below target (50% vs 80% KPI)", color: "#f97316" },
+    { text: "2 P1/P2 anomalies unresolved past target closure date", color: "#eab308" },
+];
+
+const RECOMMENDED_ACTIONS = [
+    { label: "View High Risk Equipment", href: "/integrity/rbi", color: "#ef4444" },
+    { label: "View Overdue / Due Soon Inspections", href: "/inspections", color: "#f97316" },
+    { label: "View P1/P2 Anomalies", href: "/integrity/anomalies", color: "#6366f1" },
+];
+
+const LAST_CALCULATED = "04 Mar 2026, 10:42";
+const SCORE_CHANGE = "+3 this month";
 
 function getScoreStatus(score: number) {
     if (score >= 90) return { label: "OPTIMAL", color: "#22c55e", ring: "#dcfce7", dark: "#16a34a" };
@@ -130,6 +199,380 @@ function GaugeIndicator({ score }: { score: number }) {
     );
 }
 
+// ─── Gauge Tooltip (hover popover) ──────────────────────────────────────────────
+
+function GaugeTooltip({ score, visible }: { score: number; visible: boolean }) {
+    const status = getScoreStatus(score);
+    return (
+        <div
+            role="tooltip"
+            className={`absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2 z-50 w-64
+                        bg-slate-900 dark:bg-slate-800 border border-slate-700 rounded-xl
+                        shadow-xl shadow-black/40 p-4 pointer-events-none
+                        transition-all duration-200 ${visible ? "opacity-100 translate-y-0 visible" : "opacity-0 translate-y-1 invisible"
+                }`}>
+            {/* Score + status */}
+            <div className="flex items-center justify-between mb-3">
+                <div className="flex items-baseline gap-1.5">
+                    <span className="text-2xl font-bold" style={{ color: status.color }}>{score}</span>
+                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: status.color }}>{status.label}</span>
+                </div>
+                <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/15 px-2 py-0.5 rounded-full">{SCORE_CHANGE}</span>
+            </div>
+            {/* Timestamp */}
+            <p className="text-[10px] text-slate-400 mb-3">Last calculated: {LAST_CALCULATED}</p>
+            {/* Breakdown bars */}
+            <div className="space-y-2">
+                {SCORE_BREAKDOWN.map(({ label, pct, color }) => (
+                    <div key={label}>
+                        <div className="flex justify-between mb-0.5">
+                            <span className="text-[10px] text-slate-300">{label}</span>
+                            <span className="text-[10px] font-bold" style={{ color }}>{pct}%</span>
+                        </div>
+                        <div className="h-1.5 rounded-full bg-slate-700 overflow-hidden">
+                            <div
+                                className="h-full rounded-full transition-all duration-500"
+                                style={{ width: `${pct}%`, backgroundColor: color }}
+                            />
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {/* Caret */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0
+                            border-l-[7px] border-r-[7px] border-t-[7px]
+                            border-l-transparent border-r-transparent border-t-slate-700" />
+        </div>
+    );
+}
+
+// ─── Score Drawer (click panel) ───────────────────────────────────────────────
+
+function ScoreDrawer({ score, open, onClose }: { score: number; open: boolean; onClose: () => void }) {
+    const status = getScoreStatus(score);
+
+    // Keyboard: Esc closes
+    useEffect(() => {
+        if (!open) return;
+        const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+        window.addEventListener("keydown", handler);
+        return () => window.removeEventListener("keydown", handler);
+    }, [open, onClose]);
+
+    return (
+        <>
+            {/* Backdrop */}
+            <div
+                aria-hidden
+                className={`fixed inset-0 z-40 bg-black/40 backdrop-blur-[2px] transition-opacity duration-300 ${open ? "opacity-100" : "opacity-0 pointer-events-none"
+                    }`}
+                onClick={onClose}
+            />
+            {/* Drawer panel */}
+            <div
+                role="dialog"
+                aria-modal="true"
+                aria-label="Integrity Score Breakdown"
+                className={`fixed top-0 right-0 z-50 h-full w-full max-w-sm
+                            bg-slate-950 border-l border-slate-800
+                            shadow-2xl shadow-black/60 flex flex-col
+                            transition-transform duration-300 ease-out ${open ? "translate-x-0" : "translate-x-full"
+                    }`}>
+
+                {/* Header */}
+                <div className="flex items-center justify-between px-5 py-4 border-b border-slate-800">
+                    <div>
+                        <h2 className="text-sm font-semibold text-white">Integrity Score Breakdown</h2>
+                        <p className="text-[11px] text-slate-400 mt-0.5">Larut-A (LRA) · {LAST_CALCULATED}</p>
+                    </div>
+                    <button
+                        onClick={onClose}
+                        aria-label="Close drawer"
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+                        <X size={16} />
+                    </button>
+                </div>
+
+                <div className="flex-1 overflow-y-auto px-5 py-4 space-y-6">
+
+                    {/* Score hero */}
+                    <div className="flex items-center gap-4 p-4 rounded-xl border border-slate-800 bg-slate-900"
+                        style={{ boxShadow: `0 0 24px ${status.color}20` }}>
+                        <div className="text-5xl font-bold" style={{ color: status.color }}>{score}</div>
+                        <div>
+                            <p className="text-xs font-bold uppercase tracking-widest" style={{ color: status.color }}>{status.label}</p>
+                            <p className="text-[11px] text-slate-400 mt-0.5">Program Status: STABLE</p>
+                            <span className="inline-flex items-center gap-1 mt-1 text-[10px] font-semibold text-emerald-400">
+                                <TrendingUp size={11} />{SCORE_CHANGE}
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Score breakdown cards */}
+                    <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">Score Breakdown</p>
+                        <div className="grid grid-cols-2 gap-3">
+                            {SCORE_BREAKDOWN.map(({ label, pct, color, icon: Icon, sub }) => (
+                                <div key={label} className="p-3 rounded-xl border border-slate-800 bg-slate-900 flex flex-col gap-2">
+                                    <div className="flex items-center justify-between">
+                                        <Icon size={14} style={{ color }} />
+                                        <span className="text-sm font-bold" style={{ color }}>{pct}%</span>
+                                    </div>
+                                    <div className="h-1.5 rounded-full bg-slate-700 overflow-hidden">
+                                        <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
+                                    </div>
+                                    <p className="text-[10px] font-semibold text-slate-300">{label}</p>
+                                    <p className="text-[10px] text-slate-500">{sub}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Top Drivers */}
+                    <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">Top Drivers</p>
+                        <div className="space-y-2.5">
+                            {TOP_DRIVERS.map(({ text, color }, i) => (
+                                <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-slate-900 border border-slate-800">
+                                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: color }} />
+                                    <p className="text-xs text-slate-300 leading-relaxed">{text}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Recommended Actions */}
+                    <div>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">Recommended Actions</p>
+                        <div className="space-y-2">
+                            {RECOMMENDED_ACTIONS.map(({ label, href, color }) => (
+                                <a
+                                    key={label}
+                                    href={href}
+                                    className="flex items-center justify-between p-3 rounded-xl border border-slate-800 bg-slate-900
+                                               hover:border-slate-600 transition-colors group">
+                                    <span className="text-xs font-medium text-slate-300 group-hover:text-white transition-colors">{label}</span>
+                                    <ArrowRight size={13} style={{ color }} className="opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </>
+    );
+}
+
+// ─── Interactive Gauge Wrapper ────────────────────────────────────────────────
+
+function InteractiveGauge({ score, onOpen }: { score: number; onOpen: () => void }) {
+    const [hovered, setHovered] = useState(false);
+    const status = getScoreStatus(score);
+    return (
+        <div className="relative flex flex-col items-center gap-2">
+            {/* Tooltip */}
+            <GaugeTooltip score={score} visible={hovered} />
+            {/* Hit area: hover + click + keyboard */}
+            <div
+                role="button"
+                tabIndex={0}
+                aria-label="View Integrity Score Breakdown"
+                className="relative cursor-pointer rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
+                style={{ "--tw-ring-color": status.color } as React.CSSProperties}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                onClick={onOpen}
+                onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(); } }}
+            >
+                <GaugeIndicator score={score} />
+            </div>
+            <div
+                className="flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full border cursor-pointer select-none"
+                style={{ color: status.color, borderColor: `${status.color}40`, backgroundColor: `${status.color}12` }}
+                onClick={onOpen}
+            >
+                Program Status: STABLE
+            </div>
+        </div>
+    );
+}
+
+// ─── Animated Compliance Donut ───────────────────────────────────────────────
+
+const DONUT_ANIM_CSS = `
+@keyframes arcWipe {
+  from { stroke-dashoffset: var(--arc-len); }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes labelFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.arc-segment {
+  animation: arcWipe var(--dur, 0.8s) cubic-bezier(0.4,0,0.2,1) var(--delay, 0s) both;
+}
+.arc-label {
+  animation: labelFadeIn 0.4s ease var(--label-delay, 1s) both;
+}
+`;
+
+function AnimatedComplianceDonut({
+    data,
+    compliancePct,
+}: {
+    data: { name: string; value: number; color: string }[];
+    compliancePct: number;
+}) {
+    const SIZE = 220;          // SVG canvas size
+    const cx = SIZE / 2;     // centre x
+    const cy = SIZE / 2;     // centre y
+    const R = 78;           // outer radius
+    const r = 52;           // inner radius
+    const GAP = 3;            // gap between segments in degrees
+
+    const total = data.reduce((s, d) => s + d.value, 0);
+
+    // Build arc segments
+    let cursor = -90; // start from 12 o'clock
+    const segments = data.map((d, i) => {
+        const sweep = (d.value / total) * 360 - GAP;
+        const start = cursor;
+        cursor += sweep + GAP;
+        const mid = start + sweep / 2; // midpoint angle for label placement
+
+        // Convert angle to radians
+        const toRad = (deg: number) => (deg * Math.PI) / 180;
+
+        // Arc path helpers
+        const pt = (radius: number, deg: number) => ({
+            x: cx + radius * Math.cos(toRad(deg)),
+            y: cy + radius * Math.sin(toRad(deg)),
+        });
+
+        const s1 = pt(R, start); const e1 = pt(R, start + sweep);
+        const s2 = pt(r, start + sweep); const e2 = pt(r, start);
+        const large = sweep > 180 ? 1 : 0;
+
+        const path =
+            `M ${s1.x.toFixed(2)} ${s1.y.toFixed(2)} ` +
+            `A ${R} ${R} 0 ${large} 1 ${e1.x.toFixed(2)} ${e1.y.toFixed(2)} ` +
+            `L ${s2.x.toFixed(2)} ${s2.y.toFixed(2)} ` +
+            `A ${r} ${r} 0 ${large} 0 ${e2.x.toFixed(2)} ${e2.y.toFixed(2)} Z`;
+
+        // Perimeter of the outer arc = used for stroke-dasharray trick on clip path
+        // We'll use the path length approximation for the animation
+        const arcLen = (sweep / 360) * 2 * Math.PI * R;
+
+        // Label position: push label outward on the midpoint ray
+        const labelR = R + 32;
+        const labelPt = pt(labelR, mid);
+
+        // Leader: elbow line — inner anchor on arc outer edge, short radial, then horizontal
+        const anchorR = R + 6;
+        const anchor = pt(anchorR, mid);
+        const elbowR = R + 18;
+        const elbow = pt(elbowR, mid);
+        // Horizontal end of leader line (same y as elbow, nudged toward label)
+        const leaderEnd = {
+            x: labelPt.x + (labelPt.x < cx ? -14 : 14),
+            y: elbow.y,
+        };
+
+        const textAnchor = (labelPt.x < cx ? "end" : "start") as "start" | "end";
+        const totalDelay = i * 0.15; // stagger each arc by 150ms
+        const labelDelay = data.length * 0.15 + 0.2 + i * 0.08; // labels start after all arcs done
+
+        return {
+            path, color: d.color, arcLen, sweep, start, mid,
+            anchor, elbow, leaderEnd, labelPt, textAnchor,
+            name: d.name, value: d.value, totalDelay, labelDelay
+        };
+    });
+
+    return (
+        <div className="flex flex-col items-center gap-4 w-full">
+            <style>{DONUT_ANIM_CSS}</style>
+            <svg viewBox={`0 0 ${SIZE} ${SIZE}`} width={SIZE} height={SIZE} className="overflow-visible">
+                {/* Segments */}
+                {segments.map((seg, i) => (
+                    <path
+                        key={i}
+                        d={seg.path}
+                        fill={seg.color}
+                        className="arc-segment"
+                        style={{
+                            "--arc-len": `${seg.arcLen}`,
+                            "--dur": `${0.65 + seg.sweep / 800}s`,
+                            "--delay": `${seg.totalDelay}s`,
+                            strokeDasharray: seg.arcLen,
+                            strokeDashoffset: seg.arcLen,
+                        } as React.CSSProperties}
+                    />
+                ))}
+
+                {/* Centre label */}
+                <text x={cx} y={cy - 8} textAnchor="middle"
+                    className="fill-slate-900 dark:fill-white"
+                    fontSize={22} fontWeight={700}>
+                    {compliancePct}%
+                </text>
+                <text x={cx} y={cy + 10} textAnchor="middle"
+                    className="fill-slate-400 dark:fill-slate-500"
+                    fontSize={9} fontWeight={600} letterSpacing={1.5}>
+                    COMPLIANCE
+                </text>
+
+                {/* Leader lines + labels */}
+                {segments.map((seg, i) => (
+                    <g key={i} className="arc-label"
+                        style={{ "--label-delay": `${seg.labelDelay}s` } as React.CSSProperties}>
+                        {/* Leader line: anchor -> elbow -> horizontal tip */}
+                        <polyline
+                            points={`${seg.anchor.x.toFixed(1)},${seg.anchor.y.toFixed(1)} ${seg.elbow.x.toFixed(1)},${seg.elbow.y.toFixed(1)} ${seg.leaderEnd.x.toFixed(1)},${seg.leaderEnd.y.toFixed(1)}`}
+                            fill="none"
+                            stroke={seg.color}
+                            strokeWidth={1.2}
+                            opacity={0.7}
+                        />
+                        {/* Value */}
+                        <text
+                            x={seg.leaderEnd.x + (seg.textAnchor === "start" ? 4 : -4)}
+                            y={seg.leaderEnd.y - 5}
+                            textAnchor={seg.textAnchor}
+                            fontSize={11}
+                            fontWeight={700}
+                            fill={seg.color}>
+                            {seg.value}
+                        </text>
+                        {/* Name */}
+                        <text
+                            x={seg.leaderEnd.x + (seg.textAnchor === "start" ? 4 : -4)}
+                            y={seg.leaderEnd.y + 7}
+                            textAnchor={seg.textAnchor}
+                            fontSize={8.5}
+                            className="fill-slate-400 dark:fill-slate-400"
+                            fill="#94a3b8">
+                            {seg.name}
+                        </text>
+                    </g>
+                ))}
+            </svg>
+
+            {/* Legend grid */}
+            <div className="w-full grid grid-cols-2 gap-x-4 gap-y-2 border-t border-slate-100 dark:border-slate-800 pt-3 px-1">
+                {data.map(({ name, value, color }) => (
+                    <div key={name} className="flex items-center gap-2 min-w-0">
+                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400 truncate flex-1">{name}</span>
+                        <span className="text-[11px] font-bold tabular-nums" style={{ color }}>{value}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
 // ─── Shared Card Wrapper ───────────────────────────────────────────────────────
 
 function DashboardCard({ title, children, className = "" }: { title?: string; children: React.ReactNode; className?: string }) {
@@ -170,9 +613,13 @@ export default function IntegrityPage() {
     const status = getScoreStatus(SCORE);
     const totalInspections = inspectionCompliance.reduce((a, b) => a + b.value, 0);
     const compliancePct = Math.round((inspectionCompliance[0].value / totalInspections) * 100);
+    const [riskTab, setRiskTab] = useState("Total");
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     return (
         <div className="space-y-4">
+            {/* Score Drawer (portal-like render at top level) */}
+            <ScoreDrawer score={SCORE} open={drawerOpen} onClose={() => setDrawerOpen(false)} />
 
             {/* ── PAGE HEADER ── */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -204,15 +651,8 @@ export default function IntegrityPage() {
                     background: `radial-gradient(ellipse at top right, ${status.color}18 0%, transparent 60%)`
                 }} />
                 <div className="relative p-5 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                    {/* Gauge */}
-                    <div className="flex flex-col items-center gap-2">
-                        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">Plant Integrity Score</p>
-                        <GaugeIndicator score={SCORE} />
-                        <div className="flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full border"
-                            style={{ color: status.color, borderColor: `${status.color}40`, backgroundColor: `${status.color}12` }}>
-                            Program Status: STABLE
-                        </div>
-                    </div>
+                    {/* Gauge — interactive */}
+                    <InteractiveGauge score={SCORE} onOpen={() => setDrawerOpen(true)} />
 
                     {/* Score ranges */}
                     <div className="space-y-2.5 md:col-span-2">
@@ -310,68 +750,87 @@ export default function IntegrityPage() {
             <SectionHeader label="Integrity Analytics" />
 
             <div className="flex gap-5">
-                {/* Risk Distribution — 70% */}
+                {/* Risk Distribution Matrix — 70% */}
                 <div className="flex-[7] min-w-0">
                     <DashboardCard title="Risk Distribution" className="h-full">
-                        <div className="h-[200px]">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={riskDistribution} barSize={32} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148,163,184,0.15)" />
-                                    <XAxis dataKey="name" tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
-                                    <YAxis tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
-                                    <Tooltip contentStyle={tooltipStyle} cursor={{ fill: "rgba(148,163,184,0.08)" }} />
-                                    <Bar dataKey="value" radius={[6, 6, 0, 0]} label={{ position: "top", fontSize: 11, fontWeight: 600, fill: "currentColor" }}>
-                                        {riskDistribution.map((entry, i) => (
-                                            <Cell key={i} fill={entry.fill} />
-                                        ))}
-                                    </Bar>
-                                </BarChart>
-                            </ResponsiveContainer>
+
+                        {/* Tab switcher */}
+                        <div className="flex border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden self-start">
+                            {riskTabs.map(tab => (
+                                <button
+                                    key={tab}
+                                    onClick={() => setRiskTab(tab)}
+                                    className={`px-4 py-1.5 text-xs font-medium transition-colors ${riskTab === tab
+                                        ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
+                                        : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                                        }`}>
+                                    {tab}
+                                </button>
+                            ))}
                         </div>
-                        <div className="flex gap-3 flex-wrap">
-                            {riskDistribution.map(({ name, value, fill }) => (
-                                <div key={name} className="flex items-center gap-1.5">
-                                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: fill }} />
-                                    <span className="text-xs text-slate-500 dark:text-slate-400">{name}</span>
-                                    <span className="text-xs font-bold text-slate-800 dark:text-white">{value}</span>
+
+                        {/* Matrix title */}
+                        <p className="text-xs font-semibold text-slate-600 dark:text-slate-300">{riskTab} Risk Matrix</p>
+
+                        {/* Matrix table */}
+                        <div className="w-full overflow-x-auto">
+                            <table className="w-full border-collapse text-xs">
+                                <thead>
+                                    <tr>
+                                        <th className="text-left px-2 py-1.5 text-[10px] font-semibold text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 w-14">
+                                            POF/COF
+                                        </th>
+                                        {RISK_LEVELS.col.map(col => (
+                                            <th key={col} className="text-center px-2 py-1.5 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
+                                                {col}
+                                            </th>
+                                        ))}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {RISK_LEVELS.row.map((pof, rowIdx) => (
+                                        <tr key={pof}>
+                                            <td className="text-center px-2 py-2 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
+                                                {pof}
+                                            </td>
+                                            {RISK_LEVELS.col.map((_, colIdx) => {
+                                                const level = riskMatrix[rowIdx][colIdx];
+                                                const count = riskMatrixCounts[riskTab][rowIdx][colIdx];
+                                                const bg = riskLevelColor[level];
+                                                return (
+                                                    <td key={colIdx}
+                                                        className="text-center px-2 py-2.5 font-semibold border border-slate-200 dark:border-slate-700"
+                                                        style={{ backgroundColor: bg, color: level === "Medium" ? "#713f12" : "white" }}>
+                                                        {count}
+                                                    </td>
+                                                );
+                                            })}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Legend */}
+                        <div className="flex items-center gap-4 flex-wrap">
+                            {(Object.entries(riskLevelColor) as [RiskLevel, string][]).map(([level, color]) => (
+                                <div key={level} className="flex items-center gap-1.5">
+                                    <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: color }} />
+                                    <span className="text-[11px] text-slate-500 dark:text-slate-400">{level}</span>
                                 </div>
                             ))}
                         </div>
+
                     </DashboardCard>
                 </div>
 
                 {/* Inspection Compliance — 30% */}
                 <div className="flex-[3] min-w-0">
                     <DashboardCard title="Inspection Compliance" className="h-full">
-                        <div className="flex flex-col items-center gap-3">
-                            <div className="relative w-full" style={{ height: 180 }}>
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <PieChart>
-                                        <Pie data={inspectionCompliance} cx="50%" cy="50%" innerRadius={50} outerRadius={72} paddingAngle={2} dataKey="value" stroke="none">
-                                            {inspectionCompliance.map((entry, i) => (
-                                                <Cell key={i} fill={entry.color} />
-                                            ))}
-                                        </Pie>
-                                        <Tooltip contentStyle={tooltipStyle} />
-                                    </PieChart>
-                                </ResponsiveContainer>
-                                <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                                    <span className="text-2xl font-bold text-slate-900 dark:text-white">{compliancePct}%</span>
-                                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wide">Compliance</span>
-                                </div>
-                            </div>
-                            <div className="grid grid-cols-1 gap-y-2 w-full">
-                                {inspectionCompliance.map(({ name, value, color }) => (
-                                    <div key={name} className="flex items-center gap-2">
-                                        <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
-                                        <span className="text-xs text-slate-500 dark:text-slate-400">{name}</span>
-                                        <span className="text-xs font-bold text-slate-800 dark:text-white ml-auto">{value}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        <AnimatedComplianceDonut data={inspectionCompliance} compliancePct={compliancePct} />
                     </DashboardCard>
                 </div>
+
             </div>
 
             {/* ══════════════════════════════════════ */}
