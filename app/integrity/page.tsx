@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
     BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid,
     PieChart, Pie, Cell,
@@ -9,8 +9,11 @@ import {
 import {
     ShieldAlert, AlertTriangle, CalendarClock, AlertCircle,
     Download, FileSpreadsheet, FileText, TrendingDown, CheckCircle2,
-    X, Info, ArrowRight, TrendingUp,
+    X, Info, ArrowRight, TrendingUp, Settings2,
 } from "lucide-react";
+import { loadPreferences, savePreferences, resetPreferences } from "@/lib/dashboard-preferences";
+import { WIDGET_REGISTRY } from "@/app/integrity/widget-registry";
+import CustomizeModal from "@/app/integrity/components/CustomizeModal";
 
 // ─── Mock Data ───────────────────────────────────────────────────────────────
 
@@ -609,17 +612,56 @@ const tooltipStyle = {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
+// ─── Empty Section Placeholder ───────────────────────────────────────────────
+
+function EmptySection() {
+    return (
+        <div className="flex items-center justify-center rounded-2xl border border-dashed border-slate-700/60 bg-slate-900/20 py-8">
+            <p className="text-xs text-slate-500 italic">All widgets in this section are hidden</p>
+        </div>
+    );
+}
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
 export default function IntegrityPage() {
     const status = getScoreStatus(SCORE);
     const totalInspections = inspectionCompliance.reduce((a, b) => a + b.value, 0);
     const compliancePct = Math.round((inspectionCompliance[0].value / totalInspections) * 100);
     const [riskTab, setRiskTab] = useState("Total");
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [customizeOpen, setCustomizeOpen] = useState(false);
+
+    // ── Widget preferences ──────────────────────────────────────────────────
+    const [prefs, setPrefs] = useState<Record<string, boolean>>(() => {
+        const saved = loadPreferences();
+        // Merge saved prefs with defaults — any unsaved id falls back to defaultEnabled
+        const merged: Record<string, boolean> = {};
+        WIDGET_REGISTRY.forEach((w) => {
+            merged[w.id] = w.id in saved ? saved[w.id] : w.defaultEnabled;
+        });
+        return merged;
+    });
+
+    const isEnabled = useCallback((id: string) => prefs[id] !== false, [prefs]);
+
+    const handleSavePrefs = useCallback((newPrefs: Record<string, boolean>) => {
+        setPrefs(newPrefs);
+        savePreferences(newPrefs);
+    }, []);
 
     return (
         <div className="space-y-4">
-            {/* Score Drawer (portal-like render at top level) */}
+            {/* Score Drawer */}
             <ScoreDrawer score={SCORE} open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+
+            {/* Customize Modal */}
+            <CustomizeModal
+                open={customizeOpen}
+                prefs={prefs}
+                onSave={handleSavePrefs}
+                onClose={() => setCustomizeOpen(false)}
+            />
 
             {/* ── PAGE HEADER ── */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -631,6 +673,12 @@ export default function IntegrityPage() {
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
+                    <button
+                        onClick={() => setCustomizeOpen(true)}
+                        className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/30 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                    >
+                        <Settings2 size={14} /> Customize
+                    </button>
                     <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                         <FileText size={14} className="text-red-500" /> Export PDF
                     </button>
@@ -645,353 +693,371 @@ export default function IntegrityPage() {
             {/* ══════════════════════════════════════ */}
             <SectionHeader label="Integrity Overview" />
 
-            <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none overflow-hidden">
-                {/* Gradient accent */}
-                <div className="absolute inset-0 pointer-events-none" style={{
-                    background: `radial-gradient(ellipse at top right, ${status.color}18 0%, transparent 60%)`
-                }} />
-                <div className="relative p-5 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                    {/* Gauge — interactive */}
-                    <InteractiveGauge score={SCORE} onOpen={() => setDrawerOpen(true)} />
+            {isEnabled("integrity-score") ? (
+                <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none overflow-hidden">
+                    {/* Gradient accent */}
+                    <div className="absolute inset-0 pointer-events-none" style={{
+                        background: `radial-gradient(ellipse at top right, ${status.color}18 0%, transparent 60%)`
+                    }} />
+                    <div className="relative p-5 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                        {/* Gauge — interactive */}
+                        <InteractiveGauge score={SCORE} onOpen={() => setDrawerOpen(true)} />
 
-                    {/* Score ranges */}
-                    <div className="space-y-2.5 md:col-span-2">
-                        <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3">Score Ranges</p>
-                        {[
-                            { range: "90 – 100", label: "Optimal", color: "#22c55e", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
-                            { range: "75 – 89", label: "Healthy", color: "#6366f1", bg: "bg-indigo-50 dark:bg-indigo-500/10" },
-                            { range: "60 – 74", label: "Attention", color: "#eab308", bg: "bg-yellow-50 dark:bg-yellow-500/10" },
-                            { range: "< 60", label: "Critical", color: "#ef4444", bg: "bg-red-50 dark:bg-red-500/10" },
-                        ].map(({ range, label, color, bg }) => (
-                            <div key={label} className={`flex items-center justify-between rounded-xl px-4 py-2.5 ${bg} border`}
-                                style={{ borderColor: `${color}30` }}>
-                                <div className="flex items-center gap-2.5">
-                                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
-                                    <span className="text-sm font-semibold" style={{ color }}>{label}</span>
+                        {/* Score ranges */}
+                        <div className="space-y-2.5 md:col-span-2">
+                            <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3">Score Ranges</p>
+                            {[
+                                { range: "90 – 100", label: "Optimal", color: "#22c55e", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
+                                { range: "75 – 89", label: "Healthy", color: "#6366f1", bg: "bg-indigo-50 dark:bg-indigo-500/10" },
+                                { range: "60 – 74", label: "Attention", color: "#eab308", bg: "bg-yellow-50 dark:bg-yellow-500/10" },
+                                { range: "< 60", label: "Critical", color: "#ef4444", bg: "bg-red-50 dark:bg-red-500/10" },
+                            ].map(({ range, label, color, bg }) => (
+                                <div key={label} className={`flex items-center justify-between rounded-xl px-4 py-2.5 ${bg} border`}
+                                    style={{ borderColor: `${color}30` }}>
+                                    <div className="flex items-center gap-2.5">
+                                        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+                                        <span className="text-sm font-semibold" style={{ color }}>{label}</span>
+                                    </div>
+                                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{range}</span>
+                                    {label === "Healthy" && (
+                                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: color }}>
+                                            CURRENT
+                                        </span>
+                                    )}
                                 </div>
-                                <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{range}</span>
-                                {label === "Healthy" && (
-                                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: color }}>
-                                        CURRENT
-                                    </span>
-                                )}
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
-            </div>
+            ) : <EmptySection />}
 
             {/* ══════════════════════════════════════ */}
             {/* OPERATIONAL STATUS                     */}
             {/* ══════════════════════════════════════ */}
             <SectionHeader label="Operational Status" />
 
-            <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
-                {/* High Risk Equipment */}
-                <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                    <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-red-500/8 dark:bg-red-500/10" />
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-500/10">
-                            <ShieldAlert size={18} className="text-red-500" />
+            {["stat-high-risk", "stat-inspections-due", "stat-open-anomalies", "stat-remaining-life"].some(isEnabled) ? (
+                <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+                    {/* High Risk Equipment */}
+                    {isEnabled("stat-high-risk") && (
+                        <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                            <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-red-500/8 dark:bg-red-500/10" />
+                            <div className="flex items-center justify-between mb-3">
+                                <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-500/10">
+                                    <ShieldAlert size={18} className="text-red-500" />
+                                </div>
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-500/15 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-500/30">RISK</span>
+                            </div>
+                            <p className="text-3xl font-bold text-slate-900 dark:text-white">1</p>
+                            <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">High Risk Equipment</p>
+                            <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">Very High: 0</p>
                         </div>
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-500/15 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-500/30">RISK</span>
-                    </div>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-white">1</p>
-                    <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">High Risk Equipment</p>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">Very High: 0</p>
-                </div>
+                    )}
 
-                {/* Inspections Due Soon */}
-                <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                    <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-yellow-500/8 dark:bg-yellow-500/10" />
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="p-2.5 rounded-xl bg-yellow-50 dark:bg-yellow-500/10">
-                            <CalendarClock size={18} className="text-yellow-500" />
+                    {/* Inspections Due Soon */}
+                    {isEnabled("stat-inspections-due") && (
+                        <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                            <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-yellow-500/8 dark:bg-yellow-500/10" />
+                            <div className="flex items-center justify-between mb-3">
+                                <div className="p-2.5 rounded-xl bg-yellow-50 dark:bg-yellow-500/10">
+                                    <CalendarClock size={18} className="text-yellow-500" />
+                                </div>
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-yellow-100 dark:bg-yellow-500/15 text-yellow-600 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-500/30">INSPECTION</span>
+                            </div>
+                            <p className="text-3xl font-bold text-slate-900 dark:text-white">3</p>
+                            <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">Inspections Due Soon</p>
+                            <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">Overdue: 1</p>
                         </div>
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-yellow-100 dark:bg-yellow-500/15 text-yellow-600 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-500/30">INSPECTION</span>
-                    </div>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-white">3</p>
-                    <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">Inspections Due Soon</p>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">Overdue: 1</p>
-                </div>
+                    )}
 
-                {/* Open Anomalies */}
-                <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                    <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-orange-500/8 dark:bg-orange-500/10" />
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="p-2.5 rounded-xl bg-orange-50 dark:bg-orange-500/10">
-                            <AlertCircle size={18} className="text-orange-500" />
+                    {/* Open Anomalies */}
+                    {isEnabled("stat-open-anomalies") && (
+                        <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                            <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-orange-500/8 dark:bg-orange-500/10" />
+                            <div className="flex items-center justify-between mb-3">
+                                <div className="p-2.5 rounded-xl bg-orange-50 dark:bg-orange-500/10">
+                                    <AlertCircle size={18} className="text-orange-500" />
+                                </div>
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-orange-100 dark:bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/30">ANOMALY</span>
+                            </div>
+                            <p className="text-3xl font-bold text-slate-900 dark:text-white">5</p>
+                            <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">Open Anomalies</p>
+                            <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">P1/P2: 2</p>
                         </div>
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-orange-100 dark:bg-orange-500/15 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-500/30">ANOMALY</span>
-                    </div>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-white">5</p>
-                    <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">Open Anomalies</p>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">P1/P2: 2</p>
-                </div>
+                    )}
 
-                {/* Low Remaining Life */}
-                <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                    <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-blue-500/8 dark:bg-blue-500/10" />
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-500/10">
-                            <AlertTriangle size={18} className="text-blue-500" />
+                    {/* Low Remaining Life */}
+                    {isEnabled("stat-remaining-life") && (
+                        <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                            <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-blue-500/8 dark:bg-blue-500/10" />
+                            <div className="flex items-center justify-between mb-3">
+                                <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-500/10">
+                                    <AlertTriangle size={18} className="text-blue-500" />
+                                </div>
+                                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30">LIFE</span>
+                            </div>
+                            <p className="text-3xl font-bold text-slate-900 dark:text-white">1</p>
+                            <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">Low Remaining Life</p>
+                            <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">&lt;3 Years</p>
                         </div>
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30">LIFE</span>
-                    </div>
-                    <p className="text-3xl font-bold text-slate-900 dark:text-white">1</p>
-                    <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">Low Remaining Life</p>
-                    <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">&lt;3 Years</p>
+                    )}
                 </div>
-            </div>
+            ) : <EmptySection />}
 
             {/* ══════════════════════════════════════ */}
             {/* INTEGRITY ANALYTICS  (70 / 30)         */}
             {/* ══════════════════════════════════════ */}
             <SectionHeader label="Integrity Analytics" />
 
-            <div className="flex gap-5">
-                {/* Risk Distribution Matrix — 70% */}
-                <div className="flex-[7] min-w-0">
-                    <DashboardCard title="Risk Distribution" className="h-full">
+            {["risk-distribution", "inspection-compliance"].some(isEnabled) ? (
+                <div className="flex gap-5">
+                    {/* Risk Distribution Matrix — 70% */}
+                    {isEnabled("risk-distribution") && <div className="flex-[7] min-w-0">
+                        <DashboardCard title="Risk Distribution" className="h-full">
 
-                        {/* Tab switcher */}
-                        <div className="flex border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden self-start">
-                            {riskTabs.map(tab => (
-                                <button
-                                    key={tab}
-                                    onClick={() => setRiskTab(tab)}
-                                    className={`px-4 py-1.5 text-xs font-medium transition-colors ${riskTab === tab
-                                        ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
-                                        : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-                                        }`}>
-                                    {tab}
-                                </button>
-                            ))}
-                        </div>
+                            {/* Tab switcher */}
+                            <div className="flex border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden self-start">
+                                {riskTabs.map(tab => (
+                                    <button
+                                        key={tab}
+                                        onClick={() => setRiskTab(tab)}
+                                        className={`px-4 py-1.5 text-xs font-medium transition-colors ${riskTab === tab
+                                            ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm"
+                                            : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                                            }`}>
+                                        {tab}
+                                    </button>
+                                ))}
+                            </div>
 
-                        {/* Matrix title */}
-                        <p className="text-xs font-semibold text-slate-600 dark:text-slate-300">{riskTab} Risk Matrix</p>
+                            {/* Matrix title */}
+                            <p className="text-xs font-semibold text-slate-600 dark:text-slate-300">{riskTab} Risk Matrix</p>
 
-                        {/* Matrix table */}
-                        <div className="w-full overflow-x-auto">
-                            <table className="w-full border-collapse text-xs">
-                                <thead>
-                                    <tr>
-                                        <th className="text-left px-2 py-1.5 text-[10px] font-semibold text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 w-14">
-                                            POF/COF
-                                        </th>
-                                        {RISK_LEVELS.col.map(col => (
-                                            <th key={col} className="text-center px-2 py-1.5 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
-                                                {col}
+                            {/* Matrix table */}
+                            <div className="w-full overflow-x-auto">
+                                <table className="w-full border-collapse text-xs">
+                                    <thead>
+                                        <tr>
+                                            <th className="text-left px-2 py-1.5 text-[10px] font-semibold text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 w-14">
+                                                POF/COF
                                             </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {RISK_LEVELS.row.map((pof, rowIdx) => (
-                                        <tr key={pof}>
-                                            <td className="text-center px-2 py-2 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
-                                                {pof}
-                                            </td>
-                                            {RISK_LEVELS.col.map((_, colIdx) => {
-                                                const level = riskMatrix[rowIdx][colIdx];
-                                                const count = riskMatrixCounts[riskTab][rowIdx][colIdx];
-                                                const bg = riskLevelColor[level];
-                                                return (
-                                                    <td key={colIdx}
-                                                        className="text-center px-2 py-2.5 font-semibold border border-slate-200 dark:border-slate-700"
-                                                        style={{ backgroundColor: bg, color: level === "Medium" ? "#713f12" : "white" }}>
-                                                        {count}
-                                                    </td>
-                                                );
-                                            })}
+                                            {RISK_LEVELS.col.map(col => (
+                                                <th key={col} className="text-center px-2 py-1.5 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
+                                                    {col}
+                                                </th>
+                                            ))}
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        {RISK_LEVELS.row.map((pof, rowIdx) => (
+                                            <tr key={pof}>
+                                                <td className="text-center px-2 py-2 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
+                                                    {pof}
+                                                </td>
+                                                {RISK_LEVELS.col.map((_, colIdx) => {
+                                                    const level = riskMatrix[rowIdx][colIdx];
+                                                    const count = riskMatrixCounts[riskTab][rowIdx][colIdx];
+                                                    const bg = riskLevelColor[level];
+                                                    return (
+                                                        <td key={colIdx}
+                                                            className="text-center px-2 py-2.5 font-semibold border border-slate-200 dark:border-slate-700"
+                                                            style={{ backgroundColor: bg, color: level === "Medium" ? "#713f12" : "white" }}>
+                                                            {count}
+                                                        </td>
+                                                    );
+                                                })}
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
 
-                        {/* Legend */}
-                        <div className="flex items-center gap-4 flex-wrap">
-                            {(Object.entries(riskLevelColor) as [RiskLevel, string][]).map(([level, color]) => (
-                                <div key={level} className="flex items-center gap-1.5">
-                                    <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: color }} />
-                                    <span className="text-[11px] text-slate-500 dark:text-slate-400">{level}</span>
-                                </div>
-                            ))}
-                        </div>
+                            {/* Legend */}
+                            <div className="flex items-center gap-4 flex-wrap">
+                                {(Object.entries(riskLevelColor) as [RiskLevel, string][]).map(([level, color]) => (
+                                    <div key={level} className="flex items-center gap-1.5">
+                                        <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: color }} />
+                                        <span className="text-[11px] text-slate-500 dark:text-slate-400">{level}</span>
+                                    </div>
+                                ))}
+                            </div>
 
-                    </DashboardCard>
+                        </DashboardCard>
+                    </div>}
+
+                    {/* Inspection Compliance — 30% */}
+                    {isEnabled("inspection-compliance") && <div className="flex-[3] min-w-0">
+                        <DashboardCard title="Inspection Compliance" className="h-full">
+                            <AnimatedComplianceDonut data={inspectionCompliance} compliancePct={compliancePct} />
+                        </DashboardCard>
+                    </div>}
+
                 </div>
-
-                {/* Inspection Compliance — 30% */}
-                <div className="flex-[3] min-w-0">
-                    <DashboardCard title="Inspection Compliance" className="h-full">
-                        <AnimatedComplianceDonut data={inspectionCompliance} compliancePct={compliancePct} />
-                    </DashboardCard>
-                </div>
-
-            </div>
+            ) : <EmptySection />}
 
             {/* ══════════════════════════════════════ */}
             {/* INTEGRITY MONITORING  (70 / 30)        */}
             {/* ══════════════════════════════════════ */}
             <SectionHeader label="Integrity Monitoring" />
 
-            <div className="flex gap-5">
-                {/* Upcoming Inspection Timeline — 60% */}
-                <div className="flex-[6] min-w-0">
-                    <DashboardCard title="Upcoming Inspection Timeline" className="h-full">
-                        <div className="h-[200px]">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={inspectionTimeline} barSize={36} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148,163,184,0.15)" />
-                                    <XAxis dataKey="name" tick={{ fontSize: 10, fill: "currentColor" }} axisLine={false} tickLine={false} />
-                                    <YAxis tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
-                                    <Tooltip contentStyle={tooltipStyle} cursor={{ fill: "rgba(148,163,184,0.08)" }} />
-                                    <Bar dataKey="value" fill="#6366f1" radius={[6, 6, 0, 0]} label={{ position: "top", fontSize: 11, fontWeight: 600, fill: "currentColor" }} />
-                                </BarChart>
-                            </ResponsiveContainer>
-                        </div>
-                        <p className="text-[11px] text-slate-400 dark:text-slate-500">Inspections grouped by upcoming schedule window</p>
-                    </DashboardCard>
-                </div>
+            {["inspection-timeline", "anomaly-priority"].some(isEnabled) ? (
+                <div className="flex gap-5">
+                    {/* Upcoming Inspection Timeline — 60% */}
+                    {isEnabled("inspection-timeline") && <div className="flex-[6] min-w-0">
+                        <DashboardCard title="Upcoming Inspection Timeline" className="h-full">
+                            <div className="h-[200px]">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <BarChart data={inspectionTimeline} barSize={36} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148,163,184,0.15)" />
+                                        <XAxis dataKey="name" tick={{ fontSize: 10, fill: "currentColor" }} axisLine={false} tickLine={false} />
+                                        <YAxis tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
+                                        <Tooltip contentStyle={tooltipStyle} cursor={{ fill: "rgba(148,163,184,0.08)" }} />
+                                        <Bar dataKey="value" fill="#6366f1" radius={[6, 6, 0, 0]} label={{ position: "top", fontSize: 11, fontWeight: 600, fill: "currentColor" }} />
+                                    </BarChart>
+                                </ResponsiveContainer>
+                            </div>
+                            <p className="text-[11px] text-slate-400 dark:text-slate-500">Inspections grouped by upcoming schedule window</p>
+                        </DashboardCard>
+                    </div>}
 
-                {/* Anomaly Priority Distribution — 40% */}
-                <div className="flex-[4] min-w-0">
-                    <DashboardCard title="Anomaly Priority Distribution" className="h-full">
-                        <div className="w-full overflow-x-auto">
-                            <table className="w-full border-collapse text-xs">
-                                <thead>
-                                    {/* Priority label header */}
-                                    <tr>
-                                        <th colSpan={anomalyPriority.length * 2}
-                                            className="text-center py-2 text-slate-500 dark:text-slate-400 font-semibold tracking-wide border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
-                                            Priority
-                                        </th>
-                                    </tr>
-                                    {/* Coloured priority name row */}
-                                    <tr>
-                                        {anomalyPriority.map(({ name, fill }) => (
-                                            <th key={name} colSpan={2}
-                                                className="text-center py-1.5 font-bold text-white border border-slate-200 dark:border-slate-700"
-                                                style={{ backgroundColor: fill }}>
-                                                {name}
+                    {/* Anomaly Priority Distribution — 40% */}
+                    {isEnabled("anomaly-priority") && <div className="flex-[4] min-w-0">
+                        <DashboardCard title="Anomaly Priority Distribution" className="h-full">
+                            <div className="w-full overflow-x-auto">
+                                <table className="w-full border-collapse text-xs">
+                                    <thead>
+                                        {/* Priority label header */}
+                                        <tr>
+                                            <th colSpan={anomalyPriority.length * 2}
+                                                className="text-center py-2 text-slate-500 dark:text-slate-400 font-semibold tracking-wide border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
+                                                Priority
                                             </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {/* Total row */}
-                                    <tr>
-                                        {anomalyPriority.map(({ name, total }) => (
-                                            <td key={name} colSpan={2}
-                                                className="text-center py-1.5 font-semibold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/30">
-                                                {total}
-                                            </td>
-                                        ))}
-                                    </tr>
-                                    {/* Active / Completed sub-headers */}
-                                    <tr>
-                                        {anomalyPriority.map(({ name }) => (
-                                            <React.Fragment key={name}>
-                                                <th className="text-center py-1.5 font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 min-w-[52px]">
-                                                    Active
+                                        </tr>
+                                        {/* Coloured priority name row */}
+                                        <tr>
+                                            {anomalyPriority.map(({ name, fill }) => (
+                                                <th key={name} colSpan={2}
+                                                    className="text-center py-1.5 font-bold text-white border border-slate-200 dark:border-slate-700"
+                                                    style={{ backgroundColor: fill }}>
+                                                    {name}
                                                 </th>
-                                                <th className="text-center py-1.5 font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 min-w-[52px]">
-                                                    Completed
-                                                </th>
-                                            </React.Fragment>
-                                        ))}
-                                    </tr>
-                                    {/* Active / Completed values */}
-                                    <tr>
-                                        {anomalyPriority.map(({ name, active, completed, fill }) => (
-                                            <React.Fragment key={name}>
-                                                <td className="text-center py-1.5 font-medium border border-slate-200 dark:border-slate-700 min-w-[52px]"
-                                                    style={{ color: active > 0 ? fill : undefined }}>
-                                                    {active}
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {/* Total row */}
+                                        <tr>
+                                            {anomalyPriority.map(({ name, total }) => (
+                                                <td key={name} colSpan={2}
+                                                    className="text-center py-1.5 font-semibold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/30">
+                                                    {total}
                                                 </td>
-                                                <td className="text-center py-1.5 font-medium text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 min-w-[52px]">
-                                                    {completed}
-                                                </td>
-                                            </React.Fragment>
-                                        ))}
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </DashboardCard>
+                                            ))}
+                                        </tr>
+                                        {/* Active / Completed sub-headers */}
+                                        <tr>
+                                            {anomalyPriority.map(({ name }) => (
+                                                <React.Fragment key={name}>
+                                                    <th className="text-center py-1.5 font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 min-w-[52px]">
+                                                        Active
+                                                    </th>
+                                                    <th className="text-center py-1.5 font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 min-w-[52px]">
+                                                        Completed
+                                                    </th>
+                                                </React.Fragment>
+                                            ))}
+                                        </tr>
+                                        {/* Active / Completed values */}
+                                        <tr>
+                                            {anomalyPriority.map(({ name, active, completed, fill }) => (
+                                                <React.Fragment key={name}>
+                                                    <td className="text-center py-1.5 font-medium border border-slate-200 dark:border-slate-700 min-w-[52px]"
+                                                        style={{ color: active > 0 ? fill : undefined }}>
+                                                        {active}
+                                                    </td>
+                                                    <td className="text-center py-1.5 font-medium text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 min-w-[52px]">
+                                                        {completed}
+                                                    </td>
+                                                </React.Fragment>
+                                            ))}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </DashboardCard>
+                    </div>}
                 </div>
-            </div>
+            ) : <EmptySection />}
 
             {/* ══════════════════════════════════════ */}
             {/* PROGRAM PERFORMANCE  (40 / 60)         */}
             {/* ══════════════════════════════════════ */}
             <SectionHeader label="Program Performance" />
 
-            <div className="flex gap-5">
-                {/* Integrity Alerts — 40% */}
-                <div className="flex-[4] min-w-0">
-                    <DashboardCard title="Integrity Alerts" className="h-full">
-                        <div className="space-y-2.5">
-                            {alerts.map(({ id, icon: Icon, color, bg, border, text, level }) => (
-                                <div key={id} className={`flex items-start gap-3 p-3 rounded-xl border ${bg} ${border}`}>
-                                    <div className={`mt-0.5 flex-shrink-0 ${color}`}>
-                                        <Icon size={15} />
+            {["integrity-alerts", "risk-trend"].some(isEnabled) ? (
+                <div className="flex gap-5">
+                    {/* Integrity Alerts — 40% */}
+                    {isEnabled("integrity-alerts") && <div className="flex-[4] min-w-0">
+                        <DashboardCard title="Integrity Alerts" className="h-full">
+                            <div className="space-y-2.5">
+                                {alerts.map(({ id, icon: Icon, color, bg, border, text, level }) => (
+                                    <div key={id} className={`flex items-start gap-3 p-3 rounded-xl border ${bg} ${border}`}>
+                                        <div className={`mt-0.5 flex-shrink-0 ${color}`}>
+                                            <Icon size={15} />
+                                        </div>
+                                        <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed flex-1">{text}</p>
+                                        <span className={`flex-shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded-full border ${color} ${border}`}
+                                            style={{ opacity: 0.8 }}>
+                                            {level}
+                                        </span>
                                     </div>
-                                    <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed flex-1">{text}</p>
-                                    <span className={`flex-shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded-full border ${color} ${border}`}
-                                        style={{ opacity: 0.8 }}>
-                                        {level}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                        <div className="flex items-center gap-2 pt-1">
-                            <CheckCircle2 size={13} className="text-emerald-500" />
-                            <p className="text-[11px] text-slate-400 dark:text-slate-500">All other parameters within acceptable limits</p>
-                        </div>
-                    </DashboardCard>
-                </div>
-
-                {/* Plant Risk Reduction Trend — 60% */}
-                <div className="flex-[6] min-w-0">
-                    <DashboardCard title="Plant Risk Reduction Trend (12 Months)" className="h-full">
-                        <div className="h-[220px]">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <LineChart data={riskTrend} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
-                                    <defs>
-                                        <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#6366f1" stopOpacity={0.15} />
-                                            <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
-                                        </linearGradient>
-                                    </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148,163,184,0.15)" />
-                                    <XAxis dataKey="month" tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
-                                    <YAxis domain={[60, 100]} tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
-                                    <Tooltip contentStyle={tooltipStyle} />
-                                    <Line
-                                        type="monotone"
-                                        dataKey="score"
-                                        stroke="#6366f1"
-                                        strokeWidth={2.5}
-                                        dot={{ fill: "#6366f1", r: 3, strokeWidth: 0 }}
-                                        activeDot={{ r: 5, fill: "#6366f1", strokeWidth: 0 }}
-                                    />
-                                </LineChart>
-                            </ResponsiveContainer>
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <p className="text-[11px] text-slate-400 dark:text-slate-500">Integrity score improving month-over-month</p>
-                            <div className="flex items-center gap-1.5">
-                                <div className="w-2 h-2 rounded-full bg-indigo-500" />
-                                <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">+13 pts YTD</span>
+                                ))}
                             </div>
-                        </div>
-                    </DashboardCard>
+                            <div className="flex items-center gap-2 pt-1">
+                                <CheckCircle2 size={13} className="text-emerald-500" />
+                                <p className="text-[11px] text-slate-400 dark:text-slate-500">All other parameters within acceptable limits</p>
+                            </div>
+                        </DashboardCard>
+                    </div>}
+
+                    {/* Plant Risk Reduction Trend — 60% */}
+                    {isEnabled("risk-trend") && <div className="flex-[6] min-w-0">
+                        <DashboardCard title="Plant Risk Reduction Trend (12 Months)" className="h-full">
+                            <div className="h-[220px]">
+                                <ResponsiveContainer width="100%" height="100%">
+                                    <LineChart data={riskTrend} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
+                                        <defs>
+                                            <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="5%" stopColor="#6366f1" stopOpacity={0.15} />
+                                                <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                                            </linearGradient>
+                                        </defs>
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148,163,184,0.15)" />
+                                        <XAxis dataKey="month" tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
+                                        <YAxis domain={[60, 100]} tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
+                                        <Tooltip contentStyle={tooltipStyle} />
+                                        <Line
+                                            type="monotone"
+                                            dataKey="score"
+                                            stroke="#6366f1"
+                                            strokeWidth={2.5}
+                                            dot={{ fill: "#6366f1", r: 3, strokeWidth: 0 }}
+                                            activeDot={{ r: 5, fill: "#6366f1", strokeWidth: 0 }}
+                                        />
+                                    </LineChart>
+                                </ResponsiveContainer>
+                            </div>
+                            <div className="flex items-center justify-between">
+                                <p className="text-[11px] text-slate-400 dark:text-slate-500">Integrity score improving month-over-month</p>
+                                <div className="flex items-center gap-1.5">
+                                    <div className="w-2 h-2 rounded-full bg-indigo-500" />
+                                    <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">+13 pts YTD</span>
+                                </div>
+                            </div>
+                        </DashboardCard>
+                    </div>}
                 </div>
-            </div>
+            ) : <EmptySection />}
 
         </div>
     );
