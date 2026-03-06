@@ -145,105 +145,234 @@ function getScoreStatus(score: number) {
     return { label: "CRITICAL", color: "#ef4444", ring: "#fee2e2", dark: "#b91c1c" };
 }
 
+// ─── Score Range Definitions ─────────────────────────────────────────────────
+
+const SCORE_RANGES = [
+    { label: "Optimal", bandLabel: "OPTIMAL", range: "90 – 100", min: 90, max: 100, color: "#22c55e", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
+    { label: "Healthy", bandLabel: "HEALTHY", range: "75 – 89", min: 75, max: 89, color: "#6366f1", bg: "bg-indigo-50 dark:bg-indigo-500/10" },
+    { label: "Attention", bandLabel: "ATTENTION", range: "60 – 74", min: 60, max: 74, color: "#eab308", bg: "bg-yellow-50 dark:bg-yellow-500/10" },
+    { label: "Critical", bandLabel: "CRITICAL", range: "< 60", min: 0, max: 59, color: "#ef4444", bg: "bg-red-50 dark:bg-red-500/10" },
+];
+
+// ─── Count-up hook (matches RiskExposureScore: +1 every 40ms) ────────────────────
+
+function useCountUp(target: number) {
+    const [value, setValue] = useState(0);
+    useEffect(() => {
+        let current = 0;
+        const interval = setInterval(() => {
+            current += 1;
+            setValue(current);
+            if (current >= target) clearInterval(interval);
+        }, 40);
+        return () => clearInterval(interval);
+    }, [target]);
+    return value;
+}
+
 // ─── Gauge SVG Component ──────────────────────────────────────────────────────
 
-function GaugeIndicator({ score }: { score: number }) {
-    const status = getScoreStatus(score);
+function GaugeIndicator({
+    score,
+    highlightedBand = null,
+}: {
+    score: number | null | undefined;
+    highlightedBand?: string | null;
+}) {
+    const isEmpty = score === null || score === undefined;
+    const safeScore = isEmpty ? 0 : score;
+    const status = getScoreStatus(safeScore);
+
     const cx = 110;
     const cy = 110;
     const radius = 82;
-
-    // Gauge: 270° arc from 7-o'clock (225°) clockwise to 5-o'clock (135°)
     const gaugeStart = 225;   // degrees clockwise from 12 o'clock
     const gaugeTotal = 270;   // total arc span in degrees
-    const fillSweep = (score / 100) * gaugeTotal;
+
+    // Counter — +1 every 40ms exactly like RiskExposureScore
+    const animatedScore = useCountUp(isEmpty ? 0 : safeScore);
 
     function toXY(angleDeg: number) {
         const rad = (angleDeg - 90) * (Math.PI / 180);
         return { x: cx + radius * Math.cos(rad), y: cy + radius * Math.sin(rad) };
     }
 
-    // Build an SVG arc path from `start` sweeping `sweep` degrees clockwise
     function arcPath(start: number, sweep: number) {
+        const clamped = Math.max(0.01, sweep);
         const s = toXY(start);
-        const e = toXY(start + sweep);
-        const large = sweep > 180 ? 1 : 0;
+        const e = toXY(start + clamped);
+        const large = clamped > 180 ? 1 : 0;
         return `M ${s.x.toFixed(2)} ${s.y.toFixed(2)} A ${radius} ${radius} 0 ${large} 1 ${e.x.toFixed(2)} ${e.y.toFixed(2)}`;
     }
 
+    // Pre-compute the total fill arc path and its approximate length
+    // Arc length for a 270° arc: 2πr × (270/360)
+    const fullArcPath = arcPath(gaugeStart, gaugeTotal);
+    const arcLength = 2 * Math.PI * radius * (gaugeTotal / 360);
+
+    // strokeDashoffset drives fill exactly like RiskExposureScore:
+    // offset = arcLength × (1 - score/100), CSS transitions it smoothly
+    const dashOffset = arcLength * (1 - animatedScore / 100);
+
+    // Compute per-band arc segments for the track
+    const bandSegments = SCORE_RANGES.slice().reverse().map((r) => ({
+        ...r,
+        start: gaugeStart + (r.min / 100) * gaugeTotal,
+        sweep: ((r.max - r.min + 1) / 100) * gaugeTotal,
+    }));
+
     return (
-        <svg viewBox="0 0 220 195" className="w-full max-w-[240px]">
-            {/* Track */}
+        <svg viewBox="0 0 220 195" className="w-full max-w-[240px]" aria-hidden="true">
+            {/* Track — grey base */}
             <path
-                d={arcPath(gaugeStart, gaugeTotal)}
+                d={fullArcPath}
                 fill="none"
                 stroke="currentColor"
                 className="text-slate-200 dark:text-slate-700"
                 strokeWidth={14}
                 strokeLinecap="round"
             />
-            {/* Fill */}
-            <path
-                d={arcPath(gaugeStart, fillSweep)}
-                fill="none"
-                stroke={status.color}
-                strokeWidth={14}
-                strokeLinecap="round"
-                style={{ filter: `drop-shadow(0 0 6px ${status.color}80)` }}
-            />
-            {/* Score text */}
-            <text x={cx} y={cy - 8} textAnchor="middle" fill={status.color} fontSize={34} fontWeight={700}>
-                {score}
-            </text>
-            <text x={cx} y={cy + 16} textAnchor="middle" fill={status.color} fontSize={11} fontWeight={600} letterSpacing={2}>
-                {status.label}
-            </text>
+
+            {/* Band highlight segments */}
+            {bandSegments.map((seg) => {
+                const isHighlighted = highlightedBand === seg.bandLabel;
+                return (
+                    <path
+                        key={seg.label}
+                        d={arcPath(seg.start, seg.sweep)}
+                        fill="none"
+                        stroke={seg.color}
+                        strokeWidth={isHighlighted ? 14 : 6}
+                        strokeLinecap="butt"
+                        style={{
+                            opacity: isHighlighted ? 0.9 : highlightedBand ? 0.1 : 0.18,
+                            transition: "opacity 300ms ease, stroke-width 300ms ease",
+                            filter: isHighlighted ? `drop-shadow(0 0 8px ${seg.color}90)` : "none",
+                        }}
+                    />
+                );
+            })}
+
+            {/* Fill arc — strokeDashoffset animation (same as RiskExposureScore) */}
+            {!isEmpty && (
+                <path
+                    d={fullArcPath}
+                    fill="none"
+                    stroke={status.color}
+                    strokeWidth={14}
+                    strokeLinecap="round"
+                    strokeDasharray={arcLength}
+                    strokeDashoffset={dashOffset}
+                    style={{
+                        filter: `drop-shadow(0 0 6px ${status.color}80)`,
+                        transition: "stroke-dashoffset 1000ms ease, stroke 300ms ease",
+                    }}
+                />
+            )}
+
+            {/* Centre text */}
+            {isEmpty ? (
+                <>
+                    <text x={cx} y={cy} textAnchor="middle" fill="#64748b" fontSize={13} fontWeight={500}>
+                        No Data
+                    </text>
+                </>
+            ) : (
+                <>
+                    <text x={cx} y={cy - 8} textAnchor="middle" fill={status.color} fontSize={34} fontWeight={700}>
+                        {animatedScore}
+                    </text>
+                    <text x={cx} y={cy + 16} textAnchor="middle" fill={status.color} fontSize={11} fontWeight={600} letterSpacing={2}>
+                        {status.label}
+                    </text>
+                </>
+            )}
         </svg>
     );
 }
 
-// ─── Gauge Tooltip (hover popover) ──────────────────────────────────────────────
+// ─── Gauge Tooltip (compact hover popover) ────────────────────────────────────
 
-function GaugeTooltip({ score, visible }: { score: number; visible: boolean }) {
-    const status = getScoreStatus(score);
+function GaugeTooltip({
+    score,
+    visible,
+    highlightedBand,
+}: {
+    score: number | null | undefined;
+    visible: boolean;
+    highlightedBand?: string | null;
+}) {
+    const isEmpty = score === null || score === undefined;
+    const safeScore = isEmpty ? 0 : score;
+    const status = getScoreStatus(safeScore);
+
+    // Build the range label string for the current status
+    const rangeInfo = SCORE_RANGES.find(r => r.bandLabel === status.label);
+    const statusLabel = rangeInfo
+        ? `${rangeInfo.label} (range ${rangeInfo.range})`
+        : status.label;
+
+    // If a band is highlighted, show that band's label instead
+    const activeBandLabel = highlightedBand
+        ? SCORE_RANGES.find(r => r.bandLabel === highlightedBand)?.label ?? status.label
+        : statusLabel;
+
+    // Extract time from LAST_CALCULATED (format: "DD Mon YYYY, HH:MM")
+    const lastSync = LAST_CALCULATED.split(", ")[1] ?? LAST_CALCULATED;
+
     return (
         <div
             role="tooltip"
-            className={`absolute bottom-[calc(100%+10px)] left-1/2 -translate-x-1/2 z-50 w-64
-                        bg-slate-900 dark:bg-slate-800 border border-slate-700 rounded-xl
-                        shadow-xl shadow-black/40 p-4 pointer-events-none
-                        transition-all duration-200 ${visible ? "opacity-100 translate-y-0 visible" : "opacity-0 translate-y-1 invisible"
-                }`}>
-            {/* Score + status */}
-            <div className="flex items-center justify-between mb-3">
-                <div className="flex items-baseline gap-1.5">
-                    <span className="text-2xl font-bold" style={{ color: status.color }}>{score}</span>
-                    <span className="text-xs font-semibold uppercase tracking-wide" style={{ color: status.color }}>{status.label}</span>
-                </div>
-                <span className="text-[10px] font-semibold text-emerald-400 bg-emerald-500/15 px-2 py-0.5 rounded-full">{SCORE_CHANGE}</span>
-            </div>
-            {/* Timestamp */}
-            <p className="text-[10px] text-slate-400 mb-3">Last calculated: {LAST_CALCULATED}</p>
-            {/* Breakdown bars */}
-            <div className="space-y-2">
-                {SCORE_BREAKDOWN.map(({ label, pct, color }) => (
-                    <div key={label}>
-                        <div className="flex justify-between mb-0.5">
-                            <span className="text-[10px] text-slate-300">{label}</span>
-                            <span className="text-[10px] font-bold" style={{ color }}>{pct}%</span>
-                        </div>
-                        <div className="h-1.5 rounded-full bg-slate-700 overflow-hidden">
-                            <div
-                                className="h-full rounded-full transition-all duration-500"
-                                style={{ width: `${pct}%`, backgroundColor: color }}
-                            />
-                        </div>
+            className={`absolute bottom-[calc(100%+12px)] left-1/2 -translate-x-1/2 z-50 w-52
+                        bg-slate-900 border border-slate-700/80 rounded-xl
+                        shadow-2xl shadow-black/50 p-3.5 pointer-events-none
+                        transition-all duration-200 ${visible ? "opacity-100 translate-y-0 visible" : "opacity-0 translate-y-1.5 invisible"
+                }`}
+        >
+            {isEmpty ? (
+                <p className="text-xs text-slate-400 text-center">No integrity data available</p>
+            ) : (
+                <>
+                    {/* Title row */}
+                    <div className="flex items-center justify-between mb-2.5">
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
+                            Integrity Score
+                        </span>
+                        <span
+                            className="text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white"
+                            style={{ backgroundColor: status.color }}
+                        >
+                            {status.label}
+                        </span>
                     </div>
-                ))}
-            </div>
+
+                    {/* Info rows */}
+                    <div className="space-y-1.5">
+                        {([
+                            ["Score", `${safeScore} / 100`],
+                            ["Status", activeBandLabel],
+                            ["Program Status", "STABLE"],
+                            ["Last Sync", lastSync],
+                            ["Change", SCORE_CHANGE],
+                        ] as [string, string][]).map(([key, val]) => (
+                            <div key={key} className="flex items-center justify-between gap-3">
+                                <span className="text-[10px] text-slate-500 shrink-0">{key}</span>
+                                <span
+                                    className="text-[10px] font-semibold text-slate-200 text-right"
+                                    style={key === "Change" ? { color: "#34d399" }
+                                        : key === "Score" ? { color: status.color }
+                                            : {}}
+                                >
+                                    {val}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+                </>
+            )}
             {/* Caret */}
             <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0
-                            border-l-[7px] border-r-[7px] border-t-[7px]
+                            border-l-[6px] border-r-[6px] border-t-[6px]
                             border-l-transparent border-r-transparent border-t-slate-700" />
         </div>
     );
@@ -322,7 +451,7 @@ function ScoreDrawer({ score, open, onClose }: { score: number; open: boolean; o
                                         <span className="text-sm font-bold" style={{ color }}>{pct}%</span>
                                     </div>
                                     <div className="h-1.5 rounded-full bg-slate-700 overflow-hidden">
-                                        <div className="h-full rounded-full" style={{ width: `${pct}%`, backgroundColor: color }} />
+                                        <div className="h-full rounded-full transition-all duration-700" style={{ width: `${pct}%`, backgroundColor: color }} />
                                     </div>
                                     <p className="text-[10px] font-semibold text-slate-300">{label}</p>
                                     <p className="text-[10px] text-slate-500">{sub}</p>
@@ -369,13 +498,24 @@ function ScoreDrawer({ score, open, onClose }: { score: number; open: boolean; o
 
 // ─── Interactive Gauge Wrapper ────────────────────────────────────────────────
 
-function InteractiveGauge({ score, onOpen }: { score: number; onOpen: () => void }) {
+function InteractiveGauge({
+    score,
+    onOpen,
+    highlightedBand,
+}: {
+    score: number | null | undefined;
+    onOpen: () => void;
+    highlightedBand: string | null;
+}) {
     const [hovered, setHovered] = useState(false);
-    const status = getScoreStatus(score);
+    const safeScore = score ?? 0;
+    const status = getScoreStatus(safeScore);
+
     return (
         <div className="relative flex flex-col items-center gap-2">
             {/* Tooltip */}
-            <GaugeTooltip score={score} visible={hovered} />
+            <GaugeTooltip score={score} visible={hovered} highlightedBand={highlightedBand} />
+
             {/* Hit area: hover + click + keyboard */}
             <div
                 role="button"
@@ -388,8 +528,10 @@ function InteractiveGauge({ score, onOpen }: { score: number; onOpen: () => void
                 onClick={onOpen}
                 onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onOpen(); } }}
             >
-                <GaugeIndicator score={score} />
+                <GaugeIndicator score={score} highlightedBand={highlightedBand} />
             </div>
+
+            {/* Program Status pill */}
             <div
                 className="flex items-center gap-1.5 text-xs font-medium px-3 py-1 rounded-full border cursor-pointer select-none"
                 style={{ color: status.color, borderColor: `${status.color}40`, backgroundColor: `${status.color}12` }}
@@ -400,6 +542,7 @@ function InteractiveGauge({ score, onOpen }: { score: number; onOpen: () => void
         </div>
     );
 }
+
 
 // ─── Animated Compliance Donut ───────────────────────────────────────────────
 
@@ -631,6 +774,7 @@ export default function IntegrityPage() {
     const [riskTab, setRiskTab] = useState("Total");
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [customizeOpen, setCustomizeOpen] = useState(false);
+    const [highlightedBand, setHighlightedBand] = useState<string | null>(null);
 
     // ── Widget preferences ──────────────────────────────────────────────────
     const [prefs, setPrefs] = useState<Record<string, boolean>>(() => {
@@ -701,31 +845,55 @@ export default function IntegrityPage() {
                     }} />
                     <div className="relative p-5 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                         {/* Gauge — interactive */}
-                        <InteractiveGauge score={SCORE} onOpen={() => setDrawerOpen(true)} />
+                        <InteractiveGauge
+                            score={SCORE}
+                            onOpen={() => setDrawerOpen(true)}
+                            highlightedBand={highlightedBand}
+                        />
 
-                        {/* Score ranges */}
+                        {/* Score ranges — right column */}
                         <div className="space-y-2.5 md:col-span-2">
                             <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3">Score Ranges</p>
-                            {[
-                                { range: "90 – 100", label: "Optimal", color: "#22c55e", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
-                                { range: "75 – 89", label: "Healthy", color: "#6366f1", bg: "bg-indigo-50 dark:bg-indigo-500/10" },
-                                { range: "60 – 74", label: "Attention", color: "#eab308", bg: "bg-yellow-50 dark:bg-yellow-500/10" },
-                                { range: "< 60", label: "Critical", color: "#ef4444", bg: "bg-red-50 dark:bg-red-500/10" },
-                            ].map(({ range, label, color, bg }) => (
-                                <div key={label} className={`flex items-center justify-between rounded-xl px-4 py-2.5 ${bg} border`}
-                                    style={{ borderColor: `${color}30` }}>
-                                    <div className="flex items-center gap-2.5">
-                                        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
-                                        <span className="text-sm font-semibold" style={{ color }}>{label}</span>
+                            {SCORE_RANGES.map(({ label, bandLabel, range, color, bg }) => {
+                                const isCurrent = status.label === bandLabel;
+                                const isActive = highlightedBand === bandLabel;
+                                return (
+                                    <div
+                                        key={label}
+                                        role="button"
+                                        tabIndex={0}
+                                        aria-pressed={isActive}
+                                        onClick={() => setHighlightedBand(isActive ? null : bandLabel)}
+                                        onKeyDown={e => {
+                                            if (e.key === "Enter" || e.key === " ") {
+                                                e.preventDefault();
+                                                setHighlightedBand(isActive ? null : bandLabel);
+                                            }
+                                        }}
+                                        className={`flex items-center justify-between rounded-xl px-4 py-2.5 ${bg} border
+                                                    cursor-pointer select-none transition-all duration-200
+                                                    hover:scale-[1.005] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
+                                                    ${isActive ? "ring-1 scale-[1.01]" : ""}`}
+                                        style={{
+                                            borderColor: isActive ? color : `${color}30`,
+                                            boxShadow: isActive ? `0 0 14px ${color}28` : undefined,
+                                        }}
+                                    >
+                                        <div className="flex items-center gap-2.5">
+                                            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
+                                            <span className="text-sm font-semibold" style={{ color }}>{label}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{range}</span>
+                                            {isCurrent && (
+                                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: color }}>
+                                                    CURRENT
+                                                </span>
+                                            )}
+                                        </div>
                                     </div>
-                                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{range}</span>
-                                    {label === "Healthy" && (
-                                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: color }}>
-                                            CURRENT
-                                        </span>
-                                    )}
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
