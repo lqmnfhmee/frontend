@@ -1,4 +1,3 @@
-import AssetDistributionChart from "./components/AssetDistributionChart";
 import AssetStatusSummary from "./components/AssetStatusSummary";
 import AssetTrendChart from "./components/AssetTrendChart";
 import { Factory, Boxes, Package, Layers } from "lucide-react";
@@ -6,12 +5,6 @@ import KpiCard from "@/app/components/shared/KpiCard";
 import RecentAssets from "../(home)/components/RecentAssets";
 
 export default function AssetManagementPage() {
-    const distributionData = [
-        { name: "Facilities", value: 3 },
-        { name: "Systems", value: 42 },
-        { name: "Packages", value: 366 },
-        { name: "Assets", value: 8357 },
-    ];
 
     const statusData = [
         { label: "Active", value: 8200, color: "#22c55e" },
@@ -112,24 +105,6 @@ export default function AssetManagementPage() {
             {/* 🔹 ANALYTICS SECTION */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-                {/* Asset Distribution */}
-                <div className="
-          relative
-          bg-white dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-950
-          rounded-2xl
-          p-6
-          border border-slate-200 dark:border-slate-800
-          shadow-md shadow-slate-200/50 dark:shadow-none
-          transition-all duration-300
-          dark:hover:shadow-none
-          hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
-        ">
-                    <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-                        Asset Distribution
-                    </h2>
-                    <AssetDistributionChart data={distributionData} />
-                </div>
-
                 {/* Asset Status */}
                 <div className="
           relative
@@ -148,11 +123,6 @@ export default function AssetManagementPage() {
                     <AssetStatusSummary items={statusData} />
                 </div>
 
-            </div>
-
-            {/* 🔹 SECOND ROW */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
                 {/* Trend */}
                 <div className="
           relative
@@ -170,6 +140,11 @@ export default function AssetManagementPage() {
                     </h2>
                     <AssetTrendChart data={trendData} />
                 </div>
+
+            </div>
+
+            {/* 🔹 SECOND ROW */}
+            <div className="grid grid-cols-1 gap-6">
 
                 {/* Recent Assets */}
                 <div className="
