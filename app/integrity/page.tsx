@@ -843,7 +843,7 @@ export default function IntegrityPage() {
                     <div className="absolute inset-0 pointer-events-none" style={{
                         background: `radial-gradient(ellipse at top right, ${status.color}18 0%, transparent 60%)`
                     }} />
-                    <div className="relative p-5 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                    <div className="relative p-4 md:p-5 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-center">
                         {/* Gauge — interactive */}
                         <InteractiveGauge
                             score={SCORE}
@@ -905,7 +905,7 @@ export default function IntegrityPage() {
             <SectionHeader label="Operational Status" />
 
             {["stat-high-risk", "stat-inspections-due", "stat-open-anomalies", "stat-remaining-life"].some(isEnabled) ? (
-                <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* High Risk Equipment */}
                     {isEnabled("stat-high-risk") && (
                         <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">

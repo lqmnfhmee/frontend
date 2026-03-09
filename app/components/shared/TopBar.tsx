@@ -52,13 +52,13 @@ export default function TopBar({ onToggle }: TopBarProps) {
         bg-white dark:bg-slate-900
         border-b border-slate-200 dark:border-slate-800
         flex items-center justify-between
-        px-6
+        px-4 md:px-6
         z-20
         transition-colors duration-300
       "
     >
       {/* LEFT */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 md:gap-4">
 
         {/* SIDEBAR TOGGLE */}
         <button
@@ -77,6 +77,7 @@ export default function TopBar({ onToggle }: TopBarProps) {
         {/* PLANT SELECTOR */}
         <div
           className="
+            hidden sm:block
             px-3 py-1
             border border-slate-200 dark:border-slate-700
             rounded-md text-sm
@@ -88,7 +89,7 @@ export default function TopBar({ onToggle }: TopBarProps) {
       </div>
 
       {/* RIGHT */}
-      <div className="flex items-center gap-6 text-slate-600 dark:text-slate-300">
+      <div className="flex items-center gap-2 sm:gap-4 md:gap-6 text-slate-600 dark:text-slate-300">
 
         {/* THEME TOGGLE */}
         <button
@@ -108,7 +109,7 @@ export default function TopBar({ onToggle }: TopBarProps) {
         </button>
 
         {/* SETTINGS */}
-        <button className="hover:scale-110 active:scale-95 transition">
+        <button className="hidden sm:block hover:scale-110 active:scale-95 transition">
           ⚙️
         </button>
 
@@ -118,7 +119,7 @@ export default function TopBar({ onToggle }: TopBarProps) {
         </button>
 
         {/* USER AVATAR */}
-        <div className="w-8 h-8 rounded-full bg-indigo-600 dark:bg-indigo-500 text-white flex items-center justify-center text-sm font-medium shadow-sm">
+        <div className="w-8 h-8 rounded-full bg-indigo-600 dark:bg-indigo-500 text-white flex items-center justify-center text-sm font-medium shadow-sm shrink-0">
           A
         </div>
       </div>

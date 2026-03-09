@@ -213,7 +213,7 @@ export default function RbiPage() {
                 {/* ════════════════════════════════════════ */}
                 <SectionHeader label="RBI Program Status" />
 
-                <div className="grid grid-cols-2 xl:grid-cols-5 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
 
                     {/* Total Assets */}
                     <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
@@ -294,7 +294,7 @@ export default function RbiPage() {
                 {/* ════════════════════════════════════════ */}
                 <SectionHeader label="Risk Overview" />
 
-                <div className="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-5">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-5">
 
                     {/* LEFT — Plant Risk Matrix */}
                     <DashboardCard
@@ -374,7 +374,7 @@ export default function RbiPage() {
                 {/* ════════════════════════════════════════ */}
                 <SectionHeader label="Inspection Strategy" />
 
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
                     {/* IRP Methods */}
                     <DashboardCard title="Inspection Planning Recommendations" subtitle="Recommended methods based on RBI assessment">

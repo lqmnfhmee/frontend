@@ -19,7 +19,7 @@ export default function PipingPropertiesTab() {
         <div className="space-y-6">
             {/* 🔹 ASSET DATA CARD */}
             <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-6">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-70">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -30,7 +30,7 @@ export default function PipingPropertiesTab() {
                         </svg>
                         Asset Data
                     </div>
-                    <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+                    <button className="flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors w-full sm:w-auto">
                         <Edit2 size={16} />
                         Edit Design Data
                     </button>
@@ -41,8 +41,8 @@ export default function PipingPropertiesTab() {
                     <button
                         onClick={() => setActiveSubTab("details")}
                         className={`flex-1 py-3 text-sm font-medium border-b-2 transition-colors ${activeSubTab === "details"
-                                ? "border-blue-600 text-blue-600 dark:text-blue-500"
-                                : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700"
+                            ? "border-blue-600 text-blue-600 dark:text-blue-500"
+                            : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700"
                             }`}
                     >
                         Component Details
@@ -50,8 +50,8 @@ export default function PipingPropertiesTab() {
                     <button
                         onClick={() => setActiveSubTab("design")}
                         className={`flex-1 py-3 text-sm font-medium border-b-2 transition-colors ${activeSubTab === "design"
-                                ? "border-blue-600 text-blue-600 dark:text-blue-500"
-                                : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700"
+                            ? "border-blue-600 text-blue-600 dark:text-blue-500"
+                            : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700"
                             }`}
                     >
                         Design Data
@@ -63,7 +63,7 @@ export default function PipingPropertiesTab() {
                     <div className="space-y-8 animate-in fade-in duration-300">
                         <div>
                             <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Component Information</h3>
-                            <div className="grid grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                                 <div>
                                     <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Management System Score</p>
                                     <p className="text-sm font-medium text-slate-900 dark:text-white">720 (default)</p>
@@ -73,7 +73,7 @@ export default function PipingPropertiesTab() {
 
                         <div>
                             <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Installation Information</h3>
-                            <div className="grid grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                                 <div>
                                     <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Installation Date</p>
                                     <p className="text-sm font-medium text-slate-900 dark:text-white">01/01/2001</p>
@@ -87,7 +87,7 @@ export default function PipingPropertiesTab() {
 
                         <div>
                             <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Detection and Safety Systems</h3>
-                            <div className="grid grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                                 <div>
                                     <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Type of Detection System</p>
                                     <p className="text-sm font-medium text-slate-900 dark:text-white">
@@ -100,7 +100,7 @@ export default function PipingPropertiesTab() {
                                         B - Isolation or shutdown systems activated by operators in the control room or other suitable locations remote from the leak
                                     </p>
                                 </div>
-                                <div className="col-span-2">
+                                <div className="sm:col-span-2">
                                     <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Mitigation System</p>
                                     <p className="text-sm font-medium text-slate-900 dark:text-white">
                                         Fire water deluge system and monitors

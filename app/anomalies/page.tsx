@@ -201,7 +201,7 @@ export default function AnomaliesPage() {
             </section>
 
             {/* 2. MIDDLE SECTION: Risk Overview */}
-            <div className="grid grid-cols-1 xl:grid-cols-5 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
                 {/* Priority Distribution */}
                 <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm xl:col-span-3 flex flex-col">
                     <div className="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 text-orange-500">

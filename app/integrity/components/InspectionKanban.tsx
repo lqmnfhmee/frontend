@@ -100,7 +100,7 @@ export default function InspectionKanban({ inspections }: { inspections: Inspect
 
     return (
         <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {COLUMNS.map((col) => {
                     const items = inspections.filter((i) => i.status === col.key);
                     return (

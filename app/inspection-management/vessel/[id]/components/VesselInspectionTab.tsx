@@ -57,7 +57,7 @@ export default function VesselInspectionTab() {
             {/* 🔹 PROPERTIES SUB-TAB */}
             {activeSubTab === "properties" && (
                 <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-6">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-4 md:p-6 space-y-4 md:space-y-6">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-70">
@@ -71,11 +71,12 @@ export default function VesselInspectionTab() {
                             </div>
                             <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
                                 <Edit2 size={16} />
-                                Edit Properties
+                                <span className="hidden sm:inline">Edit Properties</span>
+                                <span className="sm:hidden">Edit</span>
                             </button>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-6 pt-4 border-t border-slate-200 dark:border-slate-800">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 pt-4 border-t border-slate-200 dark:border-slate-800">
                             <div>
                                 <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Elevation (m)</p>
                                 <p className="text-sm font-medium text-slate-900 dark:text-white">Not set</p>

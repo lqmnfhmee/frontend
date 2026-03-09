@@ -53,8 +53,8 @@ export default function TrendingTab() {
             {activeTab === "dashboard" && (
                 <div className="space-y-6 animate-in fade-in duration-300">
                     {/* Chart Card */}
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-6">
-                        <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-4 md:p-6 space-y-4 md:space-y-6">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
                             <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-70">
                                     <path d="M3 3v18h18" />
@@ -62,12 +62,12 @@ export default function TrendingTab() {
                                 </svg>
                                 Degradation Analysis
                             </div>
-                            <div className="flex items-center gap-3">
-                                <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+                            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                                <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
                                     <Download size={16} />
                                     Export Excel
                                 </button>
-                                <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 rounded-lg transition-colors border border-blue-200/50 dark:border-blue-800/50">
+                                <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 rounded-lg transition-colors border border-blue-200/50 dark:border-blue-800/50">
                                     Calculate CR (DEV)
                                 </button>
                             </div>
@@ -288,12 +288,12 @@ export default function TrendingTab() {
 
             {activeTab === "degradation" && (
                 <div className="space-y-6 animate-in fade-in duration-300">
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                         <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Degradation Analysis - TML List</h3>
                         <input
                             type="text"
                             placeholder="Search by component or measurement point..."
-                            className="w-80 px-4 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+                            className="w-full sm:w-80 px-4 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                         />
                     </div>
 
