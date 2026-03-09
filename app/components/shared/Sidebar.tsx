@@ -195,14 +195,20 @@ export default function Sidebar({ collapsed, mobileOpen, setMobileOpen }: Sideba
                 baseHref="/inspection-management"
                 collapsed={collapsed}
                 subItems={[
+                  { label: "Dashboard", href: "/inspection-management" },
                   { label: "Vessel", href: "/inspection-management/vessel" },
                   { label: "Piping", href: "/inspection-management/piping" }
                 ]}
               />
-              <SidebarItem
+              <SidebarAccordion
                 label="Risk-Based Inspection"
-                href="/rbi"
+                baseHref="/rbi"
                 collapsed={collapsed}
+                subItems={[
+                  { label: "Dashboard", href: "/rbi" },
+                  { label: "Vessel", href: "/rbi/vessel" },
+                  { label: "Piping", href: "/rbi/piping" }
+                ]}
               />
               <SidebarItem
                 label="Anomalies"
