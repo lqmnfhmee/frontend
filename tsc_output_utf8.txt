@@ -1,0 +1,6 @@
+﻿app/integrity/components/CustomizeModal.tsx(5,59): error TS2307: Cannot find module '../widget-registry' or its corresponding type declarations.
+app/integrity/components/CustomizeModal.tsx(100,34): error TS7006: Parameter 'w' implicitly has an 'any' type.
+app/integrity/components/CustomizeModal.tsx(177,40): error TS7006: Parameter 'section' implicitly has an 'any' type.
+app/integrity/components/CustomizeModal.tsx(178,69): error TS7006: Parameter 'w' implicitly has an 'any' type.
+app/integrity/components/CustomizeModal.tsx(179,62): error TS7006: Parameter 'w' implicitly has an 'any' type.
+app/integrity/components/CustomizeModal.tsx(196,55): error TS7006: Parameter 'w' implicitly has an 'any' type.

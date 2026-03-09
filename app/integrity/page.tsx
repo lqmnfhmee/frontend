@@ -11,8 +11,8 @@ import {
     Download, FileSpreadsheet, FileText, TrendingDown, CheckCircle2,
     X, Info, ArrowRight, TrendingUp, Settings2,
 } from "lucide-react";
-import { loadPreferences, savePreferences, resetPreferences } from "@/lib/dashboard-preferences";
-import { WIDGET_REGISTRY } from "@/app/integrity/widget-registry";
+import { loadPreferences, savePreferences, resetPreferences } from "@/app/integrity/utils/dashboard-preferences";
+import { WIDGET_REGISTRY } from "@/app/integrity/utils/widget-registry";
 import CustomizeModal from "@/app/integrity/components/CustomizeModal";
 
 // ─── Mock Data ───────────────────────────────────────────────────────────────

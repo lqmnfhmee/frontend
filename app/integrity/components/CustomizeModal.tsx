@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useCallback } from "react";
 import { X, Settings2, RotateCcw } from "lucide-react";
-import { WIDGET_REGISTRY, SECTIONS, type WidgetDef } from "../widget-registry";
+import { WIDGET_REGISTRY, SECTIONS, type WidgetDef } from "../utils/widget-registry";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
