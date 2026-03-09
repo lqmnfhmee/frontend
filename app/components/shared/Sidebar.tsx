@@ -163,10 +163,14 @@ export default function Sidebar({ collapsed }: SidebarProps) {
               href="/integrity"   // ✅ Updated route
               collapsed={collapsed}
             />
-            <SidebarItem
+            <SidebarAccordion
               label="Inspection Management"
-              href="/inspection-management"
+              baseHref="/inspection-management"
               collapsed={collapsed}
+              subItems={[
+                { label: "Vessel", href: "/inspection-management/vessel" },
+                { label: "Piping", href: "/inspection-management/piping" }
+              ]}
             />
             <SidebarItem
               label="Risk-Based Inspection"
