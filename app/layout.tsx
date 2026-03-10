@@ -36,7 +36,7 @@ export default function RootLayout({
 
           /* 🌎 ROOT CANVAS */
           bg-slate-50
-          dark:bg-slate-950
+          dark:bg-[var(--color-brand-darkBg)]
 
           /* smoother text rendering */
           text-slate-900

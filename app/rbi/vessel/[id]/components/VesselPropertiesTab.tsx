@@ -23,22 +23,22 @@ export default function VesselPropertiesTab() {
         }
 
         return (
-            <div className="w-full max-w-4xl mx-auto overflow-hidden border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm">
+            <div className="w-full max-w-4xl mx-auto overflow-hidden border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg shadow-sm">
                 <table className="w-full text-center border-collapse">
                     <thead>
                         <tr className="bg-slate-50 dark:bg-slate-800/50 text-xs font-semibold text-slate-600 dark:text-slate-300">
-                            <th className="py-3 px-2 border-b border-r border-slate-200 dark:border-slate-700 w-24">POF/COF</th>
+                            <th className="py-3 px-2 border-b border-r border-slate-200 dark:border-[var(--color-brand-darkBorder)] w-24">POF/COF</th>
                             {cols.map(c => (
-                                <th key={c} className="py-3 px-2 border-b border-r border-slate-200 dark:border-slate-700">{c}</th>
+                                <th key={c} className="py-3 px-2 border-b border-r border-slate-200 dark:border-[var(--color-brand-darkBorder)]">{c}</th>
                             ))}
                         </tr>
                     </thead>
                     <tbody>
                         {rows.map(row => (
                             <tr key={row}>
-                                <td className="py-4 px-2 border-b border-r border-slate-200 dark:border-slate-700 font-medium text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50">{row}</td>
+                                <td className="py-4 px-2 border-b border-r border-slate-200 dark:border-[var(--color-brand-darkBorder)] font-medium text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50">{row}</td>
                                 {cols.map((col, index) => (
-                                    <td key={col} className={`py-4 px-2 border-b border-r border-slate-200 dark:border-slate-700 relative group transition-colors ${getCellColorClass(row, index)}`}>
+                                    <td key={col} className={`py-4 px-2 border-b border-r border-slate-200 dark:border-[var(--color-brand-darkBorder)] relative group transition-colors ${getCellColorClass(row, index)}`}>
                                         {row === 1 && col === "C" && (
                                             <div className="absolute inset-0 flex items-center justify-center">
                                                 <div className="w-5 h-5 bg-slate-900 rounded-full flex items-center justify-center text-white text-xs">
@@ -59,7 +59,7 @@ export default function VesselPropertiesTab() {
     return (
         <div className="space-y-6">
             {/* 🔹 DESIGN DATA (VIEW ONLY) CARD */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-6">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-6 space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-70">
@@ -214,7 +214,7 @@ export default function VesselPropertiesTab() {
             </div>
 
             {/* 🔹 RBI RESULT CARD */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col p-6 space-y-6">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden flex flex-col p-6 space-y-6">
                 <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-70">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
@@ -235,8 +235,8 @@ export default function VesselPropertiesTab() {
 
 
             {/* 🔹 COMPONENTS TABLE CARD */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col">
-                <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row gap-4 justify-between items-center bg-slate-50/50 dark:bg-slate-900/50">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden flex flex-col">
+                <div className="p-4 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex flex-col sm:flex-row gap-4 justify-between items-center bg-slate-50/50 dark:bg-[var(--color-brand-darkCard)]/50">
                     <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-70">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
@@ -254,10 +254,10 @@ export default function VesselPropertiesTab() {
                             <input
                                 type="text"
                                 placeholder="Search components..."
-                                className="w-full pl-9 pr-4 py-1.5 text-sm bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+                                className="w-full pl-9 pr-4 py-1.5 text-sm bg-white dark:bg-[var(--color-brand-darkBg)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                             />
                         </div>
-                        <button className="flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
+                        <button className="flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkBg)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                 <polyline points="7 10 12 15 17 10" />
@@ -275,7 +275,7 @@ export default function VesselPropertiesTab() {
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                         <thead>
-                            <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400">
+                            <tr className="border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/50 text-slate-500 dark:text-slate-400">
                                 <th className="px-6 py-4 font-semibold w-8">
                                     <input type="checkbox" className="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
                                 </th>
@@ -287,7 +287,7 @@ export default function VesselPropertiesTab() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
-                            <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors">
+                            <tr className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors">
                                 <td className="px-6 py-4">
                                     <input type="checkbox" className="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
                                 </td>
@@ -311,16 +311,16 @@ export default function VesselPropertiesTab() {
                                 </td>
                                 <td className="px-6 py-4 text-right">
                                     <div className="flex items-center justify-end gap-1.5 opacity-100">
-                                        <button className="p-1.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded transition-colors" title="View">
+                                        <button className="p-1.5 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-white dark:bg-slate-800 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded transition-colors" title="View">
                                             <Eye size={16} />
                                         </button>
-                                        <button className="p-1.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/30 rounded transition-colors" title="Edit">
+                                        <button className="p-1.5 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-white dark:bg-slate-800 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/30 rounded transition-colors" title="Edit">
                                             <Edit2 size={16} />
                                         </button>
-                                        <button className="p-1.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/30 rounded transition-colors" title="Remove">
+                                        <button className="p-1.5 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-white dark:bg-slate-800 text-pink-600 hover:bg-pink-50 dark:hover:bg-pink-900/30 rounded transition-colors" title="Remove">
                                             <Trash2 size={16} />
                                         </button>
-                                        <button className="p-1.5 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-colors" title="Delete">
+                                        <button className="p-1.5 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-white dark:bg-slate-800 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-colors" title="Delete">
                                             <Trash2 size={16} />
                                         </button>
                                     </div>

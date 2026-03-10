@@ -12,8 +12,8 @@ export default function AssetStatusSummary({ items }: Props) {
   return (
     <div className="
       rounded-xl
-      bg-white dark:bg-slate-900/40
-      border border-slate-200 dark:border-slate-800
+      bg-white dark:bg-[var(--color-brand-darkCard)]/40
+      border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
       divide-y divide-slate-200 dark:divide-slate-800/60
       overflow-hidden
       shadow-md shadow-slate-200/50 dark:shadow-none

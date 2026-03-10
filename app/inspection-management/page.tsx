@@ -26,7 +26,7 @@ const compliancePct = Math.round((completed / INSPECTIONS.length) * 100);
 const kpis = [
     { label: "Overdue", value: overdue, Icon: AlertTriangle, color: "text-red-600 dark:text-red-400", bg: "bg-red-50 dark:bg-red-500/10" },
     { label: "Upcoming (7d)", value: upcoming, Icon: Clock, color: "text-orange-600 dark:text-orange-400", bg: "bg-orange-50 dark:bg-orange-500/10" },
-    { label: "Scheduled", value: scheduled, Icon: BarChart2, color: "text-indigo-600 dark:text-indigo-400", bg: "bg-indigo-50 dark:bg-indigo-500/10" },
+    { label: "Scheduled", value: scheduled, Icon: BarChart2, color: "text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]", bg: "bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10" },
     { label: "Compliance", value: `${compliancePct}%`, Icon: CheckCircle, color: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
 ];
 
@@ -38,7 +38,7 @@ export default function InspectionManagementPage() {
                     <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Inspection Management</h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Inspection status and scheduling · LARUT-A (LRA)</p>
                 </div>
-                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors">
+                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)] rounded-lg transition-colors">
                     <Download size={15} /> Export
                 </button>
             </div>
@@ -46,7 +46,7 @@ export default function InspectionManagementPage() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
                 <div className="grid grid-cols-2 gap-4">
                     {kpis.map(({ label, value, Icon, color, bg }) => (
-                        <div key={label} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-5 flex items-center gap-4 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
+                        <div key={label} className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] p-5 flex items-center gap-4 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                             <div className={`p-2.5 rounded-xl ${bg}`}><Icon size={20} className={color} /></div>
                             <div>
                                 <p className="text-2xl font-bold text-slate-900 dark:text-white">{value}</p>
@@ -55,13 +55,13 @@ export default function InspectionManagementPage() {
                         </div>
                     ))}
                 </div>
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] p-6 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                     <h2 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">Compliance</h2>
                     <InspectionDonutChart completed={completed} overdue={overdue} scheduled={scheduled + upcoming} />
                 </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] p-6 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                 <h2 className="text-sm font-semibold text-slate-900 dark:text-white mb-5">Inspection Board</h2>
                 <InspectionKanban inspections={INSPECTIONS} />
             </div>

@@ -15,12 +15,12 @@ export default function AssetManagementPage() {
     ];
 
     const trendData = [
-        { month: "Jan", assets: 2500 },
-        { month: "Feb", assets: 7500 },
-        { month: "Mar", assets: 1000 },
-        { month: "Apr", assets: 9000 },
-        { month: "May", assets: 8600 },
-        { month: "Jun", assets: 10000 },
+        { month: "Jan", assets: 1500 },
+        { month: "Feb", assets: 2200 },
+        { month: "Mar", assets: 4400 },
+        { month: "Apr", assets: 4800 },
+        { month: "May", assets: 5800 },
+        { month: "Jun", assets: 5900 },
     ];
 
     return (
@@ -111,7 +111,7 @@ export default function AssetManagementPage() {
           bg-white dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-950
           rounded-2xl
           p-6
-          border border-slate-200 dark:border-slate-800
+          border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
           shadow-md shadow-slate-200/50 dark:shadow-none
           transition-all duration-300
           dark:hover:shadow-none
@@ -129,7 +129,7 @@ export default function AssetManagementPage() {
           bg-white dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-950
           rounded-2xl
           p-6
-          border border-slate-200 dark:border-slate-800
+          border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
           shadow-md shadow-slate-200/50 dark:shadow-none
           transition-all duration-300
           dark:hover:shadow-none
@@ -152,7 +152,7 @@ export default function AssetManagementPage() {
           bg-white dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-950
           rounded-2xl
           p-6
-          border border-slate-200 dark:border-slate-800
+          border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
           shadow-md shadow-slate-200/50 dark:shadow-none
           transition-all duration-300
           dark:hover:shadow-none

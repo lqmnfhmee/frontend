@@ -13,15 +13,15 @@ export default function AnomalyPriorityBreakdown() {
 
     <div className="
       rounded-xl p-5
-      bg-white dark:bg-slate-900
-      border border-slate-200 dark:border-slate-800
+      bg-white dark:bg-[var(--color-brand-darkCard)]
+      border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
       shadow-md shadow-slate-200/50 dark:shadow-none
       hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
       transition-all duration-300
     ">
       <h3 className="relative font-semibold mb-6 text-slate-900 dark:text-slate-100">
         Anomaly Priority Breakdown
-        <span className="absolute -bottom-2 left-0 w-12 h-[2px] bg-indigo-500 rounded-full"></span>
+        <span className="absolute -bottom-2 left-0 w-12 h-[2px] bg-[var(--color-brand-primary-soft)]0 rounded-full"></span>
       </h3>
 
       <table className="w-full text-center text-sm border border-slate-400 dark:border-slate-600 border-collapse">
@@ -139,7 +139,7 @@ export default function AnomalyPriorityBreakdown() {
         mt-4 rounded-md px-3 py-2 text-xs
         bg-slate-100 dark:bg-slate-800/80
         backdrop-blur-sm
-        border border-slate-200 dark:border-slate-700
+        border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
         text-slate-600 dark:text-slate-300
       ">
         Open: Approved, Office Submitted, Deferred |

@@ -13,8 +13,8 @@ export default function RecentAssets({ data }: { data: Asset[] }) {
   return (
     <div className="
       rounded-xl overflow-hidden
-      bg-white dark:bg-slate-900/40
-      border border-slate-200 dark:border-slate-800
+      bg-white dark:bg-[var(--color-brand-darkCard)]/40
+      border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
     ">
 
       <div className="divide-y divide-slate-200 dark:divide-slate-800/60">

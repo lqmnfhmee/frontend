@@ -31,9 +31,9 @@ export default function RbiPipingListPage() {
             </div>
 
             {/* 🔹 MAIN CONTAINER */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden">
                 {/* Toolbar */}
-                <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row gap-4 justify-between items-center bg-slate-50/50 dark:bg-slate-900/50">
+                <div className="p-4 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex flex-col sm:flex-row gap-4 justify-between items-center bg-slate-50/50 dark:bg-[var(--color-brand-darkCard)]/50">
                     <div className="relative w-full sm:w-80">
                         <Search
                             className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
@@ -44,11 +44,11 @@ export default function RbiPipingListPage() {
                             placeholder="Search by Circuit ID or Package Name..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="w-full pl-9 pr-4 py-2 text-sm bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+                            className="w-full pl-9 pr-4 py-2 text-sm bg-white dark:bg-[var(--color-brand-darkBg)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                         />
                     </div>
                     <div className="flex items-center gap-3 w-full sm:w-auto">
-                        <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
+                        <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkBg)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
                             <Download size={16} />
                             Bulk Import
                         </button>
@@ -63,7 +63,7 @@ export default function RbiPipingListPage() {
                 <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                         <thead>
-                            <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400">
+                            <tr className="border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/50 text-slate-500 dark:text-slate-400">
                                 <th className="px-6 py-4 font-semibold w-8">
                                     <input type="checkbox" className="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
                                 </th>
@@ -79,7 +79,7 @@ export default function RbiPipingListPage() {
                             {filteredGroups.map((group) => (
                                 <tr
                                     key={group.id}
-                                    className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors group"
+                                    className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors group"
                                 >
                                     <td className="px-6 py-4">
                                         <input type="checkbox" className="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />

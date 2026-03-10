@@ -27,10 +27,10 @@ export default function PackagesPage() {
             </div>
 
             {/* Toolbar & Table Card */}
-            <div className="bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+            <div className="bg-white dark:bg-[var(--color-brand-darkBg)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden">
 
                 {/* Toolbar */}
-                <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row gap-4 justify-between items-center">
+                <div className="p-4 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex flex-col md:flex-row gap-4 justify-between items-center">
                     {/* Search */}
                     <div className="relative w-full md:max-w-md">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
@@ -39,28 +39,28 @@ export default function PackagesPage() {
                         <input
                             type="text"
                             placeholder="Search by name, code, or number..."
-                            className="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 dark:border-slate-800 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg bg-slate-50 dark:bg-[var(--color-brand-darkCard)] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>
 
                     {/* Actions */}
                     <div className="flex items-center gap-3 w-full md:w-auto text-slate-700 dark:text-slate-300">
-                        <select className="px-4 py-2 text-sm border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <select className="px-4 py-2 text-sm border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg bg-white dark:bg-[var(--color-brand-darkBg)] focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             <option>Active</option>
                             <option>Inactive</option>
                         </select>
-                        <select className="px-4 py-2 text-sm border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <select className="px-4 py-2 text-sm border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg bg-white dark:bg-[var(--color-brand-darkBg)] focus:outline-none focus:ring-2 focus:ring-indigo-500">
                             <option>All Systems</option>
                             <option>PROCESS PIPING</option>
                             <option>CRANE</option>
                         </select>
 
-                        <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 rounded-lg hover:bg-indigo-100 transition-colors">
+                        <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10 border border-[var(--color-brand-primary-soft)] dark:border-[var(--color-brand-primary-soft)] rounded-lg hover:bg-[var(--color-brand-primary-soft)] transition-colors">
                             <Upload size={16} />
                             Bulk Upload
                         </button>
 
-                        <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors">
+                        <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)] rounded-lg transition-colors">
                             <Plus size={16} />
                             Add Package
                         </button>
@@ -70,7 +70,7 @@ export default function PackagesPage() {
                 {/* Table */}
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left">
-                        <thead className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
+                        <thead className="bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                             <tr>
                                 <th className="px-6 py-4">Package Number</th>
                                 <th className="px-6 py-4">Package Name</th>
@@ -88,7 +88,7 @@ export default function PackagesPage() {
                                     <td className="px-6 py-4">{pkg.type}</td>
                                     <td className="px-6 py-4">{pkg.system}</td>
                                     <td className="px-6 py-4">
-                                        <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-indigo-600 text-white">
+                                        <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-[var(--color-brand-primary)] text-white">
                                             {pkg.status}
                                         </span>
                                     </td>
@@ -109,16 +109,16 @@ export default function PackagesPage() {
                 </div>
 
                 {/* Pagination */}
-                <div className="p-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
+                <div className="p-4 border-t border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex items-center justify-between text-sm text-slate-500 dark:text-slate-400">
                     <div>Showing 1 to 10 of 100 packages</div>
                     <div className="flex items-center gap-1">
-                        <button className="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800"><ChevronLeft size={16} /></button>
-                        <button className="px-3 py-1 rounded bg-indigo-600 text-white">1</button>
-                        <button className="px-3 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">2</button>
-                        <button className="px-3 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">3</button>
+                        <button className="p-1 rounded hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)]"><ChevronLeft size={16} /></button>
+                        <button className="px-3 py-1 rounded bg-[var(--color-brand-primary)] text-white">1</button>
+                        <button className="px-3 py-1 rounded hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[var(--color-brand-darkBorder)]">2</button>
+                        <button className="px-3 py-1 rounded hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[var(--color-brand-darkBorder)]">3</button>
                         <span className="px-2 text-slate-400">...</span>
-                        <button className="px-3 py-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800">10</button>
-                        <button className="p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800"><ChevronRight size={16} /></button>
+                        <button className="px-3 py-1 rounded hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[var(--color-brand-darkBorder)]">10</button>
+                        <button className="p-1 rounded hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)]"><ChevronRight size={16} /></button>
                     </div>
                 </div>
             </div>

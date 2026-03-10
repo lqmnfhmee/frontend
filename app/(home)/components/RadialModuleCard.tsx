@@ -68,8 +68,8 @@ export default function RadialModuleCard({
     <div
       className="
         rounded-xl px-6 pt-4 pb-6 flex flex-col items-center
-        bg-white dark:bg-slate-900
-        border border-slate-200 dark:border-slate-800
+        bg-white dark:bg-[var(--color-brand-darkCard)]
+        border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
         shadow-md shadow-slate-200/50 dark:shadow-none
         hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
         transition-all duration-300
@@ -79,7 +79,7 @@ export default function RadialModuleCard({
       {/* Title */}
       <h3 className="font-semibold mb-4 text-[15px] tracking-tight text-slate-900 dark:text-slate-100 relative">
         {title}
-        <span className="absolute -bottom-2 left-0 w-10 h-[2px] bg-indigo-500 rounded-full"></span>
+        <span className="absolute -bottom-2 left-0 w-10 h-[2px] bg-[var(--color-brand-primary-soft)]0 rounded-full"></span>
       </h3>
 
       {/* Radial Area */}
@@ -90,8 +90,8 @@ export default function RadialModuleCard({
           className="
             absolute top-10
             w-40 h-40
-            bg-indigo-500/10
-            dark:bg-indigo-500/20
+            bg-[var(--color-brand-primary-soft)]0/10
+            dark:bg-[var(--color-brand-primary)]/20
             blur-3xl
             rounded-full
             pointer-events-none
@@ -104,7 +104,7 @@ export default function RadialModuleCard({
           className="
             absolute top-2 w-24 h-24 rounded-full
             bg-white dark:bg-slate-800
-            border border-slate-200 dark:border-slate-700
+            border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
             shadow-md shadow-slate-200/60 dark:shadow-none
             flex flex-col items-center justify-center text-center
             z-10 cursor-pointer
@@ -141,7 +141,7 @@ export default function RadialModuleCard({
               className="
                 w-12 h-12 rounded-full
                 bg-white dark:bg-slate-800
-                border border-slate-200 dark:border-slate-700
+                border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
                 shadow-sm dark:shadow-none
                 flex items-center justify-center
                 transition-all duration-300
@@ -167,8 +167,8 @@ export default function RadialModuleCard({
         href={linkHref}
         className="
           mt-5 px-4 py-2 text-sm rounded-md
-          bg-indigo-600 text-white
-          hover:bg-indigo-700
+          bg-[var(--color-brand-primary)] text-white
+          hover:bg-[var(--color-brand-primary)]
           shadow-sm hover:shadow-md
           transition-all duration-300
         "

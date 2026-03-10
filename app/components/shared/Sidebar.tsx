@@ -41,8 +41,8 @@ export default function Sidebar({ collapsed, mobileOpen, setMobileOpen }: Sideba
           transition-all duration-300 ease-in-out
           ${collapsed ? "lg:w-[88px]" : "lg:w-[280px]"}
           ${mobileOpen ? "w-[280px] translate-x-0" : "w-[280px] -translate-x-full lg:translate-x-0"}
-          bg-white dark:bg-slate-950
-          border-r border-slate-200 dark:border-slate-800
+          bg-white dark:bg-[var(--color-brand-darkBg)]
+          border-r border-slate-200 dark:border-[var(--color-brand-darkBorder)]
           overflow-hidden
         `}
       >
@@ -50,7 +50,7 @@ export default function Sidebar({ collapsed, mobileOpen, setMobileOpen }: Sideba
         <div
           className={`
           py-6
-          border-b border-slate-200 dark:border-slate-800
+          border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]
           transition-all duration-300
           ${collapsed ? "px-3" : "px-6"}
         `}
@@ -73,8 +73,8 @@ export default function Sidebar({ collapsed, mobileOpen, setMobileOpen }: Sideba
               <div
                 className="
                 rounded-2xl p-5
-                bg-slate-50 dark:bg-slate-900
-                border border-slate-200 dark:border-slate-800
+                bg-slate-50 dark:bg-[var(--color-brand-darkCard)]
+                border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
                 shadow-sm
                 transition-colors duration-300
               "

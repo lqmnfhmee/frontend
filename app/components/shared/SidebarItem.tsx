@@ -54,8 +54,8 @@ export default function SidebarItem({
 
         ${
           active
-            ? "bg-indigo-600 text-white shadow-sm"
-            : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+            ? "bg-[var(--color-brand-primary)] text-white shadow-sm"
+            : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)]"
         }
       `}
     >

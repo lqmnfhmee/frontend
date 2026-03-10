@@ -22,6 +22,16 @@ const config: Config = {
         primary: "rgb(var(--color-primary) / <alpha-value>)",
         "primary-soft": "rgb(var(--color-primary-soft) / <alpha-value>)",
 
+        /* 🏢 Enterprise Theme */
+        "brand-darkBg": "#0B1426",
+        "brand-darkMain": "#0F1B33",
+        "brand-darkCard": "#13213D",
+        "brand-darkBorder": "#1E2E50",
+        "brand-darkHover": "#1C2C4D",
+        "brand-primary": "#2F80ED",
+        "brand-secondary": "#3F5BD9",
+        "brand-highlight": "#FFC107",
+
         /* 📊 Status */
         success: "rgb(var(--color-success) / <alpha-value>)",
         warning: "rgb(var(--color-warning) / <alpha-value>)",

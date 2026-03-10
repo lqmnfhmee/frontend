@@ -48,8 +48,8 @@ export default function SidebarAccordion({
           h-12 rounded-xl cursor-pointer
           transition-all duration-300 ease-in-out
           ${isActive
-                        ? "bg-indigo-600 text-white shadow-sm"
-                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        ? "bg-[var(--color-brand-primary)] text-white shadow-sm"
+                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)]"
                     }
         `}
             >
@@ -81,7 +81,7 @@ export default function SidebarAccordion({
 
             {/* Sub Items */}
             {!collapsed && isOpen && (
-                <div className="mt-1 ml-7 pl-4 border-l-2 border-slate-200 dark:border-slate-800 flex flex-col space-y-1">
+                <div className="mt-1 ml-7 pl-4 border-l-2 border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex flex-col space-y-1">
                     {subItems.map((item) => {
                         const isSubActive = pathname === item.href;
                         return (
@@ -91,14 +91,14 @@ export default function SidebarAccordion({
                                 className={`
                   relative px-2 py-2 text-sm rounded-md transition-colors
                   ${isSubActive
-                                        ? "text-indigo-600 dark:text-indigo-400 font-medium"
+                                        ? "text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)] font-medium"
                                         : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
                                     }
                 `}
                             >
                                 {/* Custom active indicator for sub items */}
                                 {isSubActive && (
-                                    <div className="absolute left-[-18px] top-1/2 -translate-y-1/2 w-[2px] h-full bg-indigo-600 rounded-r" />
+                                    <div className="absolute left-[-18px] top-1/2 -translate-y-1/2 w-[2px] h-full bg-[var(--color-brand-primary)] rounded-r" />
                                 )}
                                 {item.label}
                             </Link>

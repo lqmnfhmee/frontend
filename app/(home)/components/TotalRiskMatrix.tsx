@@ -64,8 +64,8 @@ export default function TotalRiskMatrix() {
 
     <div className="
       rounded-xl p-5
-      bg-white dark:bg-slate-900
-      border border-slate-200 dark:border-slate-800
+      bg-white dark:bg-[var(--color-brand-darkCard)]
+      border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
       shadow-md shadow-slate-200/50 dark:shadow-none
       hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
       transition-all duration-300
@@ -73,22 +73,22 @@ export default function TotalRiskMatrix() {
 
       <h3 className="relative font-semibold mb-6 text-slate-900 dark:text-slate-100">
         Total Risk Matrix
-        <span className="absolute -bottom-2 left-0 w-12 h-[2px] bg-indigo-500 rounded-full"></span>
+        <span className="absolute -bottom-2 left-0 w-12 h-[2px] bg-[var(--color-brand-primary-soft)]0 rounded-full"></span>
       </h3>
 
-      <table className="w-full table-fixed text-center text-sm border border-slate-300 dark:border-slate-700">
+      <table className="w-full table-fixed text-center text-sm border border-slate-300 dark:border-[var(--color-brand-darkBorder)]">
 
-        <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-300 dark:border-slate-700">
+        <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-300 dark:border-[var(--color-brand-darkBorder)]">
 
           <tr>
-            <th className="w-16 py-2 text-xs text-slate-500 dark:text-slate-400 border-r border-slate-300 dark:border-slate-700">
+            <th className="w-16 py-2 text-xs text-slate-500 dark:text-slate-400 border-r border-slate-300 dark:border-[var(--color-brand-darkBorder)]">
               POF/COF
             </th>
 
             {columns.map(col => (
               <th
                 key={col}
-                className="py-2 border-r last:border-r-0 border-slate-300 dark:border-slate-700"
+                className="py-2 border-r last:border-r-0 border-slate-300 dark:border-[var(--color-brand-darkBorder)]"
               >
                 {col}
               </th>
@@ -105,14 +105,14 @@ export default function TotalRiskMatrix() {
 
             return (
 
-              <tr key={rowIndex} className="border-t border-slate-300 dark:border-slate-700">
+              <tr key={rowIndex} className="border-t border-slate-300 dark:border-[var(--color-brand-darkBorder)]">
 
                 {/* LEFT LABEL COLUMN */}
                 <td
                   className="
               w-16 py-2 font-semibold
               text-slate-600 dark:text-slate-400
-              border-r border-slate-300 dark:border-slate-700
+              border-r border-slate-300 dark:border-[var(--color-brand-darkBorder)]
             "
                 >
                   {label}
@@ -125,7 +125,7 @@ export default function TotalRiskMatrix() {
                     className={`
                 py-4 font-bold
                 border-r last:border-r-0
-                border-slate-300 dark:border-slate-700
+                border-slate-300 dark:border-[var(--color-brand-darkBorder)]
                 ${getColor(rowIndex, colIndex)}
                 transition-transform duration-200
                 hover:scale-105

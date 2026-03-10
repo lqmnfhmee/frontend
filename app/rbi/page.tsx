@@ -119,7 +119,7 @@ function DashboardCard({ title, subtitle, children, className = "", action }: {
     action?: React.ReactNode;
 }) {
     return (
-        <div className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 flex flex-col gap-4 ${className}`}>
+        <div className={`bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 flex flex-col gap-4 ${className}`}>
             {(title || action) && (
                 <div className="flex items-center justify-between">
                     <div>
@@ -140,7 +140,7 @@ function RiskLevelBadge({ level }: { level: RiskLevel }) {
         High: "bg-orange-100 dark:bg-orange-500/15 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-500/30",
         Medium: "bg-yellow-100 dark:bg-yellow-500/15 text-yellow-700 dark:text-yellow-400 border-yellow-200 dark:border-yellow-500/30",
         Low: "bg-green-100 dark:bg-green-500/15 text-green-700 dark:text-green-400 border-green-200 dark:border-green-500/30",
-        None: "bg-slate-100 dark:bg-slate-700/40 text-slate-500 border-slate-200 dark:border-slate-700",
+        None: "bg-slate-100 dark:bg-slate-700/40 text-slate-500 border-slate-200 dark:border-[var(--color-brand-darkBorder)]",
     };
     return (
         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold border ${styles[level] ?? styles.None}`}>
@@ -177,17 +177,17 @@ export default function RbiPage() {
                         <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">RBI Dashboard</h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
                             Risk-Based Inspection overview ·{" "}
-                            <span className="font-medium text-indigo-600 dark:text-indigo-400">Larut-A (LRA)</span>
+                            <span className="font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">Larut-A (LRA)</span>
                         </p>
                     </div>
                     <div className="flex items-center gap-2 flex-wrap">
-                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                             <FileText size={14} className="text-red-500" /> Export PDF
                         </button>
-                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                             <FileSpreadsheet size={14} className="text-emerald-500" /> Export Excel
                         </button>
-                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-white bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)] rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                             <PlusCircle size={14} /> Add Asset to RBI
                         </button>
                     </div>
@@ -201,7 +201,7 @@ export default function RbiPage() {
                         { label: "Asset Type", value: "All Types" },
                         { label: "Status", value: "All" },
                     ].map(({ label, value }) => (
-                        <button key={label} className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-300 dark:hover:border-indigo-500/50 transition-colors">
+                        <button key={label} className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg hover:border-[var(--color-brand-primary-soft)] dark:hover:border-[var(--color-brand-primary-soft)] transition-colors">
                             <span className="text-slate-400 dark:text-slate-500">{label}:</span>
                             <span>{value}</span>
                         </button>
@@ -216,13 +216,13 @@ export default function RbiPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
 
                     {/* Total Assets */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
-                        <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-indigo-500/8 dark:bg-indigo-500/10" />
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                        <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-[var(--color-brand-primary-soft)]0/8 dark:bg-[var(--color-brand-primary)]/10" />
                         <div className="flex items-center justify-between mb-3">
-                            <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-500/10">
-                                <Activity size={18} className="text-indigo-500" />
+                            <div className="p-2.5 rounded-xl bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10">
+                                <Activity size={18} className="text-[var(--color-brand-primary)]" />
                             </div>
-                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/30">RBI</span>
+                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/15 text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)] border border-[var(--color-brand-primary-soft)] dark:border-[var(--color-brand-primary-soft)]">RBI</span>
                         </div>
                         <p className="text-3xl font-bold text-slate-900 dark:text-white">{MOCK_ASSETS.length}</p>
                         <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">Total Assets in RBI</p>
@@ -230,7 +230,7 @@ export default function RbiPage() {
                     </div>
 
                     {/* Assessment Coverage */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
                         <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-blue-500/8 dark:bg-blue-500/10" />
                         <div className="flex items-center justify-between mb-3">
                             <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-500/10">
@@ -246,7 +246,7 @@ export default function RbiPage() {
                     </div>
 
                     {/* High / Very High Risk */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
                         <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-red-500/8 dark:bg-red-500/10" />
                         <div className="flex items-center justify-between mb-3">
                             <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-500/10">
@@ -260,7 +260,7 @@ export default function RbiPage() {
                     </div>
 
                     {/* Low Remaining Life */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
                         <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-amber-500/8 dark:bg-amber-500/10" />
                         <div className="flex items-center justify-between mb-3">
                             <div className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-500/10">
@@ -274,7 +274,7 @@ export default function RbiPage() {
                     </div>
 
                     {/* RBI Reviews Due */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
                         <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-orange-500/8 dark:bg-orange-500/10" />
                         <div className="flex items-center justify-between mb-3">
                             <div className="p-2.5 rounded-xl bg-orange-50 dark:bg-orange-500/10">
@@ -301,13 +301,13 @@ export default function RbiPage() {
                         title="Plant Risk Matrix"
                         subtitle="POF vs CoF heatmap — click a cell to filter assets"
                         action={
-                            <div className="flex border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+                            <div className="flex border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg overflow-hidden">
                                 {["Total", "Vessel", "Piping"].map(tab => (
                                     <button
                                         key={tab}
                                         onClick={() => setRiskTab(tab)}
                                         className={`px-3 py-1 text-xs font-medium transition-colors ${riskTab === tab
-                                            ? "bg-indigo-600 text-white"
+                                            ? "bg-[var(--color-brand-primary)] text-white"
                                             : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                                             }`}
                                     >
@@ -324,7 +324,7 @@ export default function RbiPage() {
                                 <span className="text-xs text-slate-400 dark:text-slate-500">risk zone selected</span>
                                 <button
                                     onClick={() => { setSelectedCell(null); setFilterRisk(null); }}
-                                    className="ml-auto text-xs text-indigo-500 hover:text-indigo-700 dark:hover:text-indigo-300 underline underline-offset-2"
+                                    className="ml-auto text-xs text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] dark:hover:text-[var(--color-brand-primary-soft)] underline underline-offset-2"
                                 >
                                     Clear filter
                                 </button>
@@ -358,7 +358,7 @@ export default function RbiPage() {
                         <DashboardCard title="Top Risk Drivers" className="flex-1">
                             <div className="space-y-2">
                                 {topDrivers.map((d, i) => (
-                                    <div key={i} className="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                                    <div key={i} className="flex items-start gap-3 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                                         <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: d.color }} />
                                         <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{d.text}</p>
                                     </div>
@@ -380,7 +380,7 @@ export default function RbiPage() {
                     <DashboardCard title="Inspection Planning Recommendations" subtitle="Recommended methods based on RBI assessment">
                         <div className="space-y-3">
                             {irpMethods.map(({ name, interval, lastDate, nextDate, icon: Icon, color }) => (
-                                <div key={name} className="flex items-center gap-4 p-3.5 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-800/40 hover:border-slate-200 dark:hover:border-slate-700 transition-colors">
+                                <div key={name} className="flex items-center gap-4 p-3.5 rounded-xl border border-slate-100 dark:border-[var(--color-brand-darkBorder)] bg-slate-50/60 dark:bg-slate-800/40 hover:border-slate-200 dark:hover:border-slate-700 transition-colors">
                                     <div className="p-2.5 rounded-xl flex-shrink-0" style={{ backgroundColor: `${color}18` }}>
                                         <Icon size={18} style={{ color }} />
                                     </div>
@@ -452,14 +452,14 @@ export default function RbiPage() {
                         title="High / Very High Risk Equipment"
                         subtitle={`${highVeryHighAssets.length} assets requiring priority attention`}
                         action={
-                            <button className="flex items-center gap-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+                            <button className="flex items-center gap-1 text-xs font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] dark:hover:text-[var(--color-brand-primary-soft)] transition-colors">
                                 View All <ChevronRight size={13} />
                             </button>
                         }
                     >
-                        <div className="rounded-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                        <div className="rounded-xl border border-slate-100 dark:border-[var(--color-brand-darkBorder)] overflow-hidden">
                             <table className="w-full text-xs">
-                                <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-800">
+                                <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                                     <tr>
                                         {["Asset Tag", "Name", "Risk", "POF", "COF", "Next Inspection"].map(h => (
                                             <th key={h} className="px-3 py-2.5 text-left text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">{h}</th>
@@ -468,7 +468,7 @@ export default function RbiPage() {
                                 </thead>
                                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                     {highVeryHighAssets.slice(0, 5).map(a => (
-                                        <tr key={a.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors cursor-pointer" onClick={() => setSelectedAsset(a)}>
+                                        <tr key={a.id} className="hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)]/40 transition-colors cursor-pointer" onClick={() => setSelectedAsset(a)}>
                                             <td className="px-3 py-2.5 font-mono font-semibold text-slate-800 dark:text-slate-200">{a.id}</td>
                                             <td className="px-3 py-2.5 text-slate-600 dark:text-slate-300 max-w-[120px] truncate">{a.name}</td>
                                             <td className="px-3 py-2.5"><RiskLevelBadge level={a.riskLevel} /></td>
@@ -487,14 +487,14 @@ export default function RbiPage() {
                         title="Low Remaining Life Equipment"
                         subtitle={`${LOW_REMAINING_LIFE.length} components below 5-year threshold`}
                         action={
-                            <button className="flex items-center gap-1 text-xs font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors">
+                            <button className="flex items-center gap-1 text-xs font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)] hover:text-[var(--color-brand-primary)] dark:hover:text-[var(--color-brand-primary-soft)] transition-colors">
                                 View All <ChevronRight size={13} />
                             </button>
                         }
                     >
-                        <div className="rounded-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                        <div className="rounded-xl border border-slate-100 dark:border-[var(--color-brand-darkBorder)] overflow-hidden">
                             <table className="w-full text-xs">
-                                <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-800">
+                                <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                                     <tr>
                                         {["Asset Tag", "Component", "Rem. Life", "Risk", "Next Insp."].map(h => (
                                             <th key={h} className="px-3 py-2.5 text-left text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">{h}</th>
@@ -503,7 +503,7 @@ export default function RbiPage() {
                                 </thead>
                                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                     {LOW_REMAINING_LIFE.slice(0, 5).map(a => (
-                                        <tr key={a.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                                        <tr key={a.id} className="hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)]/40 transition-colors">
                                             <td className="px-3 py-2.5 font-mono font-semibold text-slate-800 dark:text-slate-200">{a.id}</td>
                                             <td className="px-3 py-2.5 text-slate-600 dark:text-slate-300 max-w-[110px] truncate">{a.component}</td>
                                             <td className="px-3 py-2.5">
@@ -589,9 +589,9 @@ export default function RbiPage() {
                                 </div>
                             ))}
                         </div>
-                        <div className="flex items-center gap-2 p-3 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20">
-                            <CheckCircle2 size={14} className="text-indigo-500 flex-shrink-0" />
-                            <p className="text-[11px] text-indigo-700 dark:text-indigo-300">POF completeness below 80% — review input data quality</p>
+                        <div className="flex items-center gap-2 p-3 rounded-xl bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10 border border-[var(--color-brand-primary-soft)] dark:border-[var(--color-brand-primary-soft)]">
+                            <CheckCircle2 size={14} className="text-[var(--color-brand-primary)] flex-shrink-0" />
+                            <p className="text-[11px] text-[var(--color-brand-primary)] dark:text-brand-secondary">POF completeness below 80% — review input data quality</p>
                         </div>
                     </DashboardCard>
 
@@ -602,7 +602,7 @@ export default function RbiPage() {
                 {/* ════════════════════════════════════════ */}
                 <SectionHeader label="Asset Register" />
 
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5">
                     <FilterChips
                         filters={activeChips}
                         onRemove={() => { setSelectedCell(null); setFilterRisk(null); }}

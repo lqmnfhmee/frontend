@@ -27,10 +27,10 @@ export default function AssetGroupsPage() {
             </div>
 
             {/* Toolbar & Table Card */}
-            <div className="bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+            <div className="bg-white dark:bg-[var(--color-brand-darkBg)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden">
 
                 {/* Toolbar */}
-                <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row gap-4 justify-between items-center">
+                <div className="p-4 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex flex-col md:flex-row gap-4 justify-between items-center">
                     {/* Search */}
                     <div className="relative w-full md:max-w-md">
                         <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
@@ -39,13 +39,13 @@ export default function AssetGroupsPage() {
                         <input
                             type="text"
                             placeholder="Search by name or description..."
-                            className="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 dark:border-slate-800 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg bg-slate-50 dark:bg-[var(--color-brand-darkCard)] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>
 
                     {/* Actions */}
                     <div className="flex items-center gap-3 w-full md:w-auto">
-                        <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors">
+                        <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)] rounded-lg transition-colors">
                             <Plus size={16} />
                             Add Asset Group
                         </button>
@@ -55,7 +55,7 @@ export default function AssetGroupsPage() {
                 {/* Table */}
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left">
-                        <thead className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
+                        <thead className="bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                             <tr>
                                 <th className="px-6 py-4">Name</th>
                                 <th className="px-6 py-4">Description</th>
@@ -66,7 +66,7 @@ export default function AssetGroupsPage() {
                             {groups.map((grp, idx) => (
                                 <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
                                     <td className="px-6 py-4 font-medium text-slate-500 dark:text-slate-400">{grp.name}</td>
-                                    <td className="px-6 py-4 text-indigo-600 dark:text-indigo-400">{grp.desc}</td>
+                                    <td className="px-6 py-4 text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">{grp.desc}</td>
                                     <td className="px-6 py-4 text-right">
                                         <div className="flex items-center justify-end gap-2 text-slate-400">
                                             <button className="p-1.5 text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-500/10 rounded-md border border-amber-200 dark:border-amber-500/30 transition-colors">

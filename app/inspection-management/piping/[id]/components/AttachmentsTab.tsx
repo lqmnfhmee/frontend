@@ -6,8 +6,8 @@ export default function AttachmentsTab() {
     return (
         <div className="space-y-6 animate-in fade-in duration-300">
             {/* P&ID Documents */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4">
-                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-6 space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] pb-4">
                     <h2 className="text-sm font-semibold text-slate-900 dark:text-white">P&ID Documents</h2>
                     <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
                         <Upload size={16} />
@@ -21,8 +21,8 @@ export default function AttachmentsTab() {
             </div>
 
             {/* GA/ISO Documents */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4">
-                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-6 space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] pb-4">
                     <h2 className="text-sm font-semibold text-slate-900 dark:text-white">GA/ISO Documents</h2>
                     <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
                         <Upload size={16} />
@@ -36,8 +36,8 @@ export default function AttachmentsTab() {
             </div>
 
             {/* SOE Documents */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4">
-                <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-6 space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] pb-4">
                     <h2 className="text-sm font-semibold text-slate-900 dark:text-white">SOE Documents</h2>
                     <button className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
                         <Upload size={16} />

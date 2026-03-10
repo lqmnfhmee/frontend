@@ -29,10 +29,10 @@ export default function DeletedItemsPage() {
             </div>
 
             {/* Main Container */}
-            <div className="bg-white dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden p-6">
+            <div className="bg-white dark:bg-[var(--color-brand-darkBg)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden p-6">
 
                 {/* Tabs */}
-                <div className="bg-slate-100 dark:bg-slate-900/50 p-1 rounded-lg flex mb-6">
+                <div className="bg-slate-100 dark:bg-[var(--color-brand-darkCard)]/50 p-1 rounded-lg flex mb-6">
                     {tabs.map((tab) => (
                         <button
                             key={tab}
@@ -59,18 +59,18 @@ export default function DeletedItemsPage() {
                         <input
                             type="text"
                             placeholder="Search..."
-                            className="w-full px-4 py-2 text-sm border border-slate-200 dark:border-slate-800 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            className="w-full px-4 py-2 text-sm border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg bg-slate-50 dark:bg-[var(--color-brand-darkCard)] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                     </div>
                 </div>
 
                 {/* Tab Content Tables */}
-                <div className="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-lg">
+                <div className="overflow-x-auto border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg">
 
                     {/* Facilities Tab */}
                     {activeTab === "Facilities" && (
                         <table className="w-full text-sm text-left">
-                            <thead className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
+                            <thead className="bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                                 <tr>
                                     <th className="px-6 py-4 w-12"><input type="checkbox" className="rounded border-slate-300" /></th>
                                     <th className="px-6 py-4">Name</th>
@@ -94,7 +94,7 @@ export default function DeletedItemsPage() {
                     {/* Systems Tab */}
                     {activeTab === "Systems" && (
                         <table className="w-full text-sm text-left">
-                            <thead className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
+                            <thead className="bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                                 <tr>
                                     <th className="px-6 py-4 w-12"><input type="checkbox" className="rounded border-slate-300" /></th>
                                     <th className="px-6 py-4">Name</th>
@@ -119,7 +119,7 @@ export default function DeletedItemsPage() {
                     {/* Packages Tab */}
                     {activeTab === "Packages" && (
                         <table className="w-full text-sm text-left">
-                            <thead className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
+                            <thead className="bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                                 <tr>
                                     <th className="px-6 py-4 w-12"><input type="checkbox" className="rounded border-slate-300" /></th>
                                     <th className="px-6 py-4">Name</th>
@@ -144,7 +144,7 @@ export default function DeletedItemsPage() {
                     {/* Assets Tab */}
                     {activeTab === "Assets" && (
                         <table className="w-full text-sm text-left">
-                            <thead className="bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-slate-800">
+                            <thead className="bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/50 text-slate-500 dark:text-slate-400 font-semibold border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                                 <tr>
                                     <th className="px-6 py-4 w-12"><input type="checkbox" className="rounded border-slate-300" /></th>
                                     <th className="px-6 py-4">Name</th>
@@ -170,10 +170,10 @@ export default function DeletedItemsPage() {
                                         <td className="px-6 py-4">{asset.deletedAt}</td>
                                         <td className="px-6 py-4 text-right">
                                             <div className="flex items-center justify-end gap-2 text-slate-400">
-                                                <button className="p-1.5 text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 rounded-md border border-indigo-200 dark:border-indigo-500/30 transition-colors tooltip" title="Restore">
+                                                <button className="p-1.5 text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary-soft)] dark:hover:bg-[var(--color-brand-primary-soft)]0/10 rounded-md border border-[var(--color-brand-primary-soft)] dark:border-[var(--color-brand-primary-soft)] transition-colors tooltip" title="Restore">
                                                     <RotateCcw size={16} />
                                                 </button>
-                                                <button className="p-1.5 text-white bg-indigo-600 hover:bg-indigo-700 rounded-md transition-colors tooltip" title="Permanently Delete">
+                                                <button className="p-1.5 text-white bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)] rounded-md transition-colors tooltip" title="Permanently Delete">
                                                     <Trash2 size={16} />
                                                 </button>
                                             </div>

@@ -49,7 +49,7 @@ export default function AssetRiskTable({ assets, filterRisk, onViewAsset }: Asse
 
     const SortIcon = ({ col }: { col: SortKey }) => {
         if (sortKey !== col) return <ChevronUp size={12} className="text-slate-300 dark:text-slate-600" />;
-        return sortDir === "asc" ? <ChevronUp size={12} className="text-indigo-500" /> : <ChevronDown size={12} className="text-indigo-500" />;
+        return sortDir === "asc" ? <ChevronUp size={12} className="text-[var(--color-brand-primary)]" /> : <ChevronDown size={12} className="text-[var(--color-brand-primary)]" />;
     };
 
     const hClass = "px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 cursor-pointer hover:text-slate-700 dark:hover:text-slate-300 transition-colors select-none";
@@ -57,11 +57,11 @@ export default function AssetRiskTable({ assets, filterRisk, onViewAsset }: Asse
     return (
         <div className="flex flex-col gap-3">
             <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search assets…"
-                className="w-full sm:w-72 px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition" />
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                className="w-full sm:w-72 px-3 py-2 text-sm rounded-lg border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition" />
+            <div className="rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm">
-                        <thead className="bg-slate-50 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800">
+                        <thead className="bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/60 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                             <tr>
                                 <th className={hClass} onClick={() => handleSort("id")}><span className="flex items-center gap-1">Asset ID <SortIcon col="id" /></span></th>
                                 <th className={`${hClass} hidden md:table-cell`} onClick={() => handleSort("type")}><span className="flex items-center gap-1">Type <SortIcon col="type" /></span></th>
@@ -78,7 +78,7 @@ export default function AssetRiskTable({ assets, filterRisk, onViewAsset }: Asse
                                 <tr><td colSpan={8} className="py-10 text-center text-sm text-slate-400 dark:text-slate-500">No assets match the current filters.</td></tr>
                             ) : (
                                 filtered.map((asset) => (
-                                    <tr key={asset.id} className="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                    <tr key={asset.id} className="group hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors">
                                         <td className="px-4 py-3">
                                             <div className="font-medium text-slate-900 dark:text-white text-sm">{asset.id}</div>
                                             <div className="text-xs text-slate-500 dark:text-slate-400 truncate max-w-[140px]">{asset.name}</div>
@@ -92,7 +92,7 @@ export default function AssetRiskTable({ assets, filterRisk, onViewAsset }: Asse
                                             <SparklineChart data={asset.trend} color={asset.riskLevel === "Critical" || asset.riskLevel === "High" ? "#ef4444" : asset.riskLevel === "Medium" ? "#eab308" : "#22c55e"} height={32} />
                                         </td>
                                         <td className="px-4 py-3">
-                                            <button onClick={() => onViewAsset(asset)} className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 dark:hover:text-indigo-400 transition-all" title="View detail">
+                                            <button onClick={() => onViewAsset(asset)} className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-slate-400 hover:text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary-soft)] dark:hover:bg-[var(--color-brand-primary-soft)]0/10 dark:hover:text-[var(--color-brand-primary)] transition-all" title="View detail">
                                                 <Eye size={15} />
                                             </button>
                                         </td>
@@ -102,7 +102,7 @@ export default function AssetRiskTable({ assets, filterRisk, onViewAsset }: Asse
                         </tbody>
                     </table>
                 </div>
-                <div className="px-4 py-2.5 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40">
+                <div className="px-4 py-2.5 border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)] bg-slate-50/50 dark:bg-[var(--color-brand-darkCard)]/40">
                     <span className="text-xs text-slate-400 dark:text-slate-500">{filtered.length} of {assets.length} assets{filterRisk ? ` · Filtered by: ${filterRisk}` : ""}</span>
                 </div>
             </div>

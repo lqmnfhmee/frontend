@@ -41,7 +41,7 @@ export default function DashboardLayout({
       {/* 🌎 APP BACKGROUND SURFACE */}
       <div className="
         absolute inset-0 -z-10
-        bg-slate-50 dark:bg-slate-950
+        bg-slate-50 dark:bg-[var(--color-brand-darkMain)]
       " />
 
       {/* SIDEBAR */}

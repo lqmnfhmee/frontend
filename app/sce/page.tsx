@@ -52,7 +52,7 @@ const barrierGroups: BarrierGroup[] = [
     {
         icon: Shield,
         color: "#6366f1",
-        colorBg: "bg-indigo-50 dark:bg-indigo-500/10",
+        colorBg: "bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10",
         title: "Structural Integrity",
         abbr: "SI",
         total: 714,
@@ -104,7 +104,7 @@ const barrierGroups: BarrierGroup[] = [
     {
         icon: Bell,
         color: "#6366f1",
-        colorBg: "bg-indigo-50 dark:bg-indigo-500/10",
+        colorBg: "bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10",
         title: "Detection Systems",
         abbr: "DS",
         total: 75,
@@ -214,7 +214,7 @@ const equipmentRegister = [
 const statusStyle: Record<string, string> = {
     "SCE": "bg-red-100 dark:bg-red-500/15 text-red-600 dark:text-red-400 border-red-200 dark:border-red-500/30",
     "Not SCE": "bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/30",
-    "Not Assessed": "bg-slate-100 dark:bg-slate-700/40 text-slate-500 border-slate-200 dark:border-slate-700",
+    "Not Assessed": "bg-slate-100 dark:bg-slate-700/40 text-slate-500 border-slate-200 dark:border-[var(--color-brand-darkBorder)]",
 };
 
 const tooltipStyle = {
@@ -384,7 +384,7 @@ function DashboardCard({ title, subtitle, children, className = "", action }: {
     action?: React.ReactNode;
 }) {
     return (
-        <div className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 flex flex-col gap-4 ${className}`}>
+        <div className={`bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 flex flex-col gap-4 ${className}`}>
             {(title || action) && (
                 <div className="flex items-center justify-between">
                     <div>
@@ -435,17 +435,17 @@ export default function SCEDashboard() {
                         <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">SCE Dashboard</h1>
                         <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
                             Safety Critical Elements Assessment Overview ·{" "}
-                            <span className="font-medium text-indigo-600 dark:text-indigo-400">Larut-A (LRA)</span>
+                            <span className="font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">Larut-A (LRA)</span>
                         </p>
                     </div>
                     <div className="flex items-center gap-2 flex-wrap">
-                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                             <FileText size={14} className="text-red-500" /> Export PDF
                         </button>
-                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                             <FileSpreadsheet size={14} className="text-emerald-500" /> Export Excel
                         </button>
-                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                        <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-white bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)] rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                             <ShieldAlert size={14} /> View Assessments
                         </button>
                     </div>
@@ -459,7 +459,7 @@ export default function SCEDashboard() {
                         { label: "Barrier Group", value: "All Groups" },
                         { label: "Assessment Status", value: "All" },
                     ].map(({ label, value }) => (
-                        <button key={label} className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg hover:border-indigo-300 dark:hover:border-indigo-500/50 transition-colors">
+                        <button key={label} className="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg hover:border-[var(--color-brand-primary-soft)] dark:hover:border-[var(--color-brand-primary-soft)] transition-colors">
                             <span className="text-slate-400 dark:text-slate-500">{label}:</span>
                             <span>{value}</span>
                         </button>
@@ -474,13 +474,13 @@ export default function SCEDashboard() {
                 <div className="grid grid-cols-2 xl:grid-cols-6 gap-4">
 
                     {/* Total Equipment */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
-                        <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-indigo-500/8 dark:bg-indigo-500/10" />
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                        <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-[var(--color-brand-primary-soft)]0/8 dark:bg-[var(--color-brand-primary)]/10" />
                         <div className="flex items-center justify-between mb-3">
-                            <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-500/10">
-                                <Database size={18} className="text-indigo-500" />
+                            <div className="p-2.5 rounded-xl bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10">
+                                <Database size={18} className="text-[var(--color-brand-primary)]" />
                             </div>
-                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/30">TOTAL</span>
+                            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/15 text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)] border border-[var(--color-brand-primary-soft)] dark:border-[var(--color-brand-primary-soft)]">TOTAL</span>
                         </div>
                         <p className="text-3xl font-bold text-slate-900 dark:text-white">{kpiData.total.toLocaleString()}</p>
                         <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 mt-0.5">Total Equipment</p>
@@ -488,7 +488,7 @@ export default function SCEDashboard() {
                     </div>
 
                     {/* SCE Count */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
                         <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-red-500/8 dark:bg-red-500/10" />
                         <div className="flex items-center justify-between mb-3">
                             <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-500/10">
@@ -502,7 +502,7 @@ export default function SCEDashboard() {
                     </div>
 
                     {/* Not SCE */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
                         <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-emerald-500/8 dark:bg-emerald-500/10" />
                         <div className="flex items-center justify-between mb-3">
                             <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-500/10">
@@ -516,7 +516,7 @@ export default function SCEDashboard() {
                     </div>
 
                     {/* Not Assessed */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
                         <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-amber-500/8 dark:bg-amber-500/10" />
                         <div className="flex items-center justify-between mb-3">
                             <div className="p-2.5 rounded-xl bg-amber-50 dark:bg-amber-500/10">
@@ -530,7 +530,7 @@ export default function SCEDashboard() {
                     </div>
 
                     {/* Assessment Coverage */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
                         <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-blue-500/8 dark:bg-blue-500/10" />
                         <div className="flex items-center justify-between mb-3">
                             <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-500/10">
@@ -546,7 +546,7 @@ export default function SCEDashboard() {
                     </div>
 
                     {/* Total Barrier Groups */}
-                    <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
+                    <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
                         <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-purple-500/8 dark:bg-purple-500/10" />
                         <div className="flex items-center justify-between mb-3">
                             <div className="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-500/10">
@@ -601,9 +601,9 @@ export default function SCEDashboard() {
                                 </div>
                             </div>
                             {/* Legend */}
-                            <div className="w-full grid grid-cols-3 gap-3 border-t border-slate-100 dark:border-slate-800 pt-4">
+                            <div className="w-full grid grid-cols-3 gap-3 border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)] pt-4">
                                 {donutData.map((item, idx) => (
-                                    <div key={idx} className="flex flex-col items-center gap-1 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800">
+                                    <div key={idx} className="flex flex-col items-center gap-1 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                                         <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
                                         <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium text-center">{item.name}</span>
                                         <span className="text-sm font-bold text-slate-900 dark:text-white">{item.value.toLocaleString()}</span>
@@ -637,7 +637,7 @@ export default function SCEDashboard() {
                                 </div>
                             ))}
 
-                            <div className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 mt-2">
+                            <div className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-[var(--color-brand-darkBorder)] mt-2">
                                 <CheckCircle2 size={14} className="text-emerald-500 flex-shrink-0" />
                                 <p className="text-[11px] text-slate-500 dark:text-slate-400">
                                     99.6% of equipment has been assessed. Only <span className="font-semibold text-amber-500">34 items</span> remain unclassified.
@@ -664,7 +664,7 @@ export default function SCEDashboard() {
                             <button
                                 key={idx}
                                 onClick={() => openDrawer(group)}
-                                className="group relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 hover:-translate-y-1 hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 cursor-pointer overflow-hidden text-left w-full"
+                                className="group relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 hover:-translate-y-1 hover:shadow-lg hover:border-slate-300 dark:hover:border-slate-700 transition-all duration-300 cursor-pointer overflow-hidden text-left w-full"
                                 style={{
                                     // Subtle glow on hover via box-shadow
                                     ["--glow" as string]: group.color,
@@ -696,7 +696,7 @@ export default function SCEDashboard() {
                                     {group.desc}
                                 </p>
 
-                                <div className="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-3">
+                                <div className="flex items-center justify-between border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)] pt-3">
                                     <div>
                                         <p className="text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider">SCE Count</p>
                                         <p className="text-xl font-bold mt-0.5" style={{ color: group.color }}>{group.total}</p>
@@ -708,7 +708,7 @@ export default function SCEDashboard() {
                                 </div>
 
                                 {/* View details hint */}
-                                <div className="flex items-center justify-end mt-3 pt-2 border-t border-slate-100 dark:border-slate-800">
+                                <div className="flex items-center justify-end mt-3 pt-2 border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                                     <span className="text-[11px] font-medium flex items-center gap-1 transition-all group-hover:gap-2 duration-200" style={{ color: group.color }}>
                                         View Details <ChevronRight size={12} />
                                     </span>
@@ -728,8 +728,8 @@ export default function SCEDashboard() {
                     subtitle="Largest safety-critical equipment categories — focus areas for safety assurance"
                     action={
                         <div className="flex items-center gap-1.5">
-                            <Target size={13} className="text-indigo-500" />
-                            <span className="text-[11px] font-medium text-indigo-600 dark:text-indigo-400">Top 8 categories</span>
+                            <Target size={13} className="text-[var(--color-brand-primary)]" />
+                            <span className="text-[11px] font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">Top 8 categories</span>
                         </div>
                     }
                 >
@@ -769,7 +769,7 @@ export default function SCEDashboard() {
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
-                    <div className="flex flex-wrap gap-3 border-t border-slate-100 dark:border-slate-800 pt-3">
+                    <div className="flex flex-wrap gap-3 border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)] pt-3">
                         {topCategories.map(({ name, color }) => (
                             <div key={name} className="flex items-center gap-1.5">
                                 <div className="w-2 h-2 rounded-sm flex-shrink-0" style={{ backgroundColor: color }} />
@@ -784,17 +784,17 @@ export default function SCEDashboard() {
                 {/* ════════════════════════════════════════ */}
                 <SectionHeader label="SCE Equipment Register" />
 
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5">
                     {/* Filter row */}
                     <div className="flex items-center gap-3 flex-wrap mb-4">
                         <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Filter:</span>
-                        <div className="flex border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+                        <div className="flex border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg overflow-hidden">
                             {["All", "Process Containment", "Structural Integrity", "Protection Systems"].map(f => (
                                 <button
                                     key={f}
                                     onClick={() => setBarrierFilter(f)}
                                     className={`px-3 py-1 text-xs font-medium transition-colors ${barrierFilter === f
-                                        ? "bg-indigo-600 text-white"
+                                        ? "bg-[var(--color-brand-primary)] text-white"
                                         : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                                         }`}
                                 >
@@ -802,13 +802,13 @@ export default function SCEDashboard() {
                                 </button>
                             ))}
                         </div>
-                        <div className="flex border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+                        <div className="flex border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg overflow-hidden">
                             {["All", "SCE", "Not SCE", "Not Assessed"].map(s => (
                                 <button
                                     key={s}
                                     onClick={() => setStatusFilter(s)}
                                     className={`px-3 py-1 text-xs font-medium transition-colors ${statusFilter === s
-                                        ? "bg-indigo-600 text-white"
+                                        ? "bg-[var(--color-brand-primary)] text-white"
                                         : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
                                         }`}
                                 >
@@ -821,9 +821,9 @@ export default function SCEDashboard() {
                         </span>
                     </div>
 
-                    <div className="rounded-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
+                    <div className="rounded-xl border border-slate-100 dark:border-[var(--color-brand-darkBorder)] overflow-hidden">
                         <table className="w-full text-xs">
-                            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-800">
+                            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                                 <tr>
                                     {["Asset Tag", "Equipment Name", "Barrier Group", "SCE Category", "System", "Status"].map(h => (
                                         <th key={h} className="px-3 py-2.5 text-left text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">{h}</th>
@@ -832,10 +832,10 @@ export default function SCEDashboard() {
                             </thead>
                             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                 {filteredEquipment.map((eq, i) => (
-                                    <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors cursor-pointer group">
+                                    <tr key={i} className="hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)]/40 transition-colors cursor-pointer group">
                                         <td className="px-3 py-2.5 font-mono font-semibold text-slate-800 dark:text-slate-200">{eq.tag}</td>
                                         <td className="px-3 py-2.5 text-slate-600 dark:text-slate-300 max-w-[180px]">
-                                            <span className="group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate block">{eq.name}</span>
+                                            <span className="group-hover:text-[var(--color-brand-primary)] dark:group-hover:text-[var(--color-brand-primary)] transition-colors truncate block">{eq.name}</span>
                                         </td>
                                         <td className="px-3 py-2.5 text-slate-500 dark:text-slate-400 max-w-[150px]">
                                             <span className="truncate block">{eq.barrierGroup}</span>

@@ -158,7 +158,7 @@ export default function AnomaliesPage() {
                     <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Anomalies Dashboard</h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">Operational view of equipment defects and repair actions</p>
                 </div>
-                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors shadow-sm">
+                <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)] rounded-lg transition-colors shadow-sm">
                     <Download size={15} /> Export Report
                 </button>
             </div>
@@ -171,7 +171,7 @@ export default function AnomaliesPage() {
                 </div>
                 <div className="p-0 overflow-x-auto">
                     <table className="w-full text-left text-sm whitespace-nowrap">
-                        <thead className="text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-slate-900/50">
+                        <thead className="text-slate-500 dark:text-slate-400 bg-white/50 dark:bg-[var(--color-brand-darkCard)]/50">
                             <tr>
                                 <th className="px-5 py-3 font-medium">Equipment</th>
                                 <th className="px-5 py-3 font-medium">Issue</th>
@@ -181,7 +181,7 @@ export default function AnomaliesPage() {
                         </thead>
                         <tbody className="divide-y divide-red-100 dark:divide-red-900/30">
                             {criticalAnomalies.map(anomaly => (
-                                <tr key={anomaly.id} className="bg-white dark:bg-slate-900 hover:bg-red-50/50 dark:hover:bg-red-900/10 transition-colors">
+                                <tr key={anomaly.id} className="bg-white dark:bg-[var(--color-brand-darkCard)] hover:bg-red-50/50 dark:hover:bg-red-900/10 transition-colors">
                                     <td className="px-5 py-3 font-semibold text-slate-900 dark:text-slate-200">{anomaly.equipment}</td>
                                     <td className="px-5 py-3 text-slate-700 dark:text-slate-300">{anomaly.finding}</td>
                                     <td className="px-5 py-3 text-center">
@@ -203,50 +203,50 @@ export default function AnomaliesPage() {
             {/* 2. MIDDLE SECTION: Risk Overview */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
                 {/* Priority Distribution */}
-                <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm xl:col-span-3 flex flex-col">
-                    <div className="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2 text-orange-500">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm xl:col-span-3 flex flex-col">
+                    <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex items-center gap-2 text-orange-500">
                         <Hash size={18} />
                         <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Priority Distribution</h2>
                     </div>
                     <div className="p-5 overflow-x-auto">
-                        <table className="w-full text-center text-sm border-collapse border border-slate-300 dark:border-slate-700 min-w-[600px]">
+                        <table className="w-full text-center text-sm border-collapse border border-slate-300 dark:border-[var(--color-brand-darkBorder)] min-w-[600px]">
                             <thead>
                                 <tr>
-                                    <th colSpan={8} className="p-3 border border-slate-300 dark:border-slate-700 font-semibold bg-white dark:bg-slate-800 text-slate-900 dark:text-white">Priority</th>
+                                    <th colSpan={8} className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-semibold bg-white dark:bg-slate-800 text-slate-900 dark:text-white">Priority</th>
                                 </tr>
                                 <tr>
-                                    <th colSpan={2} className="p-3 border border-slate-300 dark:border-slate-700 font-bold bg-[#ef4444] text-white">P1</th>
-                                    <th colSpan={2} className="p-3 border border-slate-300 dark:border-slate-700 font-bold bg-[#f97316] text-white">P2</th>
-                                    <th colSpan={2} className="p-3 border border-slate-300 dark:border-slate-700 font-bold bg-[#eab308] text-slate-900">P3</th>
-                                    <th colSpan={2} className="p-3 border border-slate-300 dark:border-slate-700 font-bold bg-[#22c55e] text-white">P4</th>
+                                    <th colSpan={2} className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-bold bg-[#ef4444] text-white">P1</th>
+                                    <th colSpan={2} className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-bold bg-[#f97316] text-white">P2</th>
+                                    <th colSpan={2} className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-bold bg-[#eab308] text-slate-900">P3</th>
+                                    <th colSpan={2} className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-bold bg-[#22c55e] text-white">P4</th>
                                 </tr>
                                 <tr>
-                                    <td colSpan={2} className="p-3 border border-slate-300 dark:border-slate-700 font-bold bg-white dark:bg-slate-800 text-slate-900 dark:text-white">{pStats.P1.total}</td>
-                                    <td colSpan={2} className="p-3 border border-slate-300 dark:border-slate-700 font-bold bg-white dark:bg-slate-800 text-slate-900 dark:text-white">{pStats.P2.total}</td>
-                                    <td colSpan={2} className="p-3 border border-slate-300 dark:border-slate-700 font-bold bg-white dark:bg-slate-800 text-slate-900 dark:text-white">{pStats.P3.total}</td>
-                                    <td colSpan={2} className="p-3 border border-slate-300 dark:border-slate-700 font-bold bg-white dark:bg-slate-800 text-slate-900 dark:text-white">{pStats.P4.total}</td>
+                                    <td colSpan={2} className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-bold bg-white dark:bg-slate-800 text-slate-900 dark:text-white">{pStats.P1.total}</td>
+                                    <td colSpan={2} className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-bold bg-white dark:bg-slate-800 text-slate-900 dark:text-white">{pStats.P2.total}</td>
+                                    <td colSpan={2} className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-bold bg-white dark:bg-slate-800 text-slate-900 dark:text-white">{pStats.P3.total}</td>
+                                    <td colSpan={2} className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-bold bg-white dark:bg-slate-800 text-slate-900 dark:text-white">{pStats.P4.total}</td>
                                 </tr>
                                 <tr className="bg-slate-50 dark:bg-slate-800/50">
-                                    <th className="p-3 border border-slate-300 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Active</th>
-                                    <th className="p-3 border border-slate-300 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Completed</th>
-                                    <th className="p-3 border border-slate-300 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Active</th>
-                                    <th className="p-3 border border-slate-300 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Completed</th>
-                                    <th className="p-3 border border-slate-300 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Active</th>
-                                    <th className="p-3 border border-slate-300 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Completed</th>
-                                    <th className="p-3 border border-slate-300 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Active</th>
-                                    <th className="p-3 border border-slate-300 dark:border-slate-700 font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Completed</th>
+                                    <th className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Active</th>
+                                    <th className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Completed</th>
+                                    <th className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Active</th>
+                                    <th className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Completed</th>
+                                    <th className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Active</th>
+                                    <th className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Completed</th>
+                                    <th className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Active</th>
+                                    <th className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-semibold text-slate-700 dark:text-slate-300 w-[12.5%]">Completed</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="bg-white dark:bg-slate-900">
-                                    <td className="p-3 border border-slate-300 dark:border-slate-700 font-medium text-slate-600 dark:text-slate-400">{pStats.P1.active}</td>
-                                    <td className="p-3 border border-slate-300 dark:border-slate-700 font-medium text-slate-600 dark:text-slate-400">{pStats.P1.completed}</td>
-                                    <td className="p-3 border border-slate-300 dark:border-slate-700 font-medium text-slate-600 dark:text-slate-400">{pStats.P2.active}</td>
-                                    <td className="p-3 border border-slate-300 dark:border-slate-700 font-medium text-slate-600 dark:text-slate-400">{pStats.P2.completed}</td>
-                                    <td className="p-3 border border-slate-300 dark:border-slate-700 font-medium text-slate-600 dark:text-slate-400">{pStats.P3.active}</td>
-                                    <td className="p-3 border border-slate-300 dark:border-slate-700 font-medium text-slate-600 dark:text-slate-400">{pStats.P3.completed}</td>
-                                    <td className="p-3 border border-slate-300 dark:border-slate-700 font-medium text-slate-600 dark:text-slate-400">{pStats.P4.active}</td>
-                                    <td className="p-3 border border-slate-300 dark:border-slate-700 font-medium text-slate-600 dark:text-slate-400">{pStats.P4.completed}</td>
+                                <tr className="bg-white dark:bg-[var(--color-brand-darkCard)]">
+                                    <td className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-medium text-slate-600 dark:text-slate-400">{pStats.P1.active}</td>
+                                    <td className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-medium text-slate-600 dark:text-slate-400">{pStats.P1.completed}</td>
+                                    <td className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-medium text-slate-600 dark:text-slate-400">{pStats.P2.active}</td>
+                                    <td className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-medium text-slate-600 dark:text-slate-400">{pStats.P2.completed}</td>
+                                    <td className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-medium text-slate-600 dark:text-slate-400">{pStats.P3.active}</td>
+                                    <td className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-medium text-slate-600 dark:text-slate-400">{pStats.P3.completed}</td>
+                                    <td className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-medium text-slate-600 dark:text-slate-400">{pStats.P4.active}</td>
+                                    <td className="p-3 border border-slate-300 dark:border-[var(--color-brand-darkBorder)] font-medium text-slate-600 dark:text-slate-400">{pStats.P4.completed}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -254,8 +254,8 @@ export default function AnomaliesPage() {
                 </section>
 
                 {/* High Risk Equipment List */}
-                <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm xl:col-span-2 flex flex-col">
-                    <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm xl:col-span-2 flex flex-col">
+                    <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                         <h2 className="font-semibold text-slate-900 dark:text-white text-sm">High Risk Equipment List</h2>
                         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Asset defects ranked by risk (P1 & P2)</p>
                     </div>
@@ -271,7 +271,7 @@ export default function AnomaliesPage() {
                             </thead>
                             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                 {criticalAnomalies.map(anomaly => (
-                                    <tr key={`high-risk-${anomaly.id}`} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                    <tr key={`high-risk-${anomaly.id}`} className="hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors">
                                         <td className="px-5 py-3 font-medium text-slate-900 dark:text-slate-200">{anomaly.equipment}</td>
                                         <td className="px-5 py-3 text-slate-600 dark:text-slate-300 truncate max-w-[200px]">{anomaly.finding}</td>
                                         <td className="px-5 py-3 text-center">
@@ -291,8 +291,8 @@ export default function AnomaliesPage() {
             </div>
 
             {/* NEW TREND GRAPH SECTION */}
-            <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden flex flex-col mt-6">
-                <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+            <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm overflow-hidden flex flex-col mt-6">
+                <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                     <h2 className="font-semibold text-slate-900 dark:text-white text-base">Monthly Trend (Last 12 Months)</h2>
                 </div>
                 <div className="p-5 overflow-hidden">
@@ -396,8 +396,8 @@ export default function AnomaliesPage() {
                 {/* Row 1 */}
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
                     {/* Equipment Issues Table (60%) */}
-                    <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm lg:col-span-3 overflow-hidden flex flex-col">
-                        <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+                    <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-3 overflow-hidden flex flex-col">
+                        <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                             <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Equipment Issues</h2>
                             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">What equipment has problems and what type of defects exist</p>
                         </div>
@@ -413,7 +413,7 @@ export default function AnomaliesPage() {
                                 </thead>
                                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                     {MOCK_ANOMALIES.map(anomaly => (
-                                        <tr key={`issue-${anomaly.id}`} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                        <tr key={`issue-${anomaly.id}`} className="hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors">
                                             <td className="px-5 py-3 font-medium text-slate-900 dark:text-slate-200">{anomaly.equipment}</td>
                                             <td className="px-5 py-3 text-slate-600 dark:text-slate-300">{anomaly.finding}</td>
                                             <td className="px-5 py-3 text-slate-500 dark:text-slate-400">{anomaly.cause}</td>
@@ -426,7 +426,7 @@ export default function AnomaliesPage() {
                     </section>
 
                     {/* Top Anomaly Types (40%) */}
-                    <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm lg:col-span-2">
+                    <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl p-5 shadow-sm lg:col-span-2">
                         <div className="mb-4">
                             <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Top Anomaly Types</h2>
                             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Most common defect mechanisms</p>
@@ -445,7 +445,7 @@ export default function AnomaliesPage() {
                                     </div>
                                     <div className="h-2 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                         <div
-                                            className="h-full rounded-full bg-indigo-500 dark:bg-indigo-600"
+                                            className="h-full rounded-full bg-[var(--color-brand-primary-soft)]0 dark:bg-[var(--color-brand-primary)]"
                                             style={{ width: `${item.percent}%` }}
                                         />
                                     </div>
@@ -458,8 +458,8 @@ export default function AnomaliesPage() {
                 {/* Row 2 */}
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
                     {/* Pending Actions Table (60%) */}
-                    <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm lg:col-span-3 overflow-hidden flex flex-col">
-                        <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+                    <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-3 overflow-hidden flex flex-col">
+                        <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                             <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Pending Actions</h2>
                             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Required maintenance actions and responsibilities</p>
                         </div>
@@ -475,7 +475,7 @@ export default function AnomaliesPage() {
                                 </thead>
                                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                                     {MOCK_ANOMALIES.filter(a => a.status !== "Closed" && a.status !== "Deferred").map(anomaly => (
-                                        <tr key={`action-${anomaly.id}`} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                        <tr key={`action-${anomaly.id}`} className="hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors">
                                             <td className="px-5 py-3 font-medium text-slate-900 dark:text-slate-200">{anomaly.equipment}</td>
                                             <td className="px-5 py-3 text-slate-700 dark:text-slate-300">{anomaly.action}</td>
                                             <td className="px-5 py-3 text-slate-500 dark:text-slate-400 flex items-center gap-1.5 mt-0.5">
@@ -492,8 +492,8 @@ export default function AnomaliesPage() {
                     </section>
 
                     {/* Action Status Summary & Upcoming Deadlines (40%) */}
-                    <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm lg:col-span-2 flex flex-col">
-                        <div className="p-5 border-b border-slate-200 dark:border-slate-800">
+                    <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-2 flex flex-col">
+                        <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                             <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Action Status & Deadlines</h2>
                             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Resolution progress and upcoming repair milestones</p>
                         </div>
@@ -501,15 +501,15 @@ export default function AnomaliesPage() {
                         <div className="p-5 flex-1 flex flex-col gap-6">
                             {/* Status Pills */}
                             <div className="grid grid-cols-3 gap-3">
-                                <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-center">
+                                <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg p-3 text-center">
                                     <div className="text-2xl font-bold text-slate-900 dark:text-white">18</div>
                                     <div className="text-xs text-slate-500 font-medium mt-1">Active</div>
                                 </div>
-                                <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-center">
+                                <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg p-3 text-center">
                                     <div className="text-2xl font-bold text-slate-900 dark:text-white">5</div>
                                     <div className="text-xs text-slate-500 font-medium mt-1">Deferred</div>
                                 </div>
-                                <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg p-3 text-center">
+                                <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg p-3 text-center">
                                     <div className="text-2xl font-bold text-slate-900 dark:text-white opacity-50">42</div>
                                     <div className="text-xs text-slate-500 font-medium mt-1 opacity-50">Completed</div>
                                 </div>

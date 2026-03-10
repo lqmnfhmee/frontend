@@ -111,7 +111,7 @@ export default function AssetManagementPage() {
           bg-white dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-950
           rounded-2xl
           p-6
-          border border-slate-200 dark:border-slate-800
+          border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
           shadow-sm dark:shadow-none
           transition-all duration-300
           dark:hover:shadow-none
@@ -129,7 +129,7 @@ export default function AssetManagementPage() {
           bg-white dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-950
           rounded-2xl
           p-6
-          border border-slate-200 dark:border-slate-800
+          border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
           shadow-sm dark:shadow-none
           transition-all duration-300
           dark:hover:shadow-none
@@ -152,7 +152,7 @@ export default function AssetManagementPage() {
           bg-white dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-950
           rounded-2xl
           p-6
-          border border-slate-200 dark:border-slate-800
+          border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
           shadow-sm dark:shadow-none
           transition-all duration-300
           dark:hover:shadow-none

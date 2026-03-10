@@ -67,15 +67,15 @@ function InspectionDetailPanel({ inspection }: { inspection: Inspection }) {
                 <div className="space-y-2">
                     {activityLog.map((e, i) => (
                         <div key={i} className="flex gap-3 text-sm">
-                            <ArrowRight size={13} className="text-indigo-400 mt-0.5 shrink-0" />
+                            <ArrowRight size={13} className="text-[var(--color-brand-primary)] mt-0.5 shrink-0" />
                             <div><p className="text-slate-700 dark:text-slate-300">{e.action}</p><p className="text-xs text-slate-400">{e.user} · {e.time}</p></div>
                         </div>
                     ))}
                 </div>
             </div>
-            <div className="flex gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                <button className="flex-1 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors">Mark Complete</button>
-                <button className="flex-1 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition-colors">Reschedule</button>
+            <div className="flex gap-2 pt-2 border-t border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
+                <button className="flex-1 py-2 text-sm font-medium text-white bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)] rounded-lg transition-colors">Mark Complete</button>
+                <button className="flex-1 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)] rounded-lg transition-colors">Reschedule</button>
             </div>
         </div>
     );
@@ -91,7 +91,7 @@ const COLUMNS: { key: Inspection["status"]; label: string; color: string }[] = [
 const statusIcon: Record<Inspection["status"], React.ReactNode> = {
     Overdue: <AlertTriangle size={13} className="text-red-500" />,
     Upcoming: <Clock size={13} className="text-orange-500" />,
-    Scheduled: <Calendar size={13} className="text-indigo-500" />,
+    Scheduled: <Calendar size={13} className="text-[var(--color-brand-primary)]" />,
     Completed: <CheckCircle size={13} className="text-emerald-500" />,
 };
 
@@ -112,7 +112,7 @@ export default function InspectionKanban({ inspections }: { inspections: Inspect
                             {items.length === 0 ? (
                                 <p className="text-xs text-slate-400 dark:text-slate-600 text-center py-4">Empty</p>
                             ) : items.map((insp) => (
-                                <button key={insp.id} onClick={() => setSelected(insp)} className="text-left bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-4 hover:border-indigo-200 dark:hover:border-indigo-500/40 hover:shadow-md transition-all group">
+                                <button key={insp.id} onClick={() => setSelected(insp)} className="text-left bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] p-4 hover:border-[var(--color-brand-primary-soft)] dark:hover:border-indigo-500/40 hover:shadow-md transition-all group">
                                     <div className="flex items-start justify-between gap-2 mb-2">
                                         <span className="text-xs font-bold text-slate-700 dark:text-white">{insp.assetId}</span>
                                         <RiskBadge level={insp.priority} size="sm" showIcon={false} />

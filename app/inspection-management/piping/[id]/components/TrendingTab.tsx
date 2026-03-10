@@ -23,7 +23,7 @@ export default function TrendingTab() {
                 <button
                     onClick={() => setActiveTab("dashboard")}
                     className={`flex-1 min-w-[120px] py-2 text-sm font-medium rounded-md transition-colors ${activeTab === "dashboard"
-                        ? "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white shadow-sm"
+                        ? "bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] text-slate-900 dark:text-white shadow-sm"
                         : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
                         }`}
                 >
@@ -32,7 +32,7 @@ export default function TrendingTab() {
                 <button
                     onClick={() => setActiveTab("degradation")}
                     className={`flex-1 min-w-[120px] py-2 text-sm font-medium rounded-md transition-colors ${activeTab === "degradation"
-                        ? "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white shadow-sm"
+                        ? "bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] text-slate-900 dark:text-white shadow-sm"
                         : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
                         }`}
                 >
@@ -41,7 +41,7 @@ export default function TrendingTab() {
                 <button
                     onClick={() => setActiveTab("measurement")}
                     className={`flex-1 min-w-[120px] py-2 text-sm font-medium rounded-md transition-colors ${activeTab === "measurement"
-                        ? "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white shadow-sm"
+                        ? "bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] text-slate-900 dark:text-white shadow-sm"
                         : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
                         }`}
                 >
@@ -52,8 +52,8 @@ export default function TrendingTab() {
             {activeTab === "dashboard" && (
                 <div className="space-y-6 animate-in fade-in duration-300">
                     {/* Chart Card */}
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-4 md:p-6 space-y-4 md:space-y-6">
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-4 md:p-6 space-y-4 md:space-y-6">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] pb-4">
                             <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-70">
                                     <path d="M3 3v18h18" />
@@ -81,7 +81,7 @@ export default function TrendingTab() {
                             </div>
 
                             {/* Animated SVG Chart Area */}
-                            <div className="w-full border border-slate-100 dark:border-slate-800 rounded-lg bg-slate-50/30 dark:bg-slate-900/30 p-6 flex flex-col items-center">
+                            <div className="w-full border border-slate-100 dark:border-[var(--color-brand-darkBorder)] rounded-lg bg-slate-50/30 dark:bg-[var(--color-brand-darkCard)]/30 p-6 flex flex-col items-center">
                                 <svg width="100%" viewBox="0 0 1000 380" className="overflow-visible">
                                     {/* Grid Lines */}
                                     <g className="text-slate-200 dark:text-slate-700/50" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4">
@@ -181,8 +181,8 @@ export default function TrendingTab() {
                     </div>
 
                     {/* Calculation Summary Table */}
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-                        <div className="p-6 border-b border-slate-200 dark:border-slate-800">
+                    <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden">
+                        <div className="p-6 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                                 Calculation Summary - PIPE01_SEG 01 / CML-T1-Clock 0 Deg
                             </h3>
@@ -190,7 +190,7 @@ export default function TrendingTab() {
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-sm">
                                 <thead>
-                                    <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400">
+                                    <tr className="border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/50 text-slate-500 dark:text-slate-400">
                                         <th className="px-6 py-4 font-semibold">Parameter</th>
                                         <th className="px-6 py-4 font-semibold">Design</th>
                                         <th className="px-6 py-4 font-semibold">Short Term Corrosion Rate</th>
@@ -199,42 +199,42 @@ export default function TrendingTab() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
-                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors text-slate-700 dark:text-slate-300">
+                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors text-slate-700 dark:text-slate-300">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">Rate</td>
                                         <td className="px-6 py-4 text-slate-500">N/A</td>
                                         <td className="px-6 py-4">0.0732 mm/year</td>
                                         <td className="px-6 py-4">0.0732 mm/year</td>
                                         <td className="px-6 py-4 text-right">-</td>
                                     </tr>
-                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors text-slate-700 dark:text-slate-300">
+                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors text-slate-700 dark:text-slate-300">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">Remaining Life</td>
                                         <td className="px-6 py-4 text-slate-500">N/A</td>
                                         <td className="px-6 py-4">70.90 years</td>
                                         <td className="px-6 py-4">70.90 years</td>
                                         <td className="px-6 py-4 text-right">-</td>
                                     </tr>
-                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors text-slate-700 dark:text-slate-300">
+                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors text-slate-700 dark:text-slate-300">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">End of Life (Failure Date)</td>
                                         <td className="px-6 py-4 text-slate-500">N/A</td>
                                         <td className="px-6 py-4">Mar 2096</td>
                                         <td className="px-6 py-4">Mar 2096</td>
                                         <td className="px-6 py-4 text-right">-</td>
                                     </tr>
-                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors text-slate-700 dark:text-slate-300">
+                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors text-slate-700 dark:text-slate-300">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">Next Inspection Date</td>
                                         <td className="px-6 py-4 text-slate-500">N/A</td>
                                         <td className="px-6 py-4">Sep 2060</td>
                                         <td className="px-6 py-4">Sep 2060</td>
                                         <td className="px-6 py-4 text-right">-</td>
                                     </tr>
-                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors text-slate-700 dark:text-slate-300">
+                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors text-slate-700 dark:text-slate-300">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">Expected Remaining Thickness</td>
                                         <td className="px-6 py-4 text-slate-500">N/A</td>
                                         <td className="px-6 py-4">74.50 mm</td>
                                         <td className="px-6 py-4">74.50 mm</td>
                                         <td className="px-6 py-4 text-right">-</td>
                                     </tr>
-                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors text-slate-700 dark:text-slate-300">
+                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors text-slate-700 dark:text-slate-300">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">Remaining Life Difference</td>
                                         <td className="px-6 py-4 text-slate-500">N/A</td>
                                         <td className="px-6 py-4">0.00 years</td>
@@ -247,8 +247,8 @@ export default function TrendingTab() {
                     </div>
 
                     {/* Inspection History Table */}
-                    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-                        <div className="p-6 border-b border-slate-200 dark:border-slate-800">
+                    <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden">
+                        <div className="p-6 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                                 Inspection History
                             </h3>
@@ -256,24 +256,24 @@ export default function TrendingTab() {
                         <div className="overflow-x-auto">
                             <table className="w-full text-left text-sm">
                                 <thead>
-                                    <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400">
+                                    <tr className="border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/50 text-slate-500 dark:text-slate-400">
                                         <th className="px-6 py-4 font-semibold">Date</th>
                                         <th className="px-6 py-4 font-semibold text-center">Thickness (Mm)</th>
                                         <th className="px-6 py-4 font-semibold text-right">Remarks</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
-                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors text-slate-700 dark:text-slate-300">
+                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors text-slate-700 dark:text-slate-300">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">Jan 2001</td>
                                         <td className="px-6 py-4 text-center font-medium">101.00</td>
                                         <td className="px-6 py-4 text-right text-slate-500">Nominal (Commission)</td>
                                     </tr>
-                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors text-slate-700 dark:text-slate-300">
+                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors text-slate-700 dark:text-slate-300">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">Nov 2022</td>
                                         <td className="px-6 py-4 text-center font-medium">107.57</td>
                                         <td className="px-6 py-4 text-right text-slate-500">Inspection</td>
                                     </tr>
-                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors text-slate-700 dark:text-slate-300">
+                                    <tr className="hover:bg-slate-50/50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors text-slate-700 dark:text-slate-300">
                                         <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">Apr 2025</td>
                                         <td className="px-6 py-4 text-center font-medium opacity-80">105.46</td>
                                         <td className="px-6 py-4 text-right text-slate-500">Inspection</td>
@@ -292,7 +292,7 @@ export default function TrendingTab() {
                         <input
                             type="text"
                             placeholder="Search by component or measurement point..."
-                            className="w-full sm:w-80 px-4 py-2 text-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
+                            className="w-full sm:w-80 px-4 py-2 text-sm bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 dark:text-slate-100 placeholder:text-slate-400"
                         />
                     </div>
 
@@ -325,14 +325,14 @@ export default function TrendingTab() {
                             ]
                         }
                     ].map(section => (
-                        <div key={section.group} className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden animate-in fade-in duration-300">
+                        <div key={section.group} className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden animate-in fade-in duration-300">
                             <div className="bg-blue-600 dark:bg-blue-700 px-4 py-2 inline-block rounded-br-lg rounded-tl-xl">
                                 <span className="text-xs font-bold text-white uppercase tracking-wider">{section.group}</span>
                             </div>
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left text-sm mt-2">
                                     <thead>
-                                        <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400">
+                                        <tr className="border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] text-slate-500 dark:text-slate-400">
                                             <th className="px-6 py-3 font-semibold w-[35%]">Measurement Point</th>
                                             <th className="px-6 py-3 font-semibold w-[20%] text-right">Latest Thickness (Mm)</th>
                                             <th className="px-6 py-3 font-semibold w-[20%] text-right">STCR (Mm/Year)</th>
@@ -341,7 +341,7 @@ export default function TrendingTab() {
                                     </thead>
                                     <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
                                         {section.points.map((pt, i) => (
-                                            <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors text-slate-700 dark:text-slate-300">
+                                            <tr key={i} className="hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)]/30 transition-colors text-slate-700 dark:text-slate-300">
                                                 <td className="px-6 py-3 font-medium text-slate-900 dark:text-slate-200">{pt.id}</td>
                                                 <td className="px-6 py-3 text-right">{pt.thick}</td>
                                                 <td className="px-6 py-3 text-right">{pt.stcr}</td>
@@ -357,7 +357,7 @@ export default function TrendingTab() {
             )}
 
             {activeTab === "measurement" && (
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-12 text-center animate-in fade-in duration-300">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-12 text-center animate-in fade-in duration-300">
                     <p className="text-slate-500 dark:text-slate-400">Measurement points plot and mappings goes here.</p>
                 </div>
             )}

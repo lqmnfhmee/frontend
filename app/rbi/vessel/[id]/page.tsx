@@ -20,7 +20,7 @@ export default function RbiVesselDetailPage({ params }: PageProps) {
             <div className="flex items-start gap-4">
                 <Link
                     href="/rbi/vessel"
-                    className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors mt-0.5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+                    className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)] rounded-lg transition-colors mt-0.5 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-white dark:bg-[var(--color-brand-darkCard)]"
                 >
                     <ArrowLeft size={20} />
                 </Link>
@@ -42,7 +42,7 @@ export default function RbiVesselDetailPage({ params }: PageProps) {
             {/* 🔹 SUMMARY CARDS */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* General Information */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6 space-y-4">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-6 space-y-4">
                     <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium mb-2">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-70">
                             <circle cx="12" cy="12" r="10" />
@@ -80,7 +80,7 @@ export default function RbiVesselDetailPage({ params }: PageProps) {
                 </div>
 
                 {/* Location Hierarchy */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-4 md:p-6 space-y-4">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-4 md:p-6 space-y-4">
                     <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium mb-2">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-70">
                             <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />

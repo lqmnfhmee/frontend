@@ -42,10 +42,10 @@ export default function KpiCard({
       transition={{ duration: 0.2 }}
       className="
         relative
-        bg-white dark:bg-slate-900
+        bg-white dark:bg-[var(--color-brand-darkCard)]
         rounded-2xl
         p-6
-        border border-slate-200 dark:border-slate-800
+        border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
         shadow-md shadow-slate-200/50 dark:shadow-none hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
         transition-all duration-300
       "
@@ -61,7 +61,7 @@ export default function KpiCard({
           text-slate-600 dark:text-slate-300
           px-3 py-2
           rounded-lg
-          border border-slate-200 dark:border-slate-700
+          border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
           shadow-md
         ">
           {tooltip}

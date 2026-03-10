@@ -36,7 +36,7 @@ export default function FacilitiesPage() {
             </div>
 
             {/* Toolbar */}
-            <div className="bg-white dark:bg-slate-950 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div className="bg-white dark:bg-[var(--color-brand-darkBg)] p-4 rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm flex flex-col md:flex-row gap-4 justify-between items-center">
                 {/* Left: Search */}
                 <div className="relative w-full md:w-80">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
@@ -45,25 +45,25 @@ export default function FacilitiesPage() {
                     <input
                         type="text"
                         placeholder="Search by name, code, or location..."
-                        className="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 dark:border-slate-800 rounded-lg bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
+                        className="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg bg-slate-50 dark:bg-[var(--color-brand-darkCard)] text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
                     />
                 </div>
 
                 {/* Right: Actions */}
                 <div className="flex items-center gap-3 w-full md:w-auto">
                     {/* Status Filter */}
-                    <select className="px-4 py-2 text-sm border border-slate-200 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <select className="px-4 py-2 text-sm border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg bg-white dark:bg-[var(--color-brand-darkBg)] text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         <option>Active</option>
                         <option>Inactive</option>
                     </select>
 
                     {/* Buttons */}
-                    <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 dark:bg-indigo-500/10 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-500/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors">
+                    <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10 dark:text-[var(--color-brand-primary)] border border-[var(--color-brand-primary-soft)] dark:border-[var(--color-brand-primary-soft)] rounded-lg hover:bg-[var(--color-brand-primary-soft)] dark:hover:bg-[var(--color-brand-primary-soft)]/20 transition-colors">
                         <Upload size={16} />
                         Bulk Upload
                     </button>
 
-                    <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors">
+                    <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)] rounded-lg transition-colors">
                         <Plus size={16} />
                         Add Facility
                     </button>
@@ -75,7 +75,7 @@ export default function FacilitiesPage() {
                 {facilities.map((facility) => (
                     <div
                         key={facility.id}
-                        className="bg-white dark:bg-slate-950 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow"
+                        className="bg-white dark:bg-[var(--color-brand-darkBg)] p-6 rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm hover:shadow-md transition-shadow"
                     >
                         {/* Card Header */}
                         <div className="flex justify-between items-start mb-4">
@@ -83,7 +83,7 @@ export default function FacilitiesPage() {
                                 <h3 className="font-semibold text-slate-900 dark:text-white">
                                     {facility.name}
                                 </h3>
-                                <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-600 text-white">
+                                <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--color-brand-primary)] text-white">
                                     {facility.status}
                                 </span>
                             </div>

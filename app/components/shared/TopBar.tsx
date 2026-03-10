@@ -15,13 +15,11 @@ export default function TopBar({ onToggle }: TopBarProps) {
     const savedTheme = localStorage.getItem("theme");
     const root = document.documentElement;
 
-    root.classList.remove("light", "dark");
-
     if (savedTheme === "dark") {
       root.classList.add("dark");
       setTheme("dark");
     } else {
-      root.classList.add("light");
+      root.classList.remove("dark");
       setTheme("light");
     }
   }, []);
@@ -30,14 +28,12 @@ export default function TopBar({ onToggle }: TopBarProps) {
   const toggleTheme = () => {
     const root = document.documentElement;
 
-    root.classList.remove("light", "dark");
-
     if (theme === "light") {
       root.classList.add("dark");
       localStorage.setItem("theme", "dark");
       setTheme("dark");
     } else {
-      root.classList.add("light");
+      root.classList.remove("dark");
       localStorage.setItem("theme", "light");
       setTheme("light");
     }
@@ -49,8 +45,8 @@ export default function TopBar({ onToggle }: TopBarProps) {
     <header
       className="
         h-14
-        bg-white dark:bg-slate-900
-        border-b border-slate-200 dark:border-slate-800
+        bg-white dark:bg-[var(--color-brand-darkCard)]
+        border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]
         flex items-center justify-between
         px-4 md:px-6
         z-20
@@ -65,7 +61,7 @@ export default function TopBar({ onToggle }: TopBarProps) {
           onClick={onToggle}
           className="
             p-2 rounded-lg
-            hover:bg-slate-100 dark:hover:bg-slate-800
+            hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)]
             transition-all duration-200
             text-slate-600 dark:text-slate-300
             hover:scale-105 active:scale-95
@@ -79,7 +75,7 @@ export default function TopBar({ onToggle }: TopBarProps) {
           className="
             hidden sm:block
             px-3 py-1
-            border border-slate-200 dark:border-slate-700
+            border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
             rounded-md text-sm
             text-slate-700 dark:text-slate-300
           "
@@ -119,7 +115,7 @@ export default function TopBar({ onToggle }: TopBarProps) {
         </button>
 
         {/* USER AVATAR */}
-        <div className="w-8 h-8 rounded-full bg-indigo-600 dark:bg-indigo-500 text-white flex items-center justify-center text-sm font-medium shadow-sm shrink-0">
+        <div className="w-8 h-8 rounded-full bg-[var(--color-brand-primary)] dark:bg-[var(--color-brand-primary)] text-white flex items-center justify-center text-sm font-medium shadow-sm shrink-0">
           A
         </div>
       </div>

@@ -49,7 +49,7 @@ export default function AssetDetailPanel({ asset }: AssetDetailPanelProps) {
                     {linkedInspections.map((insp) => (
                         <div key={insp.id} className="flex items-center justify-between bg-slate-50 dark:bg-slate-800/60 rounded-xl px-3 py-2.5 text-sm">
                             <div className="flex items-center gap-2">
-                                {insp.status === "Completed" ? <CheckCircle size={14} className="text-emerald-500" /> : insp.status === "Overdue" ? <AlertTriangle size={14} className="text-red-500" /> : <Clock size={14} className="text-indigo-500" />}
+                                {insp.status === "Completed" ? <CheckCircle size={14} className="text-emerald-500" /> : insp.status === "Overdue" ? <AlertTriangle size={14} className="text-red-500" /> : <Clock size={14} className="text-[var(--color-brand-primary)]" />}
                                 <span className="text-slate-700 dark:text-slate-300 font-medium">{insp.id}</span>
                             </div>
                             <div className="flex items-center gap-3 text-xs text-slate-500">
@@ -65,7 +65,7 @@ export default function AssetDetailPanel({ asset }: AssetDetailPanelProps) {
                 <div className="space-y-2">
                     {activityLog.map((entry, i) => (
                         <div key={i} className="flex gap-3 text-sm">
-                            <Activity size={13} className="text-indigo-400 mt-0.5 shrink-0" />
+                            <Activity size={13} className="text-[var(--color-brand-primary)] mt-0.5 shrink-0" />
                             <div>
                                 <p className="text-slate-700 dark:text-slate-300">{entry.action}</p>
                                 <p className="text-xs text-slate-400 dark:text-slate-500">{entry.user} · {entry.time}</p>
@@ -74,8 +74,8 @@ export default function AssetDetailPanel({ asset }: AssetDetailPanelProps) {
                     ))}
                 </div>
             </div>
-            <div className="flex gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
-                <button className="flex-1 py-2 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg transition-colors">Schedule Inspection</button>
+            <div className="flex gap-2 pt-2 border-t border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
+                <button className="flex-1 py-2 text-sm font-medium text-white bg-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary)] rounded-lg transition-colors">Schedule Inspection</button>
                 <button className="flex-1 py-2 text-sm font-medium text-red-600 dark:text-red-400 border border-red-200 dark:border-red-500/30 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-colors">Escalate</button>
             </div>
         </div>

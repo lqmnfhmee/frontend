@@ -1,7 +1,18 @@
 @import "tailwindcss";
-
+@config "../tailwind.config.ts";
 /* ✅ Enable dark variant for Tailwind v4 */
 @custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-darkBg: #0B1426;
+  --color-brand-darkMain: #0F1B33;
+  --color-brand-darkCard: #13213D;
+  --color-brand-darkBorder: #1E2E50;
+  --color-brand-darkHover: #1C2C4D;
+  --color-brand-primary: #2F80ED;
+  --color-brand-secondary: #3F5BD9;
+  --color-brand-highlight: #FFC107;
+}
 
 :root {
   /* 🌎 Base Canvas */
@@ -31,22 +42,22 @@
 }
 
 .dark {
-  --color-background: 2 6 23;
-  /* slate-950 */
+  --color-background: 11 20 38;
+  /* #0B1426 */
   --color-foreground: 248 250 252;
   /* slate-50 */
 
-  --color-surface: 15 23 42;
-  /* slate-900 */
-  --color-surface-muted: 30 41 59;
-  /* slate-800 */
-  --color-border: 30 41 59;
-  /* slate-800 */
+  --color-surface: 19 33 61;
+  /* #13213D */
+  --color-surface-muted: 15 27 51;
+  /* #0F1B33 */
+  --color-border: 30 46 80;
+  /* #1E2E50 */
 
-  --color-primary: 99 102 241;
-  /* indigo-500 */
-  --color-primary-soft: 49 46 129;
-  /* indigo-900 */
+  --color-primary: 47 128 237;
+  /* #2F80ED */
+  --color-primary-soft: 63 91 217;
+  /* #3F5BD9 */
 
   --color-success: 34 197 94;
   --color-warning: 245 158 11;
@@ -63,10 +74,25 @@
 
 /* Dark theme when .dark class exists */
 .dark {
-  --background: #0f172a;
-  /* slate-900 */
+  --background: #0f1b33;
+  /* brand-darkMain */
   --foreground: #f1f5f9;
   /* slate-100 */
+
+  /* Fallback Brand definitions explicitly for Tailwind v4 DOM */
+  --color-brand-darkBg: #0B1426;
+  --color-brand-darkMain: #0F1B33;
+  --color-brand-darkCard: #13213D;
+  --color-brand-darkBorder: #1E2E50;
+  --color-brand-darkHover: #1C2C4D;
+  --color-brand-primary: #2F80ED;
+  --color-brand-secondary: #3F5BD9;
+  --color-brand-highlight: #FFC107;
+}
+
+.dark body {
+  background-color: var(--color-brand-darkBg);
+  color: var(--foreground);
 }
 
 body {
@@ -104,11 +130,11 @@ body {
 
 /* Dark mode */
 .dark ::-webkit-scrollbar-thumb {
-  background-color: rgb(129 140 248);
-  /* indigo-400 */
+  background-color: #3F5BD9;
+  /* brand-secondary */
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(99 102 241);
-  /* indigo-500 */
+  background-color: #2F80ED;
+  /* brand-primary */
 }

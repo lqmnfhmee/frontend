@@ -33,22 +33,22 @@ export default function CircuitGroupCalculationPage({ params }: { params: { id: 
         }
 
         return (
-            <div className="w-full max-w-4xl mx-auto overflow-hidden border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm">
+            <div className="w-full max-w-4xl mx-auto overflow-hidden border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg shadow-sm">
                 <table className="w-full text-center border-collapse">
                     <thead>
                         <tr className="bg-slate-50 dark:bg-slate-800/50 text-xs font-semibold text-slate-600 dark:text-slate-300">
-                            <th className="py-3 px-2 border-b border-r border-slate-200 dark:border-slate-700 w-24">POF/COF</th>
+                            <th className="py-3 px-2 border-b border-r border-slate-200 dark:border-[var(--color-brand-darkBorder)] w-24">POF/COF</th>
                             {cols.map(c => (
-                                <th key={c} className="py-3 px-2 border-b border-r border-slate-200 dark:border-slate-700">{c}</th>
+                                <th key={c} className="py-3 px-2 border-b border-r border-slate-200 dark:border-[var(--color-brand-darkBorder)]">{c}</th>
                             ))}
                         </tr>
                     </thead>
                     <tbody>
                         {rows.map(row => (
                             <tr key={row}>
-                                <td className="py-4 px-2 border-b border-r border-slate-200 dark:border-slate-700 font-medium text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50">{row}</td>
+                                <td className="py-4 px-2 border-b border-r border-slate-200 dark:border-[var(--color-brand-darkBorder)] font-medium text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/50">{row}</td>
                                 {cols.map((col, index) => (
-                                    <td key={col} className={`py-4 px-2 border-b border-r border-slate-200 dark:border-slate-700 relative group transition-colors ${getCellColorClass(row, index)}`}>
+                                    <td key={col} className={`py-4 px-2 border-b border-r border-slate-200 dark:border-[var(--color-brand-darkBorder)] relative group transition-colors ${getCellColorClass(row, index)}`}>
                                     </td>
                                 ))}
                             </tr>
@@ -66,7 +66,7 @@ export default function CircuitGroupCalculationPage({ params }: { params: { id: 
                 <div className="flex items-start gap-4">
                     <Link
                         href={`/rbi/piping/${id}`}
-                        className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors mt-0.5 border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"
+                        className="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)] rounded-lg transition-colors mt-0.5 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-white dark:bg-[var(--color-brand-darkCard)]"
                     >
                         <ArrowLeft size={20} />
                     </Link>
@@ -80,7 +80,7 @@ export default function CircuitGroupCalculationPage({ params }: { params: { id: 
                     </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
-                    <button className="flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
+                    <button className="flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkBg)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
                         <Edit2 size={16} />
                         Edit Inspection
                     </button>
@@ -88,7 +88,7 @@ export default function CircuitGroupCalculationPage({ params }: { params: { id: 
                         <Play size={16} fill="currentColor" />
                         Calculate
                     </button>
-                    <button className="flex flex-1 sm:flex-none items-center justify-center gap-2 px-4 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
+                    <button className="flex flex-1 sm:flex-none items-center justify-center gap-2 px-4 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkBg)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">
                         <FileCheck size={16} />
                         Override Results
                     </button>
@@ -98,7 +98,7 @@ export default function CircuitGroupCalculationPage({ params }: { params: { id: 
             {/* 🔹 KPI CARDS */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* COF Card */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-6">
                     <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-6">Consequence of Failure (COF)</p>
                     <div className="flex items-center justify-between">
                         <div>
@@ -112,7 +112,7 @@ export default function CircuitGroupCalculationPage({ params }: { params: { id: 
                 </div>
 
                 {/* POF Card */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-6">
                     <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-6">Probability of Failure (POF)</p>
                     <div className="flex items-center justify-between">
                         <div>
@@ -126,7 +126,7 @@ export default function CircuitGroupCalculationPage({ params }: { params: { id: 
                 </div>
 
                 {/* Risk Assessment Card */}
-                <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm p-6">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm p-6">
                     <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-6">Risk Assessment</p>
                     <div className="flex items-center justify-between">
                         <div>
@@ -144,8 +144,8 @@ export default function CircuitGroupCalculationPage({ params }: { params: { id: 
             </div>
 
             {/* 🔹 RISK MATRIX */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col p-6 space-y-6">
-                <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium pb-2 border-b border-slate-100 dark:border-slate-800">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden flex flex-col p-6 space-y-6">
+                <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium pb-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                     Risk Matrix
                 </div>
 
@@ -186,8 +186,8 @@ export default function CircuitGroupCalculationPage({ params }: { params: { id: 
             </div>
 
             {/* 🔹 INSPECTION PLANNING RECOMMENDATIONS (IRP) */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden p-6 space-y-6">
-                <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium pb-2 border-b border-slate-100 dark:border-slate-800">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden p-6 space-y-6">
+                <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium pb-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5 opacity-70">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                         <polyline points="14 2 14 8 20 8" />
@@ -204,7 +204,7 @@ export default function CircuitGroupCalculationPage({ params }: { params: { id: 
             </div>
 
             {/* 🔹 INFO TABS */}
-            <div className="flex border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-t-xl px-2">
+            <div className="flex border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-white dark:bg-[var(--color-brand-darkCard)] rounded-t-xl px-2">
                 <button
                     onClick={() => setActiveTab("overview")}
                     className={`px-6 py-3.5 text-sm font-medium border-b-2 flex items-center gap-2 transition-colors ${activeTab === "overview"

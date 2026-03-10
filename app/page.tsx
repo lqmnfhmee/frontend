@@ -10,7 +10,7 @@ export default function Home() {
         min-h-screen
         flex flex-col
         bg-slate-50
-        dark:bg-slate-950
+        dark:bg-[var(--color-brand-darkBg)]
         relative
       "
     >
@@ -20,10 +20,10 @@ export default function Home() {
           pointer-events-none
           absolute -top-40 -left-40
           w-[500px] h-[500px]
-          bg-indigo-500/10
+          bg-[var(--color-brand-primary-soft)]0/10
           blur-[120px]
           rounded-full
-          dark:bg-indigo-500/15
+          dark:bg-[var(--color-brand-primary)]/15
         "
       />
 
@@ -106,7 +106,7 @@ export default function Home() {
       </main>
 
       {/* FOOTER */}
-      <footer className="border-t border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-900/40 backdrop-blur-sm">
+      <footer className="border-t border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-100/60 dark:bg-[var(--color-brand-darkCard)]/40 backdrop-blur-sm">
         <div className="max-w-[1500px] mx-auto px-6 lg:px-8 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-sm text-slate-600 dark:text-slate-400">
 
           <span>

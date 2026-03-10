@@ -12,8 +12,8 @@ export default function COFTab() {
             </div>
 
             {/* COF Financial Input Accordion */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-                <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20 cursor-pointer">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden">
+                <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50/50 dark:bg-slate-800/20 cursor-pointer">
                     <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium">
                         <DollarSign className="w-5 h-5 opacity-70" /> COF Financial Input
                     </div>
@@ -25,27 +25,27 @@ export default function COFTab() {
             </div>
 
             {/* Consequence Areas Accordion */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-                <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20 cursor-pointer">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden">
+                <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50/50 dark:bg-slate-800/20 cursor-pointer">
                     <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium">
                         <Target className="w-5 h-5 opacity-70" /> Consequence Areas
                     </div>
                     <ChevronUp className="w-5 h-5 text-slate-400" />
                 </div>
                 <div className="p-6 space-y-1">
-                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800/60">
+                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]/60">
                         <span className="text-xs text-slate-500 dark:text-slate-400">Flammable Damage Area (m²)</span>
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">N/A</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800/60">
+                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]/60">
                         <span className="text-xs text-slate-500 dark:text-slate-400">Flammable Injury Area (m²)</span>
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">N/A</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800/60">
+                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]/60">
                         <span className="text-xs text-slate-500 dark:text-slate-400">Toxic Area (m²)</span>
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">N/A</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800/60">
+                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]/60">
                         <span className="text-xs text-slate-500 dark:text-slate-400">Non-Flammable Area (m²)</span>
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">N/A</span>
                     </div>
@@ -57,31 +57,31 @@ export default function COFTab() {
             </div>
 
             {/* Consequence Categories Accordion */}
-            <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-                <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20 cursor-pointer">
+            <div className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] shadow-sm overflow-hidden">
+                <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50/50 dark:bg-slate-800/20 cursor-pointer">
                     <div className="flex items-center gap-2 text-slate-900 dark:text-white font-medium">
                         <List className="w-5 h-5 opacity-70" /> Consequence Categories
                     </div>
                     <ChevronUp className="w-5 h-5 text-slate-400" />
                 </div>
                 <div className="p-6 space-y-1">
-                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800/60">
+                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]/60">
                         <span className="text-xs text-slate-500 dark:text-slate-400">Flammable Damage Category</span>
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">N/A</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800/60">
+                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]/60">
                         <span className="text-xs text-slate-500 dark:text-slate-400">Flammable Injury Category</span>
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">N/A</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800/60">
+                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]/60">
                         <span className="text-xs text-slate-500 dark:text-slate-400">Toxic Category</span>
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">N/A</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800/60">
+                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]/60">
                         <span className="text-xs text-slate-500 dark:text-slate-400">Non-Flammable Category</span>
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">N/A</span>
                     </div>
-                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-slate-800/60">
+                    <div className="flex justify-between items-center py-2 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]/60">
                         <span className="text-xs text-slate-500 dark:text-slate-400">Financial Category</span>
                         <span className="text-sm font-semibold text-slate-900 dark:text-white">N/A</span>
                     </div>

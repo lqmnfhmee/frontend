@@ -49,8 +49,8 @@ function AnomalyDetailPanel({ anomaly }: { anomaly: Anomaly }) {
             <div>
                 <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-2">Linked RBI Item</p>
                 <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/60 rounded-xl px-4 py-3 text-sm">
-                    <Link2 size={13} className="text-indigo-500" />
-                    <span className="text-indigo-600 dark:text-indigo-400 font-medium">RBI-{anomaly.assetId}</span>
+                    <Link2 size={13} className="text-[var(--color-brand-primary)]" />
+                    <span className="text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)] font-medium">RBI-{anomaly.assetId}</span>
                     <span className="text-slate-400">·</span>
                     <span className="text-slate-600 dark:text-slate-400">{anomaly.assetName}</span>
                 </div>
@@ -60,13 +60,13 @@ function AnomalyDetailPanel({ anomaly }: { anomaly: Anomaly }) {
                 <div className="space-y-2">
                     {activityLog.map((e, i) => (
                         <div key={i} className="flex gap-3 text-sm">
-                            <Activity size={13} className="text-indigo-400 mt-0.5 shrink-0" />
+                            <Activity size={13} className="text-[var(--color-brand-primary)] mt-0.5 shrink-0" />
                             <div><p className="text-slate-700 dark:text-slate-300">{e.action}</p><p className="text-xs text-slate-400">{e.user} · {e.time}</p></div>
                         </div>
                     ))}
                 </div>
             </div>
-            <div className="flex gap-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+            <div className="flex gap-2 pt-2 border-t border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                 <button className="flex-1 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-colors">Close Anomaly</button>
                 <button className="flex-1 py-2 text-sm font-medium text-red-600 dark:text-red-400 border border-red-200 dark:border-red-500/30 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-colors">Escalate</button>
             </div>
@@ -87,8 +87,8 @@ export default function AnomalyFeed({ anomalies, filterSeverity }: { anomalies: 
 
     return (
         <>
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-                <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-4 px-4 py-3 bg-slate-50 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800">
+            <div className="rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] overflow-hidden">
+                <div className="grid grid-cols-[auto_1fr_auto_auto_auto] gap-4 px-4 py-3 bg-slate-50 dark:bg-[var(--color-brand-darkCard)]/60 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                     {["Severity", "Description", "Asset", "Age", "Status"].map((h) => (
                         <span key={h} className="text-[10px] font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500">{h}</span>
                     ))}
@@ -97,7 +97,7 @@ export default function AnomalyFeed({ anomalies, filterSeverity }: { anomalies: 
                     {filtered.length === 0 ? (
                         <div className="py-10 text-center text-sm text-slate-400 dark:text-slate-500">No anomalies match the selected filter.</div>
                     ) : filtered.map((anomaly) => (
-                        <button key={anomaly.id} onClick={() => setSelected(anomaly)} className="w-full grid grid-cols-[auto_1fr_auto_auto_auto] gap-4 px-4 py-3.5 text-left hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors items-center">
+                        <button key={anomaly.id} onClick={() => setSelected(anomaly)} className="w-full grid grid-cols-[auto_1fr_auto_auto_auto] gap-4 px-4 py-3.5 text-left hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors items-center">
                             <div className="shrink-0"><RiskBadge level={anomaly.severity} size="sm" /></div>
                             <div className="min-w-0">
                                 <p className="text-sm font-medium text-slate-900 dark:text-white truncate">{anomaly.description}</p>
@@ -109,7 +109,7 @@ export default function AnomalyFeed({ anomalies, filterSeverity }: { anomalies: 
                         </button>
                     ))}
                 </div>
-                <div className="px-4 py-2.5 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/40">
+                <div className="px-4 py-2.5 border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)] bg-slate-50/50 dark:bg-[var(--color-brand-darkCard)]/40">
                     <span className="text-xs text-slate-400 dark:text-slate-500">{filtered.length} of {anomalies.length} anomalies{filterSeverity ? ` · Severity: ${filterSeverity}` : ""}</span>
                 </div>
             </div>

@@ -63,7 +63,7 @@ export default function RiskExposureScore() {
       current += 1;
       setScore(current);
       if (current >= riskExposureData.score) clearInterval(interval);
-    }, 40);
+    }, 15); // Faster animation
 
     return () => clearInterval(interval);
   }, []);
@@ -84,8 +84,8 @@ export default function RiskExposureScore() {
     <div
       className="
       w-full rounded-xl p-8
-      bg-white dark:bg-slate-900
-      border border-slate-200 dark:border-slate-800
+      bg-white dark:bg-[var(--color-brand-darkCard)]
+      border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
       shadow-md shadow-slate-200/50 dark:shadow-none
       hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none max-h-min
       transition-all duration-300
@@ -152,9 +152,9 @@ export default function RiskExposureScore() {
         </div>
 
         {/* RIGHT FACTORS */}
-        <div className="border-l border-slate-200 dark:border-slate-800 pl-10">
+        <div className="border-l border-slate-200 dark:border-[var(--color-brand-darkBorder)] pl-10">
 
-          <h3 className="text-sm font-semibold border-b border-slate-200 dark:border-slate-800 pb-2 mb-4 text-slate-700 dark:text-slate-300">
+          <h3 className="text-sm font-semibold border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] pb-2 mb-4 text-slate-700 dark:text-slate-300">
             FACTORS
           </h3>
 
@@ -178,8 +178,8 @@ export default function RiskExposureScore() {
                       className="
                         rounded-lg p-3
                         bg-slate-50 dark:bg-slate-800
-                        border border-slate-200 dark:border-slate-700
-                        hover:bg-white dark:hover:bg-slate-700
+                        border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
+                        hover:bg-white dark:hover:bg-[var(--color-brand-darkHover)]
                         transition-colors duration-200
                       "
                     >

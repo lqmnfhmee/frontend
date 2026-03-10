@@ -33,8 +33,8 @@ function Toggle({
             className={`
         relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent
         transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2
-        focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900
-        ${checked ? "bg-indigo-500" : "bg-slate-700"}
+        focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900
+        ${checked ? "bg-brand-primary" : "bg-slate-700"}
       `}
         >
             <span className="sr-only">{checked ? "Hide widget" : "Show widget"}</span>
@@ -150,13 +150,13 @@ export default function CustomizeModal({
                     {/* ── Header ─────────────────────────────────────────────────── */}
                     <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700/60 flex-shrink-0">
                         <div className="flex items-center gap-2.5">
-                            <div className="p-1.5 rounded-lg bg-indigo-500/15">
-                                <Settings2 size={15} className="text-indigo-400" />
+                            <div className="p-1.5 rounded-lg bg-brand-primary/15">
+                                <Settings2 size={15} className="text-brand-primary" />
                             </div>
                             <div>
                                 <h2 className="text-sm font-semibold text-white">Customize Dashboard</h2>
                                 <p className="text-[11px] text-slate-400 mt-0.5">
-                                    <span className="font-semibold text-indigo-400">{enabledCount}</span>
+                                    <span className="font-semibold text-brand-primary">{enabledCount}</span>
                                     {" of "}
                                     <span className="font-semibold text-slate-300">{totalCount}</span>
                                     {" widgets enabled"}
@@ -265,10 +265,10 @@ export default function CustomizeModal({
                                 onClick={handleSave}
                                 className="
                   px-4 py-1.5 text-xs font-semibold text-white
-                  rounded-lg bg-indigo-600 hover:bg-indigo-500
-                  shadow-sm shadow-indigo-900/50
+                  rounded-lg bg-brand-secondary hover:bg-brand-primary
+                  shadow-sm shadow-brand-darkBg/50
                   transition-all hover:-translate-y-0.5
-                  focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900
+                  focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900
                 "
                             >
                                 Save

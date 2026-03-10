@@ -70,7 +70,7 @@ const riskTabs = ["Total", "Vessel", "Piping"];
 
 const inspectionCompliance = [
     { name: "Completed", value: 12, color: "#22c55e" },
-    { name: "Scheduled", value: 8, color: "#6366f1" },
+    { name: "Scheduled", value: 8, color: "#2F80ED" },
     { name: "Due Soon", value: 3, color: "#eab308" },
     { name: "Overdue", value: 1, color: "#ef4444" },
 ];
@@ -117,7 +117,7 @@ const SCORE = 85;
 // ─── Score breakdown mock data ————————————————————————————————————————
 
 const SCORE_BREAKDOWN = [
-    { label: "RBI Risk", pct: 88, color: "#6366f1", icon: ShieldAlert, sub: "1 High-risk equipment item" },
+    { label: "RBI Risk", pct: 88, color: "#2F80ED", icon: ShieldAlert, sub: "1 High-risk equipment item" },
     { label: "Inspection Compliance", pct: 75, color: "#22c55e", icon: CalendarClock, sub: "50% compliance rate" },
     { label: "Anomalies", pct: 80, color: "#f97316", icon: AlertCircle, sub: "5 open, 2 P1/P2" },
     { label: "Remaining Life", pct: 90, color: "#eab308", icon: AlertTriangle, sub: "1 asset < 3 yrs" },
@@ -132,7 +132,7 @@ const TOP_DRIVERS = [
 const RECOMMENDED_ACTIONS = [
     { label: "View High Risk Equipment", href: "/integrity/rbi", color: "#ef4444" },
     { label: "View Overdue / Due Soon Inspections", href: "/inspections", color: "#f97316" },
-    { label: "View P1/P2 Anomalies", href: "/integrity/anomalies", color: "#6366f1" },
+    { label: "View P1/P2 Anomalies", href: "/integrity/anomalies", color: "#2F80ED" },
 ];
 
 const LAST_CALCULATED = "04 Mar 2026, 10:42";
@@ -140,7 +140,7 @@ const SCORE_CHANGE = "+3 this month";
 
 function getScoreStatus(score: number) {
     if (score >= 90) return { label: "OPTIMAL", color: "#22c55e", ring: "#dcfce7", dark: "#16a34a" };
-    if (score >= 75) return { label: "HEALTHY", color: "#6366f1", ring: "#e0e7ff", dark: "#4f46e5" };
+    if (score >= 75) return { label: "HEALTHY", color: "#2F80ED", ring: "#e0e7ff", dark: "#4f46e5" };
     if (score >= 60) return { label: "ATTENTION", color: "#eab308", ring: "#fef9c3", dark: "#ca8a04" };
     return { label: "CRITICAL", color: "#ef4444", ring: "#fee2e2", dark: "#b91c1c" };
 }
@@ -149,7 +149,7 @@ function getScoreStatus(score: number) {
 
 const SCORE_RANGES = [
     { label: "Optimal", bandLabel: "OPTIMAL", range: "90 – 100", min: 90, max: 100, color: "#22c55e", bg: "bg-emerald-50 dark:bg-emerald-500/10" },
-    { label: "Healthy", bandLabel: "HEALTHY", range: "75 – 89", min: 75, max: 89, color: "#6366f1", bg: "bg-indigo-50 dark:bg-indigo-500/10" },
+    { label: "Healthy", bandLabel: "HEALTHY", range: "75 – 89", min: 75, max: 89, color: "#2F80ED", bg: "bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10" },
     { label: "Attention", bandLabel: "ATTENTION", range: "60 – 74", min: 60, max: 74, color: "#eab308", bg: "bg-yellow-50 dark:bg-yellow-500/10" },
     { label: "Critical", bandLabel: "CRITICAL", range: "< 60", min: 0, max: 59, color: "#ef4444", bg: "bg-red-50 dark:bg-red-500/10" },
 ];
@@ -706,7 +706,7 @@ function AnimatedComplianceDonut({
             </svg>
 
             {/* Legend grid */}
-            <div className="w-full grid grid-cols-2 gap-x-4 gap-y-2 border-t border-slate-100 dark:border-slate-800 pt-3 px-1">
+            <div className="w-full grid grid-cols-2 gap-x-4 gap-y-2 border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)] pt-3 px-1">
                 {data.map(({ name, value, color }) => (
                     <div key={name} className="flex items-center gap-2 min-w-0">
                         <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
@@ -723,7 +723,7 @@ function AnimatedComplianceDonut({
 
 function DashboardCard({ title, children, className = "" }: { title?: string; children: React.ReactNode; className?: string }) {
     return (
-        <div className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 flex flex-col gap-4 ${className}`}>
+        <div className={`bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 flex flex-col gap-4 ${className}`}>
             {title && <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-200 tracking-wide">{title}</h2>}
             {children}
         </div>
@@ -813,20 +813,20 @@ export default function IntegrityPage() {
                     <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Integrity Dashboard</h1>
                     <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
                         Plant-wide integrity overview ·{" "}
-                        <span className="font-medium text-indigo-600 dark:text-indigo-400">Larut-A (LRA)</span>
+                        <span className="font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">Larut-A (LRA)</span>
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
                     <button
                         onClick={() => setCustomizeOpen(true)}
-                        className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/30 hover:bg-indigo-100 dark:hover:bg-indigo-500/20 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
+                        className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10 border border-[var(--color-brand-primary-soft)] dark:border-[var(--color-brand-primary-soft)] hover:bg-[var(--color-brand-primary-soft)] dark:hover:bg-[var(--color-brand-primary-soft)]/20 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
                     >
                         <Settings2 size={14} /> Customize
                     </button>
-                    <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                    <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                         <FileText size={14} className="text-red-500" /> Export PDF
                     </button>
-                    <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+                    <button className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] hover:border-slate-300 dark:hover:border-slate-600 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
                         <FileSpreadsheet size={14} className="text-emerald-500" /> Export Excel
                     </button>
                 </div>
@@ -838,7 +838,7 @@ export default function IntegrityPage() {
             <SectionHeader label="Integrity Overview" />
 
             {isEnabled("integrity-score") ? (
-                <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none overflow-hidden">
+                <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none overflow-hidden">
                     {/* Gradient accent */}
                     <div className="absolute inset-0 pointer-events-none" style={{
                         background: `radial-gradient(ellipse at top right, ${status.color}18 0%, transparent 60%)`
@@ -908,7 +908,7 @@ export default function IntegrityPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* High Risk Equipment */}
                     {isEnabled("stat-high-risk") && (
-                        <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                        <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                             <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-red-500/8 dark:bg-red-500/10" />
                             <div className="flex items-center justify-between mb-3">
                                 <div className="p-2.5 rounded-xl bg-red-50 dark:bg-red-500/10">
@@ -924,7 +924,7 @@ export default function IntegrityPage() {
 
                     {/* Inspections Due Soon */}
                     {isEnabled("stat-inspections-due") && (
-                        <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                        <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                             <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-yellow-500/8 dark:bg-yellow-500/10" />
                             <div className="flex items-center justify-between mb-3">
                                 <div className="p-2.5 rounded-xl bg-yellow-50 dark:bg-yellow-500/10">
@@ -940,7 +940,7 @@ export default function IntegrityPage() {
 
                     {/* Open Anomalies */}
                     {isEnabled("stat-open-anomalies") && (
-                        <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                        <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                             <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-orange-500/8 dark:bg-orange-500/10" />
                             <div className="flex items-center justify-between mb-3">
                                 <div className="p-2.5 rounded-xl bg-orange-50 dark:bg-orange-500/10">
@@ -956,7 +956,7 @@ export default function IntegrityPage() {
 
                     {/* Low Remaining Life */}
                     {isEnabled("stat-remaining-life") && (
-                        <div className="relative bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                        <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                             <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-blue-500/8 dark:bg-blue-500/10" />
                             <div className="flex items-center justify-between mb-3">
                                 <div className="p-2.5 rounded-xl bg-blue-50 dark:bg-blue-500/10">
@@ -984,7 +984,7 @@ export default function IntegrityPage() {
                         <DashboardCard title="Risk Distribution" className="h-full">
 
                             {/* Tab switcher */}
-                            <div className="flex border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden self-start">
+                            <div className="flex border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg overflow-hidden self-start">
                                 {riskTabs.map(tab => (
                                     <button
                                         key={tab}
@@ -1006,11 +1006,11 @@ export default function IntegrityPage() {
                                 <table className="w-full border-collapse text-xs">
                                     <thead>
                                         <tr>
-                                            <th className="text-left px-2 py-1.5 text-[10px] font-semibold text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 w-14">
+                                            <th className="text-left px-2 py-1.5 text-[10px] font-semibold text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50 dark:bg-slate-800/60 w-14">
                                                 POF/COF
                                             </th>
                                             {RISK_LEVELS.col.map(col => (
-                                                <th key={col} className="text-center px-2 py-1.5 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
+                                                <th key={col} className="text-center px-2 py-1.5 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50 dark:bg-slate-800/60">
                                                     {col}
                                                 </th>
                                             ))}
@@ -1019,7 +1019,7 @@ export default function IntegrityPage() {
                                     <tbody>
                                         {RISK_LEVELS.row.map((pof, rowIdx) => (
                                             <tr key={pof}>
-                                                <td className="text-center px-2 py-2 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
+                                                <td className="text-center px-2 py-2 font-semibold text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50 dark:bg-slate-800/60">
                                                     {pof}
                                                 </td>
                                                 {RISK_LEVELS.col.map((_, colIdx) => {
@@ -1028,7 +1028,7 @@ export default function IntegrityPage() {
                                                     const bg = riskLevelColor[level];
                                                     return (
                                                         <td key={colIdx}
-                                                            className="text-center px-2 py-2.5 font-semibold border border-slate-200 dark:border-slate-700"
+                                                            className="text-center px-2 py-2.5 font-semibold border border-slate-200 dark:border-[var(--color-brand-darkBorder)]"
                                                             style={{ backgroundColor: bg, color: level === "Medium" ? "#713f12" : "white" }}>
                                                             {count}
                                                         </td>
@@ -1080,7 +1080,7 @@ export default function IntegrityPage() {
                                         <XAxis dataKey="name" tick={{ fontSize: 10, fill: "currentColor" }} axisLine={false} tickLine={false} />
                                         <YAxis tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
                                         <Tooltip contentStyle={tooltipStyle} cursor={{ fill: "rgba(148,163,184,0.08)" }} />
-                                        <Bar dataKey="value" fill="#6366f1" radius={[6, 6, 0, 0]} label={{ position: "top", fontSize: 11, fontWeight: 600, fill: "currentColor" }} />
+                                        <Bar dataKey="value" fill="#2F80ED" radius={[6, 6, 0, 0]} label={{ position: "top", fontSize: 11, fontWeight: 600, fill: "currentColor" }} />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
@@ -1097,7 +1097,7 @@ export default function IntegrityPage() {
                                         {/* Priority label header */}
                                         <tr>
                                             <th colSpan={anomalyPriority.length * 2}
-                                                className="text-center py-2 text-slate-500 dark:text-slate-400 font-semibold tracking-wide border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60">
+                                                className="text-center py-2 text-slate-500 dark:text-slate-400 font-semibold tracking-wide border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50 dark:bg-slate-800/60">
                                                 Priority
                                             </th>
                                         </tr>
@@ -1105,7 +1105,7 @@ export default function IntegrityPage() {
                                         <tr>
                                             {anomalyPriority.map(({ name, fill }) => (
                                                 <th key={name} colSpan={2}
-                                                    className="text-center py-1.5 font-bold text-white border border-slate-200 dark:border-slate-700"
+                                                    className="text-center py-1.5 font-bold text-white border border-slate-200 dark:border-[var(--color-brand-darkBorder)]"
                                                     style={{ backgroundColor: fill }}>
                                                     {name}
                                                 </th>
@@ -1117,7 +1117,7 @@ export default function IntegrityPage() {
                                         <tr>
                                             {anomalyPriority.map(({ name, total }) => (
                                                 <td key={name} colSpan={2}
-                                                    className="text-center py-1.5 font-semibold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/30">
+                                                    className="text-center py-1.5 font-semibold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50/50 dark:bg-slate-800/30">
                                                     {total}
                                                 </td>
                                             ))}
@@ -1126,10 +1126,10 @@ export default function IntegrityPage() {
                                         <tr>
                                             {anomalyPriority.map(({ name }) => (
                                                 <React.Fragment key={name}>
-                                                    <th className="text-center py-1.5 font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 min-w-[52px]">
+                                                    <th className="text-center py-1.5 font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50 dark:bg-slate-800/60 min-w-[52px]">
                                                         Active
                                                     </th>
-                                                    <th className="text-center py-1.5 font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 min-w-[52px]">
+                                                    <th className="text-center py-1.5 font-semibold text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] bg-slate-50 dark:bg-slate-800/60 min-w-[52px]">
                                                         Completed
                                                     </th>
                                                 </React.Fragment>
@@ -1139,11 +1139,11 @@ export default function IntegrityPage() {
                                         <tr>
                                             {anomalyPriority.map(({ name, active, completed, fill }) => (
                                                 <React.Fragment key={name}>
-                                                    <td className="text-center py-1.5 font-medium border border-slate-200 dark:border-slate-700 min-w-[52px]"
+                                                    <td className="text-center py-1.5 font-medium border border-slate-200 dark:border-[var(--color-brand-darkBorder)] min-w-[52px]"
                                                         style={{ color: active > 0 ? fill : undefined }}>
                                                         {active}
                                                     </td>
-                                                    <td className="text-center py-1.5 font-medium text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-700 min-w-[52px]">
+                                                    <td className="text-center py-1.5 font-medium text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-[var(--color-brand-darkBorder)] min-w-[52px]">
                                                         {completed}
                                                     </td>
                                                 </React.Fragment>
@@ -1196,8 +1196,8 @@ export default function IntegrityPage() {
                                     <LineChart data={riskTrend} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
                                         <defs>
                                             <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="5%" stopColor="#6366f1" stopOpacity={0.15} />
-                                                <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                                                <stop offset="5%" stopColor="#2F80ED" stopOpacity={0.15} />
+                                                <stop offset="95%" stopColor="#2F80ED" stopOpacity={0} />
                                             </linearGradient>
                                         </defs>
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148,163,184,0.15)" />
@@ -1207,10 +1207,10 @@ export default function IntegrityPage() {
                                         <Line
                                             type="monotone"
                                             dataKey="score"
-                                            stroke="#6366f1"
+                                            stroke="#2F80ED"
                                             strokeWidth={2.5}
-                                            dot={{ fill: "#6366f1", r: 3, strokeWidth: 0 }}
-                                            activeDot={{ r: 5, fill: "#6366f1", strokeWidth: 0 }}
+                                            dot={{ fill: "#2F80ED", r: 3, strokeWidth: 0 }}
+                                            activeDot={{ r: 5, fill: "#2F80ED", strokeWidth: 0 }}
                                         />
                                     </LineChart>
                                 </ResponsiveContainer>
@@ -1218,8 +1218,8 @@ export default function IntegrityPage() {
                             <div className="flex items-center justify-between">
                                 <p className="text-[11px] text-slate-400 dark:text-slate-500">Integrity score improving month-over-month</p>
                                 <div className="flex items-center gap-1.5">
-                                    <div className="w-2 h-2 rounded-full bg-indigo-500" />
-                                    <span className="text-xs font-medium text-indigo-600 dark:text-indigo-400">+13 pts YTD</span>
+                                    <div className="w-2 h-2 rounded-full bg-[var(--color-brand-primary-soft)]0" />
+                                    <span className="text-xs font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">+13 pts YTD</span>
                                 </div>
                             </div>
                         </DashboardCard>
