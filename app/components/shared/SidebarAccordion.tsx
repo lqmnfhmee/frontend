@@ -8,6 +8,7 @@ import { Folder, ChevronDown, ChevronRight } from "lucide-react";
 interface SubItem {
     label: string;
     href: string;
+    subItems?: SubItem[];
 }
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
     baseHref: string;
     subItems: SubItem[];
     collapsed?: boolean;
+    isNested?: boolean;
 }
 
 export default function SidebarAccordion({
@@ -22,6 +24,7 @@ export default function SidebarAccordion({
     baseHref,
     subItems,
     collapsed = false,
+    isNested = false,
 }: Props) {
     const pathname = usePathname();
     const isActive = pathname.startsWith(baseHref);
@@ -34,9 +37,6 @@ export default function SidebarAccordion({
         }
     }, [isActive, collapsed]);
 
-    // If collapsed, we probably don't want to show the full accordion.
-    // We can just show the icon, and maybe a popover if hovered. For now, basic support.
-
     return (
         <div className="flex flex-col">
             {/* Header Item */}
@@ -45,18 +45,22 @@ export default function SidebarAccordion({
                 className={`
           group relative flex items-center
           ${collapsed ? "justify-center px-0" : "justify-between px-5"}
-          h-12 rounded-xl cursor-pointer
+          ${isNested ? "h-10 pl-2" : "h-12"} rounded-xl cursor-pointer
           transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
-          ${isActive
+          ${isActive && !isNested
                         ? "bg-[var(--color-brand-primary)] text-white shadow-sm"
-                        : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)]"
+                        : isActive && isNested
+                            ? "text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)] font-medium bg-slate-100/50 dark:bg-slate-800/30"
+                            : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)]"
                     }
         `}
             >
                 <div className="flex items-center justify-center relative">
-                    <span className="relative z-10">
-                        <Folder size={18} />
-                    </span>
+                    {!isNested && (
+                        <span className="relative z-10 text-slate-400 group-hover:text-inherit">
+                            <Folder size={18} />
+                        </span>
+                    )}
 
                     <span
                         className={`
@@ -64,7 +68,7 @@ export default function SidebarAccordion({
               transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] whitespace-nowrap
               ${collapsed
                                 ? "opacity-0 w-0 ml-0 overflow-hidden"
-                                : "opacity-100 ml-3"
+                                : isNested ? "opacity-100 ml-0" : "opacity-100 ml-3"
                             }
             `}
                     >
@@ -74,15 +78,28 @@ export default function SidebarAccordion({
 
                 {!collapsed && (
                     <span className="relative z-10">
-                        {isOpen ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
+                        {isOpen ? <ChevronDown size={14} className="opacity-60" /> : <ChevronRight size={14} className="opacity-60" />}
                     </span>
                 )}
             </div>
 
             {/* Sub Items */}
             {!collapsed && isOpen && (
-                <div className="mt-1 ml-7 pl-4 border-l-2 border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex flex-col space-y-1">
+                <div className={`mt-1 flex flex-col space-y-1 ${isNested ? "ml-4 pl-2" : "ml-7 pl-4 border-l-2 border-slate-200 dark:border-[var(--color-brand-darkBorder)]"}`}>
                     {subItems.map((item) => {
+                        if (item.subItems) {
+                            return (
+                                <SidebarAccordion
+                                    key={item.label}
+                                    label={item.label}
+                                    baseHref={item.href}
+                                    subItems={item.subItems}
+                                    collapsed={collapsed}
+                                    isNested={true}
+                                />
+                            );
+                        }
+
                         const isSubActive = pathname === item.href;
                         return (
                             <Link
@@ -97,7 +114,7 @@ export default function SidebarAccordion({
                 `}
                             >
                                 {/* Custom active indicator for sub items */}
-                                {isSubActive && (
+                                {isSubActive && !isNested && (
                                     <div className="absolute left-[-18px] top-1/2 -translate-y-1/2 w-[2px] h-full bg-[var(--color-brand-primary)] rounded-r" />
                                 )}
                                 {item.label}

@@ -223,21 +223,32 @@ export default function Sidebar({ collapsed, mobileOpen, setMobileOpen }: Sideba
                   { label: "Piping", href: "/rbi/piping" }
                 ]}
               />
-              <SidebarItem
+              <SidebarAccordion
                 label="Anomalies"
-                href="/anomalies"
-                badge="5"
+                baseHref="/anomalies"
                 collapsed={collapsed}
-              />
-              <SidebarItem
-                label="Settings"
-                href="/integrity-settings"
-                collapsed={collapsed}
-              />
-              <SidebarItem
-                label="Anomaly Settings"
-                href="/anomaly-settings"
-                collapsed={collapsed}
+                subItems={[
+                  { label: "Dashboard", href: "/anomalies" },
+                  { label: "Requests", href: "/anomalies/requests" },
+                  { label: "Assessment", href: "/anomalies/assessment" },
+                  { label: "Execution", href: "/anomalies/execution" },
+                  { label: "Database", href: "/anomalies/database" },
+                  {
+                    label: "Settings",
+                    href: "/anomalies/settings",
+                    subItems: [
+                      { label: "System Configuration", href: "/anomalies/settings/system-configuration" },
+                      { label: "Process Expected CR", href: "/anomalies/settings/process-expected-cr" }
+                    ]
+                  },
+                  {
+                    label: "Anomaly Settings",
+                    href: "/anomalies/settings/anomaly-settings",
+                    subItems: [
+                      { label: "Process Lines", href: "/anomalies/settings/anomaly-settings/process-lines" }
+                    ]
+                  }
+                ]}
               />
             </div>
           </div>
