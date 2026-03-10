@@ -3,6 +3,7 @@
 import SidebarItem from "./SidebarItem";
 import SidebarAccordion from "./SidebarAccordion";
 import { useEffect } from "react";
+import Image from "next/image";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -38,7 +39,7 @@ export default function Sidebar({ collapsed, mobileOpen, setMobileOpen }: Sideba
         className={`
           fixed lg:static inset-y-0 left-0 z-40
           h-full flex flex-col
-          transition-all duration-300 ease-in-out
+          transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
           ${collapsed ? "lg:w-[88px]" : "lg:w-[280px]"}
           ${mobileOpen ? "w-[280px] translate-x-0" : "w-[280px] -translate-x-full lg:translate-x-0"}
           bg-white dark:bg-[var(--color-brand-darkBg)]
@@ -51,20 +52,32 @@ export default function Sidebar({ collapsed, mobileOpen, setMobileOpen }: Sideba
           className={`
           py-6
           border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]
-          transition-all duration-300
+          transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
           ${collapsed ? "px-3" : "px-6"}
         `}
         >
           {/* Logo */}
           <div
             className={`
-            text-2xl font-semibold tracking-tight
-            text-slate-900 dark:text-slate-100
-            transition-all duration-300
-            ${collapsed ? "text-center text-lg" : ""}
+            flex items-center
+            transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
+            ${collapsed ? "justify-center" : "gap-3"}
           `}
           >
-            {collapsed ? "E" : "EAIMS"}
+            <div className={`relative shrink-0 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${collapsed ? "w-8 h-8" : "w-7 h-7"}`}>
+              <Image
+                src="/logo.png"
+                alt="EAIMS Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            {!collapsed && (
+              <span className="text-xl font-bold tracking-wide text-sky-500 uppercase">
+                EAIMS
+              </span>
+            )}
           </div>
 
           {/* Plant Card */}
@@ -104,7 +117,7 @@ export default function Sidebar({ collapsed, mobileOpen, setMobileOpen }: Sideba
           className={`
           flex-1 overflow-y-auto
           py-6 space-y-8 text-sm
-          transition-all duration-300
+          transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
           ${collapsed ? "px-3" : "px-6"}
         `}
         >

@@ -46,7 +46,7 @@ export default function SidebarAccordion({
           group relative flex items-center
           ${collapsed ? "justify-center px-0" : "justify-between px-5"}
           h-12 rounded-xl cursor-pointer
-          transition-all duration-300 ease-in-out
+          transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
           ${isActive
                         ? "bg-[var(--color-brand-primary)] text-white shadow-sm"
                         : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)]"
@@ -61,7 +61,7 @@ export default function SidebarAccordion({
                     <span
                         className={`
               relative z-10 text-sm font-medium tracking-tight
-              transition-all duration-300 whitespace-nowrap
+              transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] whitespace-nowrap
               ${collapsed
                                 ? "opacity-0 w-0 ml-0 overflow-hidden"
                                 : "opacity-100 ml-3"

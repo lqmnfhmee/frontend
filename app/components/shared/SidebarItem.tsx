@@ -50,12 +50,11 @@ export default function SidebarItem({
         group relative flex items-center
         ${collapsed ? "justify-center px-0" : "justify-between px-5"}
         h-12 rounded-xl cursor-pointer
-        transition-all duration-300 ease-in-out
+        transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
 
-        ${
-          active
-            ? "bg-[var(--color-brand-primary)] text-white shadow-sm"
-            : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)]"
+        ${active
+          ? "bg-[var(--color-brand-primary)] text-white shadow-sm"
+          : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-[var(--color-brand-darkHover)]"
         }
       `}
     >
@@ -82,11 +81,10 @@ export default function SidebarItem({
         <span
           className={`
             relative z-10 text-sm font-medium tracking-tight
-            transition-all duration-300 whitespace-nowrap
-            ${
-              collapsed
-                ? "opacity-0 w-0 ml-0 overflow-hidden"
-                : "opacity-100 ml-3"
+            transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] whitespace-nowrap
+            ${collapsed
+              ? "opacity-0 w-0 ml-0 overflow-hidden"
+              : "opacity-100 ml-3"
             }
           `}
         >
@@ -98,10 +96,9 @@ export default function SidebarItem({
         <span
           className={`
             relative z-10 text-xs font-semibold px-2 py-[3px] rounded-full
-            ${
-              active
-                ? "bg-white/20 text-white"
-                : "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200"
+            ${active
+              ? "bg-white/20 text-white"
+              : "bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200"
             }
           `}
         >

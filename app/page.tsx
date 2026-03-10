@@ -9,8 +9,6 @@ export default function Home() {
       className="
         min-h-screen
         flex flex-col
-        bg-slate-50
-        dark:bg-[var(--color-brand-darkBg)]
         relative
       "
     >
