@@ -63,7 +63,7 @@ export default function TotalRiskMatrix() {
   return (
 
     <div className="
-      rounded-xl p-5
+      rounded-xl p-4 sm:p-5
       bg-white dark:bg-[var(--color-brand-darkCard)]
       border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
       shadow-md shadow-slate-200/50 dark:shadow-none
@@ -76,7 +76,8 @@ export default function TotalRiskMatrix() {
         <span className="absolute -bottom-2 left-0 w-12 h-[2px] bg-[var(--color-brand-primary-soft)]0 rounded-full"></span>
       </h3>
 
-      <table className="w-full table-fixed text-center text-sm border border-slate-300 dark:border-[var(--color-brand-darkBorder)]">
+      <div className="overflow-x-auto -mx-1 px-1">
+      <table className="w-full min-w-[280px] table-fixed text-center text-sm border border-slate-300 dark:border-[var(--color-brand-darkBorder)]">
 
         <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-300 dark:border-[var(--color-brand-darkBorder)]">
 
@@ -145,8 +146,9 @@ export default function TotalRiskMatrix() {
         </tbody>
 
       </table>
+      </div>
 
-      <div className="flex justify-center gap-6 text-xs mt-5 text-slate-600 dark:text-slate-300">
+      <div className="flex flex-wrap justify-center gap-4 text-xs mt-5 text-slate-600 dark:text-slate-300">
 
         {[
           { label: "Low", color: "bg-green-600" },

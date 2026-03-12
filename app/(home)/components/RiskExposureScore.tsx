@@ -47,8 +47,6 @@ export default function RiskExposureScore() {
     return { label: "Stable", color: "text-emerald-400", bar: "bg-emerald-500" };
   };
 
-  const leftFactors = riskExposureData.factors.slice(0, 3);
-  const rightFactors = riskExposureData.factors.slice(3);
 
   const maxImpact = Math.max(
     ...riskExposureData.factors.map(f => Math.abs(f.impact))
@@ -83,7 +81,7 @@ export default function RiskExposureScore() {
 
     <div
       className="
-      w-full rounded-xl p-8
+      w-full rounded-xl p-4 sm:p-6 lg:p-8
       bg-white dark:bg-[var(--color-brand-darkCard)]
       border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
       shadow-md shadow-slate-200/50 dark:shadow-none
@@ -91,16 +89,16 @@ export default function RiskExposureScore() {
       transition-all duration-300
     ">
 
-      <h2 className="text-lg font-semibold mb-6 text-slate-900 dark:text-slate-100">
+      <h2 className="text-lg font-semibold mb-4 sm:mb-6 text-slate-900 dark:text-slate-100">
         Risk Exposure Score
       </h2>
 
-      <div className="grid grid-cols-[420px_1fr] gap-10 items-center">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-start lg:items-center">
 
         {/* LEFT KPI */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6 sm:gap-8 w-full lg:w-auto lg:shrink-0">
 
-          <div className="relative w-40 h-40">
+          <div className="relative w-32 h-32 sm:w-40 sm:h-40 shrink-0">
 
             <svg className="w-full h-full -rotate-90">
 
@@ -133,7 +131,7 @@ export default function RiskExposureScore() {
 
           <div>
 
-            <p className="text-xl font-semibold text-slate-900 dark:text-slate-100">
+            <p className="text-base sm:text-xl font-semibold text-slate-900 dark:text-slate-100">
               {score}% Risk Exposure Level
             </p>
 
@@ -152,89 +150,82 @@ export default function RiskExposureScore() {
         </div>
 
         {/* RIGHT FACTORS */}
-        <div className="border-l border-slate-200 dark:border-[var(--color-brand-darkBorder)] pl-10">
+        <div className="w-full lg:border-l lg:border-slate-200 lg:dark:border-[var(--color-brand-darkBorder)] lg:pl-10 border-t border-slate-200 dark:border-[var(--color-brand-darkBorder)] pt-4 lg:border-t-0 lg:pt-0">
 
           <h3 className="text-sm font-semibold border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] pb-2 mb-4 text-slate-700 dark:text-slate-300">
             FACTORS
           </h3>
 
-          <div className="grid grid-cols-2 gap-x-12 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
 
-            {[leftFactors, rightFactors].map((column, i) => (
-              <div key={i} className="flex flex-col gap-4">
+            {riskExposureData.factors.map((factor) => {
 
-                {column.map((factor) => {
+              const Icon = factorIcons[factor.label];
+              const barWidth =
+                (Math.abs(factor.impact) / maxImpact) * 100;
 
-                  const Icon = factorIcons[factor.label];
-                  const barWidth =
-                    (Math.abs(factor.impact) / maxImpact) * 100;
+              const factorStatus = getFactorStatus(factor.impact);
 
-                  const factorStatus = getFactorStatus(factor.impact);
+              return (
 
-                  return (
+                <div
+                  key={factor.label}
+                  className="
+                    rounded-lg p-3
+                    bg-slate-50 dark:bg-slate-800
+                    border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
+                    hover:bg-white dark:hover:bg-[var(--color-brand-darkHover)]
+                    transition-colors duration-200
+                  "
+                >
+
+                  {/* TITLE */}
+                  <div className="flex items-center gap-3 mb-2">
 
                     <div
-                      key={factor.label}
                       className="
-                        rounded-lg p-3
-                        bg-slate-50 dark:bg-slate-800
-                        border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
-                        hover:bg-white dark:hover:bg-[var(--color-brand-darkHover)]
-                        transition-colors duration-200
+                        w-8 h-8 rounded-md shrink-0
+                        bg-white dark:bg-slate-700
+                        border border-slate-200 dark:border-slate-600
+                        flex items-center justify-center
                       "
                     >
-
-                      {/* TITLE */}
-                      <div className="flex items-center gap-3 mb-2">
-
-                        <div
-                          className="
-                            w-8 h-8 rounded-md
-                            bg-white dark:bg-slate-700
-                            border border-slate-200 dark:border-slate-600
-                            flex items-center justify-center
-                          "
-                        >
-                          <Icon size={16} className="text-slate-600 dark:text-slate-300" />
-                        </div>
-
-                        <span className="font-medium text-slate-900 dark:text-slate-100">
-                          {factor.label}
-                        </span>
-
-                      </div>
-
-                      {/* DATA */}
-                      <div className="flex justify-between text-xs text-slate-600 dark:text-slate-400 mb-2">
-
-                        <span>
-                          {factor.total} {factor.unit}
-                        </span>
-
-                        {/* 🔥 NEW STATUS DISPLAY */}
-                        <span className={`font-semibold ${factorStatus.color}`}>
-                          {factorStatus.label}
-                        </span>
-
-                      </div>
-
-                      {/* BAR */}
-                      <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-
-                        <div
-                          className={`h-full ${factorStatus.bar}`}
-                          style={{ width: `${barWidth}%` }}
-                        />
-
-                      </div>
-
+                      <Icon size={16} className="text-slate-600 dark:text-slate-300" />
                     </div>
 
-                  );
-                })}
+                    <span className="font-medium text-slate-900 dark:text-slate-100 leading-tight">
+                      {factor.label}
+                    </span>
 
-              </div>
-            ))}
+                  </div>
+
+                  {/* DATA */}
+                  <div className="flex justify-between text-xs text-slate-600 dark:text-slate-400 mb-2">
+
+                    <span>
+                      {factor.total} {factor.unit}
+                    </span>
+
+                    <span className={`font-semibold ${factorStatus.color}`}>
+                      {factorStatus.label}
+                    </span>
+
+                  </div>
+
+                  {/* BAR */}
+                  <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+
+                    <div
+                      className={`h-full ${factorStatus.bar}`}
+                      style={{ width: `${barWidth}%` }}
+                    />
+
+                  </div>
+
+                </div>
+
+              );
+            })}
 
           </div>
 

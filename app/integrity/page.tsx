@@ -978,9 +978,9 @@ export default function IntegrityPage() {
             <SectionHeader label="Integrity Analytics" />
 
             {["risk-distribution", "inspection-compliance"].some(isEnabled) ? (
-                <div className="flex gap-5">
+                <div className="flex flex-col lg:flex-row gap-5">
                     {/* Risk Distribution Matrix — 70% */}
-                    {isEnabled("risk-distribution") && <div className="flex-[7] min-w-0">
+                    {isEnabled("risk-distribution") && <div className="w-full lg:flex-[7] min-w-0">
                         <DashboardCard title="Risk Distribution" className="h-full">
 
                             {/* Tab switcher */}
@@ -1054,7 +1054,7 @@ export default function IntegrityPage() {
                     </div>}
 
                     {/* Inspection Compliance — 30% */}
-                    {isEnabled("inspection-compliance") && <div className="flex-[3] min-w-0">
+                    {isEnabled("inspection-compliance") && <div className="w-full lg:flex-[3] min-w-0">
                         <DashboardCard title="Inspection Compliance" className="h-full">
                             <AnimatedComplianceDonut data={inspectionCompliance} compliancePct={compliancePct} />
                         </DashboardCard>
@@ -1069,9 +1069,9 @@ export default function IntegrityPage() {
             <SectionHeader label="Integrity Monitoring" />
 
             {["inspection-timeline", "anomaly-priority"].some(isEnabled) ? (
-                <div className="flex gap-5">
+                <div className="flex flex-col lg:flex-row gap-5">
                     {/* Upcoming Inspection Timeline — 60% */}
-                    {isEnabled("inspection-timeline") && <div className="flex-[6] min-w-0">
+                    {isEnabled("inspection-timeline") && <div className="w-full lg:flex-[6] min-w-0">
                         <DashboardCard title="Upcoming Inspection Timeline" className="h-full">
                             <div className="h-[200px]">
                                 <ResponsiveContainer width="100%" height="100%">
@@ -1089,7 +1089,7 @@ export default function IntegrityPage() {
                     </div>}
 
                     {/* Anomaly Priority Distribution — 40% */}
-                    {isEnabled("anomaly-priority") && <div className="flex-[4] min-w-0">
+                    {isEnabled("anomaly-priority") && <div className="w-full lg:flex-[4] min-w-0">
                         <DashboardCard title="Anomaly Priority Distribution" className="h-full">
                             <div className="w-full overflow-x-auto">
                                 <table className="w-full border-collapse text-xs">
@@ -1163,9 +1163,9 @@ export default function IntegrityPage() {
             <SectionHeader label="Program Performance" />
 
             {["integrity-alerts", "risk-trend"].some(isEnabled) ? (
-                <div className="flex gap-5">
+                <div className="flex flex-col lg:flex-row gap-5">
                     {/* Integrity Alerts — 40% */}
-                    {isEnabled("integrity-alerts") && <div className="flex-[4] min-w-0">
+                    {isEnabled("integrity-alerts") && <div className="w-full lg:flex-[4] min-w-0">
                         <DashboardCard title="Integrity Alerts" className="h-full">
                             <div className="space-y-2.5">
                                 {alerts.map(({ id, icon: Icon, color, bg, border, text, level }) => (
@@ -1189,7 +1189,7 @@ export default function IntegrityPage() {
                     </div>}
 
                     {/* Plant Risk Reduction Trend — 60% */}
-                    {isEnabled("risk-trend") && <div className="flex-[6] min-w-0">
+                    {isEnabled("risk-trend") && <div className="w-full lg:flex-[6] min-w-0">
                         <DashboardCard title="Plant Risk Reduction Trend (12 Months)" className="h-full">
                             <div className="h-[220px]">
                                 <ResponsiveContainer width="100%" height="100%">

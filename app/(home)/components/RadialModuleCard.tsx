@@ -83,7 +83,7 @@ export default function RadialModuleCard({
       </h3>
 
       {/* Radial Area */}
-      <div className="relative w-[260px] h-[260px] flex items-start justify-center">
+      <div className="relative w-full max-w-[260px] aspect-square flex items-start justify-center mx-auto">
 
         {/* Ambient Glow */}
         <div

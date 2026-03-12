@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+
 export default function AnomalyPriorityBreakdown() {
 
   const data = {
@@ -24,7 +26,8 @@ export default function AnomalyPriorityBreakdown() {
         <span className="absolute -bottom-2 left-0 w-12 h-[2px] bg-[var(--color-brand-primary-soft)]0 rounded-full"></span>
       </h3>
 
-      <table className="w-full text-center text-sm border border-slate-400 dark:border-slate-600 border-collapse">
+      <div className="overflow-x-auto -mx-1 px-1">
+      <table className="w-full min-w-[360px] text-center text-sm border border-slate-400 dark:border-slate-600 border-collapse">
 
         <thead>
 
@@ -84,14 +87,14 @@ export default function AnomalyPriorityBreakdown() {
           <tr className="text-xs text-slate-500 dark:text-slate-400">
 
             {Array(4).fill(null).map((_, i) => (
-              <>
-                <th key={`a-${i}`} className="py-2 border border-slate-400 dark:border-slate-600">
+              <React.Fragment key={i}>
+                <th className="py-2 border border-slate-400 dark:border-slate-600">
                   Active
                 </th>
-                <th key={`c-${i}`} className="py-2 border border-slate-400 dark:border-slate-600">
+                <th className="py-2 border border-slate-400 dark:border-slate-600">
                   Completed
                 </th>
-              </>
+              </React.Fragment>
             ))}
 
           </tr>
@@ -135,6 +138,7 @@ export default function AnomalyPriorityBreakdown() {
         </tbody>
 
       </table>
+      </div>
       <div className="
         mt-4 rounded-md px-3 py-2 text-xs
         bg-slate-100 dark:bg-slate-800/80
