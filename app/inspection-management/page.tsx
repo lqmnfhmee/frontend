@@ -44,7 +44,7 @@ export default function InspectionManagementPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-6">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {kpis.map(({ label, value, Icon, color, bg }) => (
                         <div key={label} className="bg-white dark:bg-[var(--color-brand-darkCard)] rounded-xl border border-slate-200 dark:border-[var(--color-brand-darkBorder)] p-5 flex items-center gap-4 shadow-md shadow-slate-200/50 dark:shadow-none hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none transition-all duration-300">
                             <div className={`p-2.5 rounded-xl ${bg}`}><Icon size={20} className={color} /></div>

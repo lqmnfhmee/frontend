@@ -209,22 +209,22 @@ export default function AnomaliesPage() {
                 </div>
 
                 {/* Situational Awareness Bar */}
-                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg p-3 flex flex-wrap items-center gap-6 shadow-sm">
-                    <div className="flex items-center gap-2 px-3 border-r border-slate-200 dark:border-slate-800">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg p-3 flex flex-wrap items-center gap-x-6 gap-y-3 shadow-sm">
+                    <div className="flex items-center gap-2 px-3 border-r-0 sm:border-r border-slate-200 dark:border-slate-800">
                         <ShieldCheck className="text-green-500" size={18} />
                         <div>
                             <span className="text-[10px] uppercase font-bold text-slate-500 block leading-none">Facility Status</span>
                             <span className="text-sm font-bold text-green-500 leading-tight">LOW RISK</span>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2 px-3 border-r border-slate-200 dark:border-slate-800">
+                    <div className="flex items-center gap-2 px-3 border-r-0 sm:border-r border-slate-200 dark:border-slate-800">
                         <AlertTriangle className="text-red-500" size={18} />
                         <div>
                             <span className="text-[10px] uppercase font-bold text-slate-500 block leading-none">Critical Anomalies</span>
                             <span className="text-sm font-bold text-slate-900 dark:text-white leading-tight">4 Pending</span>
                         </div>
                     </div>
-                    <div className="flex items-center gap-2 px-3 border-r border-slate-200 dark:border-slate-800">
+                    <div className="flex items-center gap-2 px-3 border-r-0 sm:border-r border-slate-200 dark:border-slate-800">
                         <Clock className="text-orange-500" size={18} />
                         <div>
                             <span className="text-[10px] uppercase font-bold text-slate-500 block leading-none">Overdue Repairs</span>

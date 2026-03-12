@@ -706,7 +706,7 @@ function AnimatedComplianceDonut({
             </svg>
 
             {/* Legend grid */}
-            <div className="w-full grid grid-cols-2 gap-x-4 gap-y-2 border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)] pt-3 px-1">
+            <div className="w-full grid grid-cols-2 gap-x-4 gap-y-2 border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)] pt-4 px-4">
                 {data.map(({ name, value, color }) => (
                     <div key={name} className="flex items-center gap-2 min-w-0">
                         <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
@@ -816,7 +816,7 @@ export default function IntegrityPage() {
                         <span className="font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">Larut-A (LRA)</span>
                     </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                     <button
                         onClick={() => setCustomizeOpen(true)}
                         className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)] bg-[var(--color-brand-primary-soft)] dark:bg-[var(--color-brand-primary)]/10 border border-[var(--color-brand-primary-soft)] dark:border-[var(--color-brand-primary-soft)] hover:bg-[var(--color-brand-primary-soft)] dark:hover:bg-[var(--color-brand-primary-soft)]/20 rounded-lg shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
@@ -870,26 +870,37 @@ export default function IntegrityPage() {
                                                 setHighlightedBand(isActive ? null : bandLabel);
                                             }
                                         }}
-                                        className={`flex items-center justify-between rounded-xl px-4 py-2.5 ${bg} border
+                                        className={`flex items-center justify-between rounded-xl px-4 py-2.5 border
                                                     cursor-pointer select-none transition-all duration-200
                                                     hover:scale-[1.005] focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-                                                    ${isActive ? "ring-1 scale-[1.01]" : ""}`}
+                                                    ${isActive && !isCurrent ? "ring-1 scale-[1.01]" : ""}
+                                                    ${isCurrent ? "scale-[1.01]" : bg}`}
                                         style={{
-                                            borderColor: isActive ? color : `${color}30`,
-                                            boxShadow: isActive ? `0 0 14px ${color}28` : undefined,
+                                            backgroundColor: isCurrent ? color : undefined,
+                                            borderColor: isCurrent ? color : isActive ? color : `${color}30`,
+                                            boxShadow: isCurrent
+                                                ? `0 0 18px ${color}40`
+                                                : isActive ? `0 0 14px ${color}28` : undefined,
                                         }}
                                     >
                                         <div className="flex items-center gap-2.5">
-                                            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: color }} />
-                                            <span className="text-sm font-semibold" style={{ color }}>{label}</span>
+                                            <div
+                                                className="w-2.5 h-2.5 rounded-full"
+                                                style={{ backgroundColor: isCurrent ? "rgba(255,255,255,0.85)" : color }}
+                                            />
+                                            <span
+                                                className="text-sm font-semibold"
+                                                style={{ color: isCurrent ? "#fff" : color }}
+                                            >
+                                                {label}
+                                            </span>
                                         </div>
                                         <div className="flex items-center gap-2">
-                                            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{range}</span>
-                                            {isCurrent && (
-                                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: color }}>
-                                                    CURRENT
-                                                </span>
-                                            )}
+                                            <span
+                                                className={isCurrent ? "text-xs font-mono text-white/80" : "text-xs font-mono text-slate-500 dark:text-slate-400"}
+                                            >
+                                                {range}
+                                            </span>
                                         </div>
                                     </div>
                                 );

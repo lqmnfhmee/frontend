@@ -69,13 +69,12 @@ export default function AssetRiskTable({ assets, filterRisk, onViewAsset }: Asse
                                 <th className={`${hClass} hidden lg:table-cell`} onClick={() => handleSort("cof")}><span className="flex items-center gap-1">CoF <SortIcon col="cof" /></span></th>
                                 <th className={`${hClass} hidden lg:table-cell`} onClick={() => handleSort("pof")}><span className="flex items-center gap-1">PoF <SortIcon col="pof" /></span></th>
                                 <th className={`${hClass} hidden xl:table-cell`} onClick={() => handleSort("nextInspectionDate")}><span className="flex items-center gap-1">Next Inspection <SortIcon col="nextInspectionDate" /></span></th>
-                                <th className="px-4 py-3 w-24 hidden sm:table-cell"><span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Trend</span></th>
                                 <th className="px-4 py-3 w-10" />
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                             {filtered.length === 0 ? (
-                                <tr><td colSpan={8} className="py-10 text-center text-sm text-slate-400 dark:text-slate-500">No assets match the current filters.</td></tr>
+                                <tr><td colSpan={7} className="py-10 text-center text-sm text-slate-400 dark:text-slate-500">No assets match the current filters.</td></tr>
                             ) : (
                                 filtered.map((asset) => (
                                     <tr key={asset.id} className="group hover:bg-slate-50 dark:hover:bg-[var(--color-brand-darkHover)]/50 transition-colors">
@@ -88,9 +87,6 @@ export default function AssetRiskTable({ assets, filterRisk, onViewAsset }: Asse
                                         <td className="px-4 py-3 hidden lg:table-cell font-mono text-sm text-slate-700 dark:text-slate-300">{asset.cof}</td>
                                         <td className="px-4 py-3 hidden lg:table-cell font-mono text-sm text-slate-700 dark:text-slate-300">{asset.pof}</td>
                                         <td className="px-4 py-3 hidden xl:table-cell text-sm text-slate-600 dark:text-slate-400">{asset.nextInspectionDate}</td>
-                                        <td className="px-4 py-3 w-24 hidden sm:table-cell">
-                                            <SparklineChart data={asset.trend} color={asset.riskLevel === "Critical" || asset.riskLevel === "High" ? "#ef4444" : asset.riskLevel === "Medium" ? "#eab308" : "#22c55e"} height={32} />
-                                        </td>
                                         <td className="px-4 py-3">
                                             <button onClick={() => onViewAsset(asset)} className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-slate-400 hover:text-[var(--color-brand-primary)] hover:bg-[var(--color-brand-primary-soft)] dark:hover:bg-[var(--color-brand-primary-soft)]0/10 dark:hover:text-[var(--color-brand-primary)] transition-all" title="View detail">
                                                 <Eye size={15} />

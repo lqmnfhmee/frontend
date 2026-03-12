@@ -27,7 +27,7 @@ export default function Home() {
 
       {/* MAIN CONTENT */}
       <main className="flex-1 relative z-10">
-        <div className="max-w-[1500px] mx-auto px-6 lg:px-8 pt-6 pb-10 space-y-6">
+        <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-10 space-y-6">
 
           <div>
             <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100">

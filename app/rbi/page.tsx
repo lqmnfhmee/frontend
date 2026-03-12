@@ -294,7 +294,7 @@ export default function RbiPage() {
                 {/* ════════════════════════════════════════ */}
                 <SectionHeader label="Risk Overview" />
 
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-5">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_340px] gap-5">
 
                     {/* LEFT — Plant Risk Matrix */}
                     <DashboardCard
@@ -457,7 +457,7 @@ export default function RbiPage() {
                             </button>
                         }
                     >
-                        <div className="rounded-xl border border-slate-100 dark:border-[var(--color-brand-darkBorder)] overflow-hidden">
+                        <div className="rounded-xl border border-slate-100 dark:border-[var(--color-brand-darkBorder)] overflow-hidden overflow-x-auto">
                             <table className="w-full text-xs">
                                 <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                                     <tr>
@@ -492,7 +492,7 @@ export default function RbiPage() {
                             </button>
                         }
                     >
-                        <div className="rounded-xl border border-slate-100 dark:border-[var(--color-brand-darkBorder)] overflow-hidden">
+                        <div className="rounded-xl border border-slate-100 dark:border-[var(--color-brand-darkBorder)] overflow-hidden overflow-x-auto">
                             <table className="w-full text-xs">
                                 <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                                     <tr>

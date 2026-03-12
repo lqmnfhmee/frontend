@@ -471,7 +471,7 @@ export default function SCEDashboard() {
                 {/* ════════════════════════════════════════ */}
                 <SectionHeader label="SCE Program Overview" />
 
-                <div className="grid grid-cols-2 xl:grid-cols-6 gap-4">
+                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4">
 
                     {/* Total Equipment */}
                     <div className="relative bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer">
@@ -788,7 +788,7 @@ export default function SCEDashboard() {
                     {/* Filter row */}
                     <div className="flex items-center gap-3 flex-wrap mb-4">
                         <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Filter:</span>
-                        <div className="flex border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg overflow-hidden">
+                        <div className="overflow-x-auto"><div className="flex border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg overflow-hidden min-w-max">
                             {["All", "Process Containment", "Structural Integrity", "Protection Systems"].map(f => (
                                 <button
                                     key={f}
@@ -801,8 +801,8 @@ export default function SCEDashboard() {
                                     {f === "All" ? "All Groups" : f.split(" ").slice(-1)[0]}
                                 </button>
                             ))}
-                        </div>
-                        <div className="flex border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg overflow-hidden">
+                        </div></div>
+                        <div className="overflow-x-auto"><div className="flex border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg overflow-hidden min-w-max">
                             {["All", "SCE", "Not SCE", "Not Assessed"].map(s => (
                                 <button
                                     key={s}
@@ -815,13 +815,13 @@ export default function SCEDashboard() {
                                     {s}
                                 </button>
                             ))}
-                        </div>
+                        </div></div>
                         <span className="text-[11px] text-slate-400 dark:text-slate-500 ml-auto">
                             Showing {filteredEquipment.length} of {equipmentRegister.length} records
                         </span>
                     </div>
 
-                    <div className="rounded-xl border border-slate-100 dark:border-[var(--color-brand-darkBorder)] overflow-hidden">
+                    <div className="rounded-xl border border-slate-100 dark:border-[var(--color-brand-darkBorder)] overflow-hidden overflow-x-auto">
                         <table className="w-full text-xs">
                             <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-[var(--color-brand-darkBorder)]">
                                 <tr>

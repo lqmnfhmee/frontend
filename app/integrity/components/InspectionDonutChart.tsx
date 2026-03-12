@@ -34,7 +34,7 @@ export default function InspectionDonutChart({ completed, overdue, scheduled }: 
                     <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wide">Compliance</span>
                 </div>
             </div>
-            <div className="flex gap-4 mt-2">
+            <div className="flex flex-wrap gap-4 mt-3 px-4 justify-center">
                 {data.map((item) => (
                     <div key={item.name} className="flex items-center gap-1.5">
                         <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
