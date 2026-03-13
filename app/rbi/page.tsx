@@ -294,10 +294,11 @@ export default function RbiPage() {
                 {/* ════════════════════════════════════════ */}
                 <SectionHeader label="Risk Overview" />
 
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_340px] gap-5">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] xl:grid-cols-[1fr_340px] gap-5 lg:items-stretch">
 
                     {/* LEFT — Plant Risk Matrix */}
                     <DashboardCard
+                        className="h-full"
                         title="Plant Risk Matrix"
                         subtitle="POF vs CoF heatmap — click a cell to filter assets"
                         action={
@@ -317,7 +318,9 @@ export default function RbiPage() {
                             </div>
                         }
                     >
-                        <RiskMatrixHeatmap onCellClick={handleCellClick} selectedCell={selectedCell} />
+                        <div className="flex-1 flex flex-col">
+                            <RiskMatrixHeatmap onCellClick={handleCellClick} selectedCell={selectedCell} />
+                        </div>
                         {filterRisk && (
                             <div className="flex items-center gap-2">
                                 <RiskBadge level={filterRisk} />

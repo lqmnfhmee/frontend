@@ -38,22 +38,22 @@ export default function RiskMatrixHeatmap({ onCellClick, selectedCell }: RiskMat
     const consequences = ["1", "2", "3", "4", "5"];
 
     return (
-        <div className="space-y-3">
-            <div className="flex gap-3 items-end">
+        <div className="flex flex-col gap-3 flex-1">
+            <div className="flex gap-3 flex-1">
                 <div className="flex flex-col items-center gap-1" style={{ writingMode: "vertical-rl" }}>
                     <span className="text-[10px] font-semibold uppercase tracking-widest text-slate-400 dark:text-slate-500" style={{ transform: "rotate(180deg)" }}>Consequence →</span>
                 </div>
-                <div className="flex-1 space-y-1">
+                <div className="flex-1 flex flex-col gap-1">
                     {[...MATRIX].reverse().map((row, rowIdx) => {
                         const c = 4 - rowIdx;
                         return (
-                            <div key={rowIdx} className="flex gap-1 items-center">
+                            <div key={rowIdx} className="flex gap-1 flex-1 items-stretch">
                                 <span className="w-4 text-[10px] text-slate-400 dark:text-slate-500 font-mono shrink-0">{consequences[c]}</span>
                                 {row.map((cell, colIdx) => {
                                     const isSelected = selectedCell?.c === c && selectedCell?.l === colIdx;
                                     return (
                                         <button key={colIdx} onClick={() => onCellClick?.(c, colIdx, cell.level)}
-                                            className={`flex-1 h-10 rounded border text-[10px] font-bold transition-all duration-150 ${cellStyles[cell.level]} ${isSelected ? "ring-2 ring-offset-1 ring-slate-900 dark:ring-white scale-105" : ""}`}
+                                            className={`flex-1 min-h-[44px] rounded border text-[10px] font-bold transition-all duration-150 ${cellStyles[cell.level]} ${isSelected ? "ring-2 ring-offset-1 ring-slate-900 dark:ring-white scale-105" : ""}`}
                                             title={`${cell.level} — ${assetCounts[c][colIdx]} assets`}
                                         >
                                             {assetCounts[c][colIdx]}
