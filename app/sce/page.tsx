@@ -649,7 +649,68 @@ export default function SCEDashboard() {
                 </div>
 
                 {/* ════════════════════════════════════════ */}
-                {/* SECTION 3 — SCE BY BARRIER GROUP         */}
+                {/* SECTION 3 — TOP SCE CATEGORIES           */}
+                {/* ════════════════════════════════════════ */}
+                <SectionHeader label="Top SCE Categories" />
+
+                <DashboardCard
+                    title="Top SCE Categories by Equipment Count"
+                    subtitle="Largest safety-critical equipment categories — focus areas for safety assurance"
+                    action={
+                        <div className="flex items-center gap-1.5">
+                            <Target size={13} className="text-[var(--color-brand-primary)]" />
+                            <span className="text-[11px] font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">Top 8 categories</span>
+                        </div>
+                    }
+                >
+                    <div className="h-[300px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <BarChart
+                                data={topCategories}
+                                layout="vertical"
+                                margin={{ top: 4, right: 48, bottom: 0, left: 8 }}
+                                barSize={20}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="rgba(148,163,184,0.12)" />
+                                <XAxis
+                                    type="number"
+                                    tick={{ fontSize: 11, fill: "currentColor" }}
+                                    axisLine={false}
+                                    tickLine={false}
+                                />
+                                <YAxis
+                                    type="category"
+                                    dataKey="name"
+                                    tick={{ fontSize: 11, fill: "currentColor" }}
+                                    axisLine={false}
+                                    tickLine={false}
+                                    width={180}
+                                />
+                                <Tooltip
+                                    contentStyle={tooltipStyle}
+                                    cursor={{ fill: "rgba(148,163,184,0.08)" }}
+                                    formatter={(value) => [`${value} equipment`, "SCE Count"]}
+                                />
+                                <Bar dataKey="value" radius={[0, 6, 6, 0]} label={{ position: "right", fontSize: 11, fontWeight: 600, fill: "currentColor" }}>
+                                    {topCategories.map((entry, i) => (
+                                        <Cell key={i} fill={entry.color} />
+                                    ))}
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
+                    <div className="flex flex-wrap gap-3 border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)] pt-3">
+                        {topCategories.map(({ name, color }) => (
+                            <div key={name} className="flex items-center gap-1.5">
+                                <div className="w-2 h-2 rounded-sm flex-shrink-0" style={{ backgroundColor: color }} />
+                                <span className="text-[10px] text-slate-500 dark:text-slate-400">{name}</span>
+                            </div>
+                        ))}
+                    </div>
+                </DashboardCard>
+
+                {/* ════════════════════════════════════════ */}
+                {/* SECTION 4 — SCE BY BARRIER GROUP         */}
                 {/* ════════════════════════════════════════ */}
                 <SectionHeader label="SCE by Barrier Group" />
 
@@ -717,67 +778,6 @@ export default function SCEDashboard() {
                         );
                     })}
                 </div>
-
-                {/* ════════════════════════════════════════ */}
-                {/* SECTION 4 — TOP SCE CATEGORIES           */}
-                {/* ════════════════════════════════════════ */}
-                <SectionHeader label="Top SCE Categories" />
-
-                <DashboardCard
-                    title="Top SCE Categories by Equipment Count"
-                    subtitle="Largest safety-critical equipment categories — focus areas for safety assurance"
-                    action={
-                        <div className="flex items-center gap-1.5">
-                            <Target size={13} className="text-[var(--color-brand-primary)]" />
-                            <span className="text-[11px] font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">Top 8 categories</span>
-                        </div>
-                    }
-                >
-                    <div className="h-[300px]">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <BarChart
-                                data={topCategories}
-                                layout="vertical"
-                                margin={{ top: 4, right: 48, bottom: 0, left: 8 }}
-                                barSize={20}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="rgba(148,163,184,0.12)" />
-                                <XAxis
-                                    type="number"
-                                    tick={{ fontSize: 11, fill: "currentColor" }}
-                                    axisLine={false}
-                                    tickLine={false}
-                                />
-                                <YAxis
-                                    type="category"
-                                    dataKey="name"
-                                    tick={{ fontSize: 11, fill: "currentColor" }}
-                                    axisLine={false}
-                                    tickLine={false}
-                                    width={180}
-                                />
-                                <Tooltip
-                                    contentStyle={tooltipStyle}
-                                    cursor={{ fill: "rgba(148,163,184,0.08)" }}
-                                    formatter={(value) => [`${value} equipment`, "SCE Count"]}
-                                />
-                                <Bar dataKey="value" radius={[0, 6, 6, 0]} label={{ position: "right", fontSize: 11, fontWeight: 600, fill: "currentColor" }}>
-                                    {topCategories.map((entry, i) => (
-                                        <Cell key={i} fill={entry.color} />
-                                    ))}
-                                </Bar>
-                            </BarChart>
-                        </ResponsiveContainer>
-                    </div>
-                    <div className="flex flex-wrap gap-3 border-t border-slate-100 dark:border-[var(--color-brand-darkBorder)] pt-3">
-                        {topCategories.map(({ name, color }) => (
-                            <div key={name} className="flex items-center gap-1.5">
-                                <div className="w-2 h-2 rounded-sm flex-shrink-0" style={{ backgroundColor: color }} />
-                                <span className="text-[10px] text-slate-500 dark:text-slate-400">{name}</span>
-                            </div>
-                        ))}
-                    </div>
-                </DashboardCard>
 
                 {/* ════════════════════════════════════════ */}
                 {/* SECTION 5 — SCE EQUIPMENT REGISTER       */}
