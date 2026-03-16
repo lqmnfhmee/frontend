@@ -1,4 +1,4 @@
-import RiskExposureScore from "@/app/(home)/components/RiskExposureScore";
+import PlantHealthScore from "@/app/(home)/components/PlantHealthScore";
 import AnomalyPriorityBreakdown from "@/app/(home)/components/AnomalyPriorityBreakdown";
 import TotalRiskMatrix from "@/app/(home)/components/TotalRiskMatrix";
 import RadialModuleCard from "@/app/(home)/components/RadialModuleCard";
@@ -38,7 +38,7 @@ export default function Home() {
             </p>
           </div>
 
-          <RiskExposureScore />
+          <PlantHealthScore />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <AnomalyPriorityBreakdown />
