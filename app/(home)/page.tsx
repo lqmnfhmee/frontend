@@ -1,5 +1,5 @@
 import AssetStatusSummary from "@/app/asset-management/components/AssetStatusSummary";
-import AssetTrendChart from "@/app/asset-management/components/AssetTrendChart";
+import AssetPerformanceScore from "@/app/asset-management/components/AssetPerformanceScore";
 import { Factory, Boxes, Package, Layers } from "lucide-react";
 import KpiCard from "@/app/components/shared/KpiCard";
 import RecentAssets from "@/app/(home)/components/RecentAssets";
@@ -14,14 +14,6 @@ export default function AssetManagementPage() {
     { label: "Preservation", value: 10, color: "#a855f7" },
   ];
 
-  const trendData = [
-    { month: "Jan", assets: 2500 },
-    { month: "Feb", assets: 7500 },
-    { month: "Mar", assets: 1000 },
-    { month: "Apr", assets: 9000 },
-    { month: "May", assets: 8600 },
-    { month: "Jun", assets: 10000 },
-  ];
 
   return (
     <div className="space-y-10">
@@ -123,7 +115,7 @@ export default function AssetManagementPage() {
           <AssetStatusSummary items={statusData} />
         </div>
 
-        {/* Trend */}
+        {/* Asset Performance Score */}
         <div className="
           relative
           bg-white dark:bg-gradient-to-b dark:from-slate-900 dark:to-slate-950
@@ -135,10 +127,7 @@ export default function AssetManagementPage() {
           dark:hover:shadow-none
           hover:-translate-y-1
         ">
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-            Asset Growth Trend
-          </h2>
-          <AssetTrendChart data={trendData} />
+          <AssetPerformanceScore />
         </div>
 
       </div>
