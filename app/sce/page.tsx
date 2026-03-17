@@ -10,6 +10,7 @@ import {
     FileText, FileSpreadsheet, ChevronRight, Database, CheckCircle2, BarChart2,
     ShieldAlert, AlertCircle, Layers, Target, X,
 } from "lucide-react";
+import SCEPerformanceScore from "./components/SCEPerformanceScore";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -560,6 +561,9 @@ export default function SCEDashboard() {
                     </div>
 
                 </div>
+
+                {/* ── SCE PERFORMANCE SCORE SECTION ── */}
+                <SCEPerformanceScore />
 
                 {/* ════════════════════════════════════════ */}
                 {/* SECTION 2 — SCE DISTRIBUTION ANALYTICS   */}

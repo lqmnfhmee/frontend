@@ -356,6 +356,12 @@ function ScoreBreakdownDrawer({
               Source: Asset Management Dashboard
             </div>
           )}
+          {highlightedModuleId === "sce_performance" && (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider animate-pulse">
+              <ExternalLink size={12} />
+              Source: SCE Dashboard
+            </div>
+          )}
           <div className="p-4 rounded-xl bg-blue-50/30 dark:bg-blue-900/10 border border-blue-200/20 flex items-start gap-3">
              <Info size={14} className="text-blue-500 mt-0.5 shrink-0" />
              <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
@@ -380,24 +386,16 @@ export default function PlantHealthScore() {
   const highlightParam = searchParams.get("highlight");
 
   useEffect(() => {
-    if (highlightParam === "asset_performance") {
+    if (highlightParam === "asset_performance" || highlightParam === "sce_performance") {
       setDrawerOpen(true);
-      setHighlightedModule("asset_performance");
-      
-      const timer = setTimeout(() => {
-        // We keep the highlightedModule for the source label, 
-        // but we'll use a separate state or just a longer duration for the "fading" part if needed.
-        // For now, let's just make the highlight fade but keep the label.
-      }, 3000);
-
-      return () => clearTimeout(timer);
+      setHighlightedModule(highlightParam);
     }
   }, [highlightParam]);
 
   // Let's add a separate state for the visual highlight glow to make it "temporary"
   const [showVisualGlow, setShowVisualGlow] = useState(false);
   useEffect(() => {
-    if (highlightParam === "asset_performance") {
+    if (highlightParam === "asset_performance" || highlightParam === "sce_performance") {
       setShowVisualGlow(true);
       const timer = setTimeout(() => setShowVisualGlow(false), 4000);
       return () => clearTimeout(timer);
