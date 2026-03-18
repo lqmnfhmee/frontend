@@ -90,21 +90,6 @@ const inspectionTimeline = [
     { name: "90–180 days", value: 5 },
 ];
 
-const riskTrend = [
-    { month: "Mar", score: 72 },
-    { month: "Apr", score: 69 },
-    { month: "May", score: 74 },
-    { month: "Jun", score: 70 },
-    { month: "Jul", score: 75 },
-    { month: "Aug", score: 78 },
-    { month: "Sep", score: 76 },
-    { month: "Oct", score: 80 },
-    { month: "Nov", score: 79 },
-    { month: "Dec", score: 82 },
-    { month: "Jan", score: 83 },
-    { month: "Feb", score: 85 },
-];
-
 const alerts = [
     { id: 1, icon: ShieldAlert, color: "text-red-500", bg: "bg-red-50 dark:bg-red-500/10", border: "border-red-100 dark:border-red-500/20", text: "1 High-risk equipment detected in RBI assessment", level: "High" },
     { id: 2, icon: CalendarClock, color: "text-amber-500", bg: "bg-amber-50 dark:bg-amber-500/10", border: "border-amber-100 dark:border-amber-500/20", text: "1 inspection is overdue — immediate action required", level: "Warning" },
@@ -685,10 +670,10 @@ export default function IntegrityPage() {
             {/* ══════════════════════════════════════ */}
             <SectionHeader label="Program Performance" />
 
-            {["integrity-alerts", "risk-trend"].some(isEnabled) ? (
+            {isEnabled("integrity-alerts") ? (
                 <div className="flex flex-col lg:flex-row gap-5">
-                    {/* Integrity Alerts — 40% */}
-                    {isEnabled("integrity-alerts") && <div className="w-full lg:flex-[4] min-w-0">
+                    {/* Integrity Alerts — Full Width */}
+                    <div className="w-full min-w-0">
                         <DashboardCard title="Integrity Alerts" className="h-full">
                             <div className="space-y-2.5">
                                 {alerts.map(({ id, icon: Icon, color, bg, border, text, level }) => (
@@ -709,44 +694,7 @@ export default function IntegrityPage() {
                                 <p className="text-[11px] text-slate-400 dark:text-slate-500">All other parameters within acceptable limits</p>
                             </div>
                         </DashboardCard>
-                    </div>}
-
-                    {/* Plant Risk Reduction Trend — 60% */}
-                    {isEnabled("risk-trend") && <div className="w-full lg:flex-[6] min-w-0">
-                        <DashboardCard title="Plant Risk Reduction Trend (12 Months)" className="h-full">
-                            <div className="h-[220px]">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <LineChart data={riskTrend} margin={{ top: 4, right: 8, bottom: 0, left: -16 }}>
-                                        <defs>
-                                            <linearGradient id="trendGrad" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="5%" stopColor="#2F80ED" stopOpacity={0.15} />
-                                                <stop offset="95%" stopColor="#2F80ED" stopOpacity={0} />
-                                            </linearGradient>
-                                        </defs>
-                                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(148,163,184,0.15)" />
-                                        <XAxis dataKey="month" tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
-                                        <YAxis domain={[60, 100]} tick={{ fontSize: 11, fill: "currentColor" }} axisLine={false} tickLine={false} />
-                                        <Tooltip contentStyle={tooltipStyle} />
-                                        <Line
-                                            type="monotone"
-                                            dataKey="score"
-                                            stroke="#2F80ED"
-                                            strokeWidth={2.5}
-                                            dot={{ fill: "#2F80ED", r: 3, strokeWidth: 0 }}
-                                            activeDot={{ r: 5, fill: "#2F80ED", strokeWidth: 0 }}
-                                        />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            </div>
-                            <div className="flex items-center justify-between">
-                                <p className="text-[11px] text-slate-400 dark:text-slate-500">Integrity score improving month-over-month</p>
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-2 h-2 rounded-full bg-[var(--color-brand-primary-soft)]0" />
-                                    <span className="text-xs font-medium text-[var(--color-brand-primary)] dark:text-[var(--color-brand-primary)]">+13 pts YTD</span>
-                                </div>
-                            </div>
-                        </DashboardCard>
-                    </div>}
+                    </div>
                 </div>
             ) : <EmptySection />}
 

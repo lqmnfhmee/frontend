@@ -17,8 +17,7 @@ import { useSearchParams } from "next/navigation";
 // ─── Constants & Types ─────────────────────────────────────────────────────────
 
 const MODULE_WEIGHTS = {
-  asset_performance: 0.10,
-  sce_performance: 0.20,
+  asset_sce_performance: 0.30,
   inspection_management: 0.25,
   rbi: 0.25,
   anomaly_management: 0.20,
@@ -50,21 +49,13 @@ interface ModuleData {
 
 const INITIAL_MODULES: ModuleData[] = [
   {
-    id: "asset_performance",
-    title: "Asset Performance",
-    weight: 10,
-    scoreValue: 88,
+    id: "asset_sce_performance",
+    title: "Asset & SCE Performance",
+    weight: 30,
+    scoreValue: 79, // Weighted average: (88*10 + 75*20) / 30 = 79.33
     indicators: [
       { label: "Asset Operational Status", value: "Normal", statusColor: "text-emerald-600 dark:text-emerald-400" },
-      { label: "Asset Availability Indicators", value: "94.5%" }
-    ]
-  },
-  {
-    id: "sce_performance",
-    title: "SCE Performance",
-    weight: 20,
-    scoreValue: 75,
-    indicators: [
+      { label: "Asset Availability Indicators", value: "94.5%" },
       { label: "SCE Testing Compliance", value: "82%" },
       { label: "Overdue SCE Tests", value: "3 Overdue", statusColor: "text-red-600 dark:text-red-400" },
       { label: "SCE Performance Standard Status", value: "Needs Review", statusColor: "text-yellow-600 dark:text-yellow-400" }
@@ -138,8 +129,7 @@ function FormulaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
             <div className="font-mono text-sm leading-relaxed text-slate-700 dark:text-slate-300">
               Plant Health Score = <br />
               <div className="pl-4 mt-2 space-y-1 text-slate-500 dark:text-slate-400">
-                <span className="text-blue-600/80 dark:text-blue-400/80">(Asset Perf. × 10%)</span> + <br />
-                <span className="text-blue-600/80 dark:text-blue-400/80">(SCE Perf. × 20%)</span> + <br />
+                <span className="text-blue-600/80 dark:text-blue-400/80">(Asset & SCE Perf. × 30%)</span> + <br />
                 <span className="text-blue-600/80 dark:text-blue-400/80">(Insp. Mgmt × 25%)</span> + <br />
                 <span className="text-blue-600/80 dark:text-blue-400/80">(RBI × 25%)</span> + <br />
                 <span className="text-blue-600/80 dark:text-blue-400/80">(Anomaly Mgmt × 20%)</span>
@@ -350,16 +340,16 @@ function ScoreBreakdownDrawer({
         </div>
         
         <div className="p-6 mt-auto space-y-3">
-          {highlightedModuleId === "asset_performance" && (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider animate-pulse">
-              <ExternalLink size={12} />
-              Source: Asset Management Dashboard
-            </div>
-          )}
-          {highlightedModuleId === "sce_performance" && (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider animate-pulse">
-              <ExternalLink size={12} />
-              Source: SCE Dashboard
+          {highlightedModuleId === "asset_sce_performance" && (
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider animate-pulse">
+                <ExternalLink size={12} />
+                Source: Asset Management Dashboard
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider animate-pulse">
+                <ExternalLink size={12} />
+                Source: SCE Dashboard
+              </div>
             </div>
           )}
           {(highlightedModuleId === "inspection_management" || 
@@ -396,11 +386,18 @@ export default function PlantHealthScore() {
   useEffect(() => {
     if (highlightParam === "asset_performance" || 
         highlightParam === "sce_performance" ||
+        highlightParam === "asset_sce_performance" ||
         highlightParam === "inspection_management" ||
         highlightParam === "rbi" ||
         highlightParam === "anomaly_management") {
       setDrawerOpen(true);
-      setHighlightedModule(highlightParam);
+      
+      // Backward compatibility mapping
+      if (highlightParam === "asset_performance" || highlightParam === "sce_performance") {
+        setHighlightedModule("asset_sce_performance");
+      } else {
+        setHighlightedModule(highlightParam);
+      }
     }
   }, [highlightParam]);
 
@@ -409,6 +406,7 @@ export default function PlantHealthScore() {
   useEffect(() => {
     if (highlightParam === "asset_performance" || 
         highlightParam === "sce_performance" ||
+        highlightParam === "asset_sce_performance" ||
         highlightParam === "inspection_management" ||
         highlightParam === "rbi" ||
         highlightParam === "anomaly_management") {

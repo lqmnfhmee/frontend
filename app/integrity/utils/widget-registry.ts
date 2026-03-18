@@ -110,20 +110,11 @@ export const WIDGET_REGISTRY: WidgetDef[] = [
         defaultEnabled: true,
     },
 
-    // ── Program Performance ─────────────────────────────────────────────────────
     {
         id: "integrity-alerts",
         title: "Integrity Alerts",
         description:
             "Live alert feed highlighting high-risk, overdue, and attention items with severity labels.",
-        section: "Program Performance",
-        defaultEnabled: true,
-    },
-    {
-        id: "risk-trend",
-        title: "Plant Risk Reduction Trend",
-        description:
-            "12-month line chart tracking the plant integrity score trajectory.",
         section: "Program Performance",
         defaultEnabled: true,
     },
