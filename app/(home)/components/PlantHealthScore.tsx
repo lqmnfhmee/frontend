@@ -362,6 +362,14 @@ function ScoreBreakdownDrawer({
               Source: SCE Dashboard
             </div>
           )}
+          {(highlightedModuleId === "inspection_management" || 
+            highlightedModuleId === "rbi" || 
+            highlightedModuleId === "anomaly_management") && (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider animate-pulse">
+              <ExternalLink size={12} />
+              Source: Integrity Dashboard
+            </div>
+          )}
           <div className="p-4 rounded-xl bg-blue-50/30 dark:bg-blue-900/10 border border-blue-200/20 flex items-start gap-3">
              <Info size={14} className="text-blue-500 mt-0.5 shrink-0" />
              <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
@@ -386,7 +394,11 @@ export default function PlantHealthScore() {
   const highlightParam = searchParams.get("highlight");
 
   useEffect(() => {
-    if (highlightParam === "asset_performance" || highlightParam === "sce_performance") {
+    if (highlightParam === "asset_performance" || 
+        highlightParam === "sce_performance" ||
+        highlightParam === "inspection_management" ||
+        highlightParam === "rbi" ||
+        highlightParam === "anomaly_management") {
       setDrawerOpen(true);
       setHighlightedModule(highlightParam);
     }
@@ -395,7 +407,11 @@ export default function PlantHealthScore() {
   // Let's add a separate state for the visual highlight glow to make it "temporary"
   const [showVisualGlow, setShowVisualGlow] = useState(false);
   useEffect(() => {
-    if (highlightParam === "asset_performance" || highlightParam === "sce_performance") {
+    if (highlightParam === "asset_performance" || 
+        highlightParam === "sce_performance" ||
+        highlightParam === "inspection_management" ||
+        highlightParam === "rbi" ||
+        highlightParam === "anomaly_management") {
       setShowVisualGlow(true);
       const timer = setTimeout(() => setShowVisualGlow(false), 4000);
       return () => clearTimeout(timer);
