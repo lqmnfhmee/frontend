@@ -467,6 +467,8 @@ export default function SCEDashboard() {
                     ))}
                 </div>
 
+                <SCEPerformanceScore />
+
                 {/* ════════════════════════════════════════ */}
                 {/* SECTION 1 — SCE PROGRAM OVERVIEW         */}
                 {/* ════════════════════════════════════════ */}
@@ -562,8 +564,6 @@ export default function SCEDashboard() {
 
                 </div>
 
-                {/* ── SCE PERFORMANCE SCORE SECTION ── */}
-                <SCEPerformanceScore />
 
                 {/* ════════════════════════════════════════ */}
                 {/* SECTION 2 — SCE DISTRIBUTION ANALYTICS   */}

@@ -53,7 +53,7 @@ export default function SCEScoreExplainableModal({
                 SCE Performance Score Calculation
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Derived from SCE assurance & compliance indicators
+                Derived from SCE assurance & performance indicators
               </p>
             </div>
           </div>
@@ -72,8 +72,8 @@ export default function SCEScoreExplainableModal({
             <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Calculation Logic</h4>
             <div className="px-4 py-3 rounded-xl border border-slate-100 dark:border-slate-800/50 bg-slate-50/30 dark:bg-slate-900/30">
               <div className="font-mono text-[13px] leading-relaxed">
-                <div className="text-slate-500">
-                  Score = (Compliance × 40%) + (Overdue × 30%) + (Standards × 30%)
+                <div className="text-slate-500 text-[11px]">
+                  Score = (Compliance × 40%) + (Overdue × 30%) + (Std Status × 30%)
                 </div>
                 <div className="mt-1 text-slate-900 dark:text-slate-200 font-medium">
                   Score = (82 × 0.4) + (60 × 0.3) + (80 × 0.3) = <span className="font-bold text-amber-500">{score}</span>
@@ -103,8 +103,8 @@ export default function SCEScoreExplainableModal({
                   <div className="col-span-2 text-right text-xs text-slate-400">30%</div>
                 </div>
                 <div className="grid grid-cols-12 gap-2 py-3 px-1 items-center">
-                  <div className="col-span-8 text-sm font-medium text-slate-700 dark:text-slate-200">SCE Performance Standard Status</div>
-                  <div className="col-span-2 text-right text-sm font-bold text-amber-500">Review Required</div>
+                  <div className="col-span-8 text-sm font-medium text-slate-700 dark:text-slate-200">Performance Standard Status</div>
+                  <div className="col-span-2 text-right text-sm font-bold text-amber-500">Validation Pending</div>
                   <div className="col-span-2 text-right text-xs text-slate-400">30%</div>
                 </div>
               </div>
