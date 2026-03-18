@@ -45,152 +45,116 @@ export default function SCEPerformanceScore() {
   };
 
   return (
-    <div className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md p-4">
-      <div className="flex flex-col lg:flex-row gap-6">
-        
-        {/* Left: Main Score & Actionable Insights */}
-        <div className="flex-[0.7] space-y-4">
-          <div className="flex items-start justify-between">
+    <div className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md p-4 flex flex-col h-full">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white leading-tight">
+            SCE Performance Score
+          </h2>
+          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+            Integrated score from SCE assurance KPIs
+          </p>
+        </div>
+        <button 
+          onClick={() => setIsModalOpen(true)}
+          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors group"
+        >
+          <Info size={12} className="text-slate-400 group-hover:text-amber-500 transition-colors" />
+          <span className="text-[10px] font-medium text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white">
+            Explainable Score
+          </span>
+        </button>
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start flex-1">
+        {/* LEFT SIDE (Score Area) */}
+        <div className="flex flex-col items-center gap-2 shrink-0">
+          <div className="relative flex items-center justify-center p-2">
+            <svg className="w-32 h-32 transform -rotate-90">
+              <circle
+                cx="64"
+                cy="64"
+                r="58"
+                stroke="currentColor"
+                strokeWidth="10"
+                fill="transparent"
+                className="text-slate-100 dark:text-slate-800"
+              />
+              <circle
+                cx="64"
+                cy="64"
+                r="58"
+                stroke="currentColor"
+                strokeWidth="10"
+                fill="transparent"
+                strokeDasharray={364.4}
+                strokeDashoffset={364.4 * (1 - score / 100)}
+                strokeLinecap="round"
+                className="text-amber-500 transition-all duration-1000 ease-out"
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-4xl font-bold text-slate-900 dark:text-white leading-none">
+                {score}
+              </span>
+            </div>
+          </div>
+          <span className="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+            SCE Performance
+          </span>
+        </div>
+
+        {/* RIGHT SIDE (Content Area) */}
+        <div className="flex-1 space-y-4 py-2 w-full text-left">
+          {/* 1. Short description */}
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+            Composite performance index reflecting testing compliance, overdue safety critical elements, and performance standard validation status.
+          </p>
+
+          {/* 2. Key impact message */}
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-500/5 border border-red-500/10 text-xs font-semibold text-red-600 dark:text-red-400">
+            <AlertTriangle size={14} className="shrink-0" />
+            <span>3 overdue SCE tests are reducing the score</span>
+          </div>
+
+          {/* 3. "To improve score" action hint */}
+          <div className="p-4 rounded-xl bg-slate-50/50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800/50">
+            <h5 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+              <ArrowRight size={12} className="text-amber-500" />
+              To Improve Score
+            </h5>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-normal">
+              Resolve overdue tests and complete verification to move score towards healthy range.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Integration Context Footer (Standardized Traceability) */}
+      <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800/50">
+        <button 
+          onClick={handleTraceableClick}
+          className="w-full flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-blue-500/5 to-transparent border border-blue-500/10 hover:border-blue-500/30 hover:from-blue-500/10 transition-all group text-left"
+        >
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex items-center justify-center w-10 h-10 rounded-full bg-blue-500 text-white shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
+              <ShieldCheck size={20} />
+            </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                SCE Performance Score
-              </h2>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                Integrated score from SCE assurance KPIs
+              <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">
+                Plant Health Contribution
+              </p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Contributes to Plant Health Score
               </p>
             </div>
-            <button 
-              onClick={() => setIsModalOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors group"
-            >
-              <Info size={12} className="text-slate-400 group-hover:text-amber-500 transition-colors" />
-              <span className="text-[10px] font-medium text-slate-600 dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white">
-                Explainable
-              </span>
-            </button>
           </div>
-
-          <div className="flex flex-col sm:flex-row items-center gap-6">
-            {/* Gauge - Improved Spacing */}
-            <div className="relative flex items-center justify-center shrink-0">
-              <svg className="w-32 h-32 transform -rotate-90">
-                <circle
-                  cx="64"
-                  cy="64"
-                  r="58"
-                  stroke="currentColor"
-                  strokeWidth="10"
-                  fill="transparent"
-                  className="text-slate-100 dark:text-slate-800"
-                />
-                <circle
-                  cx="64"
-                  cy="64"
-                  r="58"
-                  stroke="currentColor"
-                  strokeWidth="10"
-                  fill="transparent"
-                  strokeDasharray={364.4}
-                  strokeDashoffset={364.4 * (1 - score / 100)}
-                  strokeLinecap="round"
-                  className="text-amber-500 transition-all duration-1000 ease-out"
-                />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-3xl font-bold text-slate-900 dark:text-white leading-none">
-                  {score}
-                </span>
-                <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider mt-1">
-                  Out of 100
-                </span>
-              </div>
-            </div>
-
-            <div className="space-y-3 flex-1 w-full">
-              {/* Slim Alert */}
-              <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-red-500/5 border border-red-500/10 text-[10px] font-semibold text-red-600 dark:text-red-400">
-                <AlertTriangle size={12} className="shrink-0" />
-                <span>3 overdue SCE tests are reducing the score</span>
-              </div>
-
-              {/* Compact Actionable Insight */}
-              <div className="p-3 rounded-xl bg-slate-50/50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800/50">
-                <h5 className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
-                  <ArrowRight size={10} className="text-amber-500" />
-                  To Improve Score
-                </h5>
-                <p className="text-[10px] text-slate-600 dark:text-slate-300 leading-normal">
-                  Resolve overdue tests and complete verification to move score towards healthy range.
-                </p>
-              </div>
-            </div>
+          <div className="flex items-center gap-1 text-blue-500 text-xs font-bold uppercase tracking-wider group-hover:gap-2 transition-all">
+            <span>Traceable</span>
+            <ArrowRight size={14} />
           </div>
-        </div>
-
-        {/* Right: Drivers & Integration */}
-        <div className="flex-1 flex flex-col justify-between gap-4">
-          <div className="space-y-2">
-            <h4 className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.2em] px-1">
-              Performance Drivers
-            </h4>
-            <div className="grid grid-cols-1 gap-2">
-              {drivers.map((driver, idx) => (
-                <div 
-                  key={idx}
-                  className="p-2.5 rounded-xl border border-slate-100 dark:border-slate-800/50 bg-slate-50/30 dark:bg-slate-900/40 hover:border-amber-500/20 transition-all group"
-                >
-                  <div className="flex items-center justify-between mb-1">
-                    <div className="flex items-center gap-2.5">
-                      <div className={`p-1.5 rounded-lg ${driver.bg} ${driver.color} group-hover:scale-105 transition-transform`}>
-                        {driver.icon}
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-[11px] font-bold text-slate-700 dark:text-slate-200 leading-tight">
-                          {driver.name}
-                        </span>
-                        <div className="flex items-center gap-1 mt-0.5">
-                          <span className={`text-[8px] font-black px-1.5 py-0.5 rounded-full border ${driver.bg} border-current/20 uppercase tracking-wider`}>
-                            {driver.status}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <span className={`text-sm font-black ${driver.color}`}>
-                      {driver.value}
-                    </span>
-                  </div>
-                  <p className="text-[9px] text-slate-500 dark:text-slate-400 pl-9 leading-tight">
-                    {driver.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <button 
-            onClick={handleTraceableClick}
-            className="w-full flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-blue-500/5 to-transparent border border-blue-500/10 hover:border-blue-500/30 hover:from-blue-500/10 transition-all group text-left"
-          >
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
-                <Crosshair size={16} />
-              </div>
-              <div>
-                <p className="text-xs font-bold text-slate-900 dark:text-white leading-tight">
-                  Plant Health Contribution
-                </p>
-                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
-                  Feeds into the Plant Health Score Breakdown.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-1 text-blue-500 text-[9px] font-bold uppercase tracking-widest group-hover:gap-1.5 transition-all">
-              <span>View in Plant Health</span>
-              <ArrowRight size={12} />
-            </div>
-          </button>
-        </div>
-
+        </button>
       </div>
 
       <SCEScoreExplainableModal 

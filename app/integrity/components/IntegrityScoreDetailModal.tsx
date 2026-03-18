@@ -105,7 +105,7 @@ export default function IntegrityScoreDetailModal({
             </div>
             <div>
               <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                {config.title} Score
+                {config.title} Breakdown
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
                 Performance breakdown for integrity management module
@@ -153,7 +153,7 @@ export default function IntegrityScoreDetailModal({
 
           {/* Score Drivers Section */}
           <div className="space-y-3">
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Input Drivers</h4>
+            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Performance Drivers (used in score calculation)</h4>
             <div className="overflow-hidden">
               <div className="grid grid-cols-12 gap-2 pb-2 border-b border-slate-100 dark:border-slate-800 text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">
                 <div className="col-span-6">Driver Name</div>

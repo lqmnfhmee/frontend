@@ -50,10 +50,10 @@ export default function SCEScoreExplainableModal({
             </div>
             <div>
               <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                SCE Performance Score Calculation
+                SCE Performance Score Breakdown
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Derived from SCE assurance & performance indicators
+                Detailed calculation of safety critical assurance indicators
               </p>
             </div>
           </div>
@@ -84,27 +84,31 @@ export default function SCEScoreExplainableModal({
 
           {/* Score Drivers Section */}
           <div className="space-y-3">
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Input Drivers</h4>
+            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Performance Drivers (used in score calculation)</h4>
             <div className="overflow-hidden">
               <div className="grid grid-cols-12 gap-2 pb-2 border-b border-slate-100 dark:border-slate-800 text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">
-                <div className="col-span-8">Driver Name</div>
+                <div className="col-span-6">Driver Name</div>
                 <div className="col-span-2 text-right">Value</div>
+                <div className="col-span-2 text-right">Status</div>
                 <div className="col-span-2 text-right">Weight</div>
               </div>
               <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 <div className="grid grid-cols-12 gap-2 py-3 px-1 items-center">
-                  <div className="col-span-8 text-sm font-medium text-slate-700 dark:text-slate-200">SCE Testing Compliance</div>
-                  <div className="col-span-2 text-right text-sm font-bold text-emerald-500">82%</div>
+                  <div className="col-span-6 text-sm font-medium text-slate-700 dark:text-slate-200 line-clamp-1">SCE Testing Compliance</div>
+                  <div className="col-span-2 text-right text-xs font-bold text-slate-900 dark:text-white">82%</div>
+                  <div className="col-span-2 text-right text-[9px] font-black uppercase tracking-wider text-emerald-500">Healthy</div>
                   <div className="col-span-2 text-right text-xs text-slate-400">40%</div>
                 </div>
                 <div className="grid grid-cols-12 gap-2 py-3 px-1 items-center">
-                  <div className="col-span-8 text-sm font-medium text-slate-700 dark:text-slate-200">Overdue SCE Tests</div>
-                  <div className="col-span-2 text-right text-sm font-bold text-red-500">3 Overdue</div>
+                  <div className="col-span-6 text-sm font-medium text-slate-700 dark:text-slate-200 line-clamp-1">Overdue SCE Tests</div>
+                  <div className="col-span-2 text-right text-xs font-bold text-slate-900 dark:text-white">3 Overdue</div>
+                  <div className="col-span-2 text-right text-[9px] font-black uppercase tracking-wider text-red-500">Reducing Score</div>
                   <div className="col-span-2 text-right text-xs text-slate-400">30%</div>
                 </div>
                 <div className="grid grid-cols-12 gap-2 py-3 px-1 items-center">
-                  <div className="col-span-8 text-sm font-medium text-slate-700 dark:text-slate-200">Performance Standard Status</div>
-                  <div className="col-span-2 text-right text-sm font-bold text-amber-500">Validation Pending</div>
+                  <div className="col-span-6 text-sm font-medium text-slate-700 dark:text-slate-200 line-clamp-1">Performance Standard Status</div>
+                  <div className="col-span-2 text-right text-xs font-bold text-slate-900 dark:text-white">Needs Review</div>
+                  <div className="col-span-2 text-right text-[9px] font-black uppercase tracking-wider text-amber-500">Requires Attention</div>
                   <div className="col-span-2 text-right text-xs text-slate-400">30%</div>
                 </div>
               </div>

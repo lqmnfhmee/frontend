@@ -51,10 +51,10 @@ export default function AssetScoreExplainableModal({
             </div>
             <div>
               <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                Performance Score Calculation
+                Asset Performance Score Breakdown
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Derived from real-time operational indicators
+                Detailed calculation of operational health indicators
               </p>
             </div>
           </div>
@@ -85,22 +85,25 @@ export default function AssetScoreExplainableModal({
 
           {/* Score Drivers Section */}
           <div className="space-y-3">
-            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Input Drivers</h4>
+            <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Performance Drivers (used in score calculation)</h4>
             <div className="overflow-hidden">
               <div className="grid grid-cols-12 gap-2 pb-2 border-b border-slate-100 dark:border-slate-800 text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">
-                <div className="col-span-8">Driver Name</div>
+                <div className="col-span-6">Driver Name</div>
                 <div className="col-span-2 text-right">Value</div>
+                <div className="col-span-2 text-right">Status</div>
                 <div className="col-span-2 text-right">Weight</div>
               </div>
               <div className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 <div className="grid grid-cols-12 gap-2 py-3 px-1 items-center">
-                  <div className="col-span-8 text-sm font-medium text-slate-700 dark:text-slate-200">Asset Operational Status</div>
-                  <div className="col-span-2 text-right text-sm font-bold text-emerald-500">92%</div>
+                  <div className="col-span-6 text-sm font-medium text-slate-700 dark:text-slate-200 line-clamp-1">Asset Operational Status</div>
+                  <div className="col-span-2 text-right text-xs font-bold text-slate-900 dark:text-white">92%</div>
+                  <div className="col-span-2 text-right text-[9px] font-black uppercase tracking-wider text-emerald-500">Healthy</div>
                   <div className="col-span-2 text-right text-xs text-slate-400">50%</div>
                 </div>
                 <div className="grid grid-cols-12 gap-2 py-3 px-1 items-center">
-                  <div className="col-span-8 text-sm font-medium text-slate-700 dark:text-slate-200">Asset Availability Indicators</div>
-                  <div className="col-span-2 text-right text-sm font-bold text-blue-500">84%</div>
+                  <div className="col-span-6 text-sm font-medium text-slate-700 dark:text-slate-200 line-clamp-1">Asset Availability Indicators</div>
+                  <div className="col-span-2 text-right text-xs font-bold text-slate-900 dark:text-white">84%</div>
+                  <div className="col-span-2 text-right text-[9px] font-black uppercase tracking-wider text-red-500">Reducing Score</div>
                   <div className="col-span-2 text-right text-xs text-slate-400">50%</div>
                 </div>
               </div>

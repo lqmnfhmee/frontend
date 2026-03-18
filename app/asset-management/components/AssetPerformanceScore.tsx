@@ -52,73 +52,71 @@ export default function AssetPerformanceScore() {
         </button>
       </div>
 
-      <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start flex-1 text-center lg:text-left">
-        {/* Main Score Display */}
-        <div className="relative flex items-center justify-center p-4">
-          <svg className="w-32 h-32 transform -rotate-90">
-            <circle
-              cx="64"
-              cy="64"
-              r="58"
-              stroke="currentColor"
-              strokeWidth="10"
-              fill="transparent"
-              className="text-slate-100 dark:text-slate-800"
-            />
-            <circle
-              cx="64"
-              cy="64"
-              r="58"
-              stroke="currentColor"
-              strokeWidth="10"
-              fill="transparent"
-              strokeDasharray={364.4}
-              strokeDashoffset={364.4 * (1 - score / 100)}
-              strokeLinecap="round"
-              className="text-emerald-500 transition-all duration-1000 ease-out"
-            />
-          </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-3xl font-bold text-slate-900 dark:text-white leading-none">
-              {score}
-            </span>
-            <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider mt-1">
-              Out of 100
-            </span>
+      <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-start flex-1">
+        {/* LEFT SIDE (Score Area) */}
+        <div className="flex flex-col items-center gap-2 shrink-0">
+          <div className="relative flex items-center justify-center p-2">
+            <svg className="w-32 h-32 transform -rotate-90">
+              <circle
+                cx="64"
+                cy="64"
+                r="58"
+                stroke="currentColor"
+                strokeWidth="10"
+                fill="transparent"
+                className="text-slate-100 dark:text-slate-800"
+              />
+              <circle
+                cx="64"
+                cy="64"
+                r="58"
+                stroke="currentColor"
+                strokeWidth="10"
+                fill="transparent"
+                strokeDasharray={364.4}
+                strokeDashoffset={364.4 * (1 - score / 100)}
+                strokeLinecap="round"
+                className="text-emerald-500 transition-all duration-1000 ease-out"
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-4xl font-black text-slate-900 dark:text-white leading-none">
+                {score}
+              </span>
+            </div>
           </div>
+          <span className="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">
+            Asset Performance
+          </span>
         </div>
 
-        {/* Breakdown & Indicators */}
-        <div className="flex-1 space-y-4 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
-            {indicators.map((indicator, index) => (
-              <div
-                key={index}
-                className="p-4 rounded-xl border border-slate-100 dark:border-slate-800/50 bg-slate-50/50 dark:bg-slate-900/50 group hover:border-emerald-500/30 transition-colors"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${indicator.bg} ${indicator.color}`}>
-                      {index === 0 ? <Activity size={18} /> : <Gauge size={18} />}
-                    </div>
-                    <span className="text-sm font-semibold text-slate-700 dark:text-slate-200 leading-tight">
-                      {indicator.name}
-                    </span>
-                  </div>
-                  <span className={`text-lg font-bold ${indicator.color}`}>
-                    {indicator.value}%
-                  </span>
-                </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 pl-11">
-                  {indicator.description}
-                </p>
-              </div>
-            ))}
+        {/* RIGHT SIDE (Content Area) */}
+        <div className="flex-1 space-y-4 py-2 w-full text-left">
+          {/* 1. Short description */}
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+            Overall health of the facility asset fleet based on real-time operational status and availability indicators.
+          </p>
+
+          {/* 2. Key impact message */}
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-500/5 border border-red-500/10 text-xs font-semibold text-red-600 dark:text-red-400">
+            <Activity size={14} className="shrink-0" />
+            <span>2 high-priority assets experiencing reduced availability</span>
+          </div>
+
+          {/* 3. "To improve score" action hint */}
+          <div className="p-4 rounded-xl bg-slate-50/50 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800/50">
+            <h5 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+              <ArrowRight size={12} className="text-emerald-500" />
+              To Improve Score
+            </h5>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-normal">
+              Restore operational status for pending maintenance assets and optimize availability for standby critical equipment.
+            </p>
           </div>
         </div>
       </div>
 
-      {/* Integration Context Footer */}
+      {/* Integration Context Footer (Standardized Traceability) */}
       <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800/50">
         <button 
           onClick={handleTraceableClick}
@@ -132,8 +130,8 @@ export default function AssetPerformanceScore() {
               <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">
                 Plant Health Contribution
               </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-[280px]">
-                This score contributes directly to the **Plant Health Score Breakdown** as Asset Performance.
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Contributes to Plant Health Score
               </p>
             </div>
           </div>
