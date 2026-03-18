@@ -468,6 +468,7 @@ export default function PlantHealthScore() {
         bg-white dark:bg-[var(--color-brand-darkCard)]/80
         border border-slate-200 dark:border-white/10
         shadow-lg transition-all duration-300
+        hover:-translate-y-1 hover:shadow-xl
       ">
         <div className="flex items-center justify-between mb-10">
           <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">

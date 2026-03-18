@@ -45,7 +45,7 @@ export default function SCEPerformanceScore() {
   };
 
   return (
-    <div className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md p-4 flex flex-col h-full">
+    <div className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md p-4 flex flex-col h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>

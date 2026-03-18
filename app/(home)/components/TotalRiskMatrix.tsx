@@ -67,8 +67,9 @@ export default function TotalRiskMatrix() {
       bg-white dark:bg-[var(--color-brand-darkCard)]
       border border-slate-200 dark:border-[var(--color-brand-darkBorder)]
       shadow-md shadow-slate-200/50 dark:shadow-none
-      hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none
+      hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200/60 dark:hover:shadow-none
       transition-all duration-300
+      cursor-pointer
     ">
 
       <h3 className="relative font-semibold mb-6 text-slate-900 dark:text-slate-100">

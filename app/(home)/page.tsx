@@ -107,7 +107,7 @@ export default function AssetManagementPage() {
           shadow-sm dark:shadow-none
           transition-all duration-300
           dark:hover:shadow-none
-          hover:-translate-y-1
+          hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none cursor-pointer
         ">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-6">
             Asset Status Summary
@@ -125,7 +125,7 @@ export default function AssetManagementPage() {
           shadow-sm dark:shadow-none
           transition-all duration-300
           dark:hover:shadow-none
-          hover:-translate-y-1
+          hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none cursor-pointer
         ">
           <AssetPerformanceScore />
         </div>
@@ -145,7 +145,7 @@ export default function AssetManagementPage() {
           shadow-sm dark:shadow-none
           transition-all duration-300
           dark:hover:shadow-none
-          hover:-translate-y-1
+          hover:-translate-y-1 hover:shadow-lg hover:shadow-slate-200 dark:hover:shadow-none cursor-pointer
         ">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
             Recent Assets

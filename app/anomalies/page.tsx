@@ -209,7 +209,7 @@ export default function AnomaliesPage() {
                 </div>
 
                 {/* Situational Awareness Bar */}
-                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg p-3 flex flex-wrap items-center gap-x-6 gap-y-3 shadow-sm">
+                <div className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-lg p-3 flex flex-wrap items-center gap-x-6 gap-y-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md cursor-pointer">
                     <div className="flex items-center gap-2 px-3 border-r-0 sm:border-r border-slate-200 dark:border-slate-800">
                         <ShieldCheck className="text-green-500" size={18} />
                         <div>
@@ -244,7 +244,7 @@ export default function AnomaliesPage() {
             {/* ROW 1: IMMEDIATE ACTION & SUMMARY */}
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 {/* Critical Anomalies Panel (75%) */}
-                <section className="lg:col-span-3 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 rounded-xl overflow-hidden shadow-sm flex flex-col">
+                <section className="lg:col-span-3 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900/50 rounded-xl overflow-hidden shadow-sm flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div className="bg-red-100 dark:bg-red-900/40 px-5 py-3 border-b border-red-200 dark:border-red-900/50 flex items-center gap-2">
                         <AlertTriangle className="text-red-600 dark:text-red-500" size={18} />
                         <h2 className="font-semibold text-red-900 dark:text-red-400 text-sm">CRITICAL ANOMALIES REQUIRES IMMEDIATE ACTION</h2>
@@ -281,7 +281,7 @@ export default function AnomaliesPage() {
                 </section>
 
                 {/* Integrity Summary (25%) */}
-                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl p-5 shadow-sm flex flex-col justify-between">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl p-5 shadow-sm flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div>
                         <h2 className="font-semibold text-slate-900 dark:text-white text-sm mb-4">Integrity Summary</h2>
                         <div className="space-y-4">
@@ -314,7 +314,7 @@ export default function AnomaliesPage() {
             {/* ROW 2: PRIORITY & HIGH RISK */}
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
                 {/* Priority Distribution */}
-                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-3 flex flex-col">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-3 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex items-center gap-2 text-orange-500">
                         <Hash size={18} />
                         <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Priority Distribution</h2>
@@ -365,7 +365,7 @@ export default function AnomaliesPage() {
                 </section>
 
                 {/* High Risk Equipment List */}
-                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-2 flex flex-col">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-2 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex justify-between items-center">
                         <div>
                             <h2 className="font-semibold text-slate-900 dark:text-white text-sm">High Risk Equipment</h2>
@@ -413,7 +413,7 @@ export default function AnomaliesPage() {
             {/* ROW 3: ISSUES & PENDING ACTIONS */}
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
                 {/* Equipment Issues Table (3/5) */}
-                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-3 overflow-hidden flex flex-col">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-3 overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                         <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Equipment Issues</h2>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold mt-1">Detailed defect mechanism by area</p>
@@ -448,7 +448,7 @@ export default function AnomaliesPage() {
                 </section>
 
                 {/* Pending Actions Registry (2/5) */}
-                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-2 overflow-hidden flex flex-col">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-2 overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                         <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Pending Actions Registry</h2>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold mt-1">Required maintenance actions</p>
@@ -484,7 +484,7 @@ export default function AnomaliesPage() {
             {/* ROW 4: BACKLOG & DEADLINES */}
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
                 {/* Oldest Open Anomalies (3/5) */}
-                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-3 overflow-hidden flex flex-col">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-3 overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)] flex justify-between items-center">
                         <div>
                             <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Oldest Open Anomalies</h2>
@@ -519,7 +519,7 @@ export default function AnomaliesPage() {
                 </section>
 
                 {/* Action Status & Deadlines (2/5) */}
-                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-2 flex flex-col">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm lg:col-span-2 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                         <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Action Status & Deadlines</h2>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold mt-1">Resolution progress milestones</p>
@@ -562,7 +562,7 @@ export default function AnomaliesPage() {
             {/* ROW 5: TRENDS & ANALYTICS */}
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
                 {/* Anomaly Backlog Evolution (3/5) */}
-                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm overflow-hidden flex flex-col lg:col-span-3">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl shadow-sm overflow-hidden flex flex-col lg:col-span-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div className="p-5 border-b border-slate-200 dark:border-[var(--color-brand-darkBorder)]">
                         <h2 className="font-semibold text-slate-900 dark:text-white text-sm uppercase tracking-wider">Anomaly Backlog Evolution</h2>
                         <p className="text-[10px] text-slate-500 font-bold uppercase mt-1">Supporting Analytics • Last 12 Months</p>
@@ -605,7 +605,7 @@ export default function AnomaliesPage() {
                 </section>
 
                 {/* Top Anomaly Causes (1/5) */}
-                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl p-5 shadow-sm lg:col-span-1">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl p-5 shadow-sm lg:col-span-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div className="mb-4">
                         <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Top Anomaly Causes</h2>
                     </div>
@@ -633,7 +633,7 @@ export default function AnomaliesPage() {
                 </section>
 
                 {/* Risk Exposure by Area (1/5) */}
-                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl p-5 shadow-sm lg:col-span-1">
+                <section className="bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-xl p-5 shadow-sm lg:col-span-1 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                     <div className="mb-4">
                         <h2 className="font-semibold text-slate-900 dark:text-white text-sm">Risk by Area</h2>
                     </div>

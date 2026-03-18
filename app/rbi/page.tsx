@@ -119,7 +119,7 @@ function DashboardCard({ title, subtitle, children, className = "", action }: {
     action?: React.ReactNode;
 }) {
     return (
-        <div className={`bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 flex flex-col gap-4 ${className}`}>
+        <div className={`bg-white dark:bg-[var(--color-brand-darkCard)] border border-slate-200 dark:border-[var(--color-brand-darkBorder)] rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-none p-5 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer ${className}`}>
             {(title || action) && (
                 <div className="flex items-center justify-between">
                     <div>

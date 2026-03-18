@@ -573,7 +573,7 @@ export default function SCEDashboard() {
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
 
                     {/* LEFT — Donut Chart */}
-                    <DashboardCard title="SCE Distribution" subtitle="Equipment classification breakdown">
+                    <DashboardCard title="SCE Distribution" subtitle="Equipment classification breakdown" className="transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                         <div className="flex flex-col items-center gap-4">
                             <div className="relative w-full min-h-[220px]">
                                 <ResponsiveContainer width="100%" height={220}>
@@ -618,7 +618,7 @@ export default function SCEDashboard() {
                     </DashboardCard>
 
                     {/* RIGHT — Progress Bars */}
-                    <DashboardCard title="Assessment Progress" subtitle="Distribution of assessment outcomes">
+                    <DashboardCard title="Assessment Progress" subtitle="Distribution of assessment outcomes" className="transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer">
                         <div className="space-y-6 flex-1 flex flex-col justify-center py-2">
                             {progressData.map((item, idx) => (
                                 <div key={idx}>
@@ -660,6 +660,7 @@ export default function SCEDashboard() {
                 <DashboardCard
                     title="Top SCE Categories by Equipment Count"
                     subtitle="Largest safety-critical equipment categories — focus areas for safety assurance"
+                    className="transition-all duration-300 hover:-translate-y-1 hover:shadow-lg cursor-pointer"
                     action={
                         <div className="flex items-center gap-1.5">
                             <Target size={13} className="text-[var(--color-brand-primary)]" />
