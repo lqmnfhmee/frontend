@@ -1,4 +1,4 @@
-import PlantHealthScore from "@/app/(home)/components/PlantHealthScore";
+import OverallEquipmentEffectiveness from "@/app/(home)/components/OverallEquipmentEffectiveness";
 import AnomalyPriorityBreakdown from "@/app/(home)/components/AnomalyPriorityBreakdown";
 import TotalRiskMatrix from "@/app/(home)/components/TotalRiskMatrix";
 import RadialModuleCard from "@/app/(home)/components/RadialModuleCard";
@@ -38,7 +38,7 @@ export default function Home() {
             </p>
           </div>
 
-          <PlantHealthScore />
+          <OverallEquipmentEffectiveness />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <AnomalyPriorityBreakdown />
@@ -74,20 +74,7 @@ export default function Home() {
             />
 
             <RadialModuleCard
-              title="Anomalies"
-              centerLabel="Total Anomaly"
-              centerValue={8}
-              items={[
-                { label: "Active", value: 5 },
-                { label: "Completed", value: 3 },
-                { label: "Deferred", value: 5 }
-              ]}
-              buttonLabel="Anomalies Dashboard"
-              linkHref="/anomalies"
-            />
-
-            <RadialModuleCard
-              title="Integrity"
+              title="Integrity Management"
               centerLabel="Total Assessed"
               centerValue={2}
               items={[
@@ -97,6 +84,19 @@ export default function Home() {
               ]}
               buttonLabel="Integrity Dashboard"
               linkHref="/integrity"
+            />
+
+            <RadialModuleCard
+              title="CMMS Management"
+              centerLabel="Total Work Orders"
+              centerValue={124}
+              items={[
+                { label: "Open", value: 32 },
+                { label: "Completed", value: 82 },
+                { label: "Overdue", value: 10 }
+              ]}
+              buttonLabel="CMMS Dashboard"
+              linkHref="#"
             />
 
           </div>
@@ -112,7 +112,7 @@ export default function Home() {
           </span>
 
           <div className="flex items-center gap-4">
-            <span>EAIMS Dashboard v1.0</span>
+            <span>INTELLEX Dashboard v1.0</span>
             <span className="hidden md:inline">•</span>
             <span>All rights reserved</span>
           </div>

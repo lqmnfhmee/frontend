@@ -57,26 +57,27 @@ export default function Sidebar({ collapsed, mobileOpen, setMobileOpen }: Sideba
         `}
         >
           {/* Logo */}
-          <div
-            className={`
-            flex items-center
-            transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]
-            ${collapsed ? "justify-center" : "gap-3"}
-          `}
-          >
-            <div className={`relative shrink-0 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${collapsed ? "w-8 h-8" : "w-7 h-7"}`}>
-              <Image
-                src="/logo.png"
-                alt="EAIMS Logo"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-            {!collapsed && (
-              <span className="text-xl font-bold tracking-wide text-sky-500 uppercase">
-                EAIMS
-              </span>
+          <div className="flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]">
+            {collapsed ? (
+              <div className="relative w-9 h-9 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]">
+                <Image
+                  src="/logo.png"
+                  alt="INTELLEX Icon"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            ) : (
+              <div className="relative w-40 h-10 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]">
+                <Image
+                  src="/IntelleX.png"
+                  alt="INTELLEX Logo"
+                  fill
+                  className="object-contain object-left"
+                  priority
+                />
+              </div>
             )}
           </div>
 

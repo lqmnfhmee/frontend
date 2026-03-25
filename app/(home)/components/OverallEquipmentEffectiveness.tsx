@@ -210,7 +210,7 @@ function FormulaModal({
               Mathematical Definition
             </p>
             <div className="font-mono text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-              Plant Health Score = <br />
+              Overall Equipment Effectiveness = <br />
               <div className="pl-4 mt-2 space-y-1 text-slate-500 dark:text-slate-400">
                 <span className="text-blue-600/80 dark:text-blue-400/80">
                   (Asset & SCE Perf. × 30%)
@@ -254,7 +254,7 @@ function FormulaModal({
         </div>
         <div className="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 text-[11px] text-slate-500 dark:text-slate-500 italic border-t border-slate-100 dark:border-slate-800">
           * Each module contributes its internal score multiplied by its
-          assigned weight to create the final Plant Health Score.
+          assigned weight to create the final Overall Equipment Effectiveness.
         </div>
       </div>
     </div>
@@ -538,7 +538,7 @@ function ScoreBreakdownDrawer({
 
 // ─── Inner Client Component ────────────────────────────────────────────────────
 
-function PlantHealthScoreContent() {
+function OverallEquipmentEffectivenessContent() {
   const searchParams = useSearchParams();
   const [currentDisplayScore, setCurrentDisplayScore] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -642,7 +642,7 @@ function PlantHealthScoreContent() {
       >
         <div className="flex items-center justify-between mb-10">
           <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            Plant Health Score
+            Overall Equipment Effectiveness
           </h2>
           <button
             onClick={() => setFormulaOpen(true)}
@@ -793,7 +793,7 @@ function PlantHealthScoreContent() {
 
 // ─── Export With Suspense ──────────────────────────────────────────────────────
 
-export default function PlantHealthScore() {
+export default function OverallEquipmentEffectiveness() {
   return (
     <Suspense
       fallback={
@@ -806,12 +806,12 @@ export default function PlantHealthScore() {
           "
         >
           <div className="text-sm text-slate-500 dark:text-slate-400">
-            Loading Plant Health Score...
+            Loading Overall Equipment Effectiveness...
           </div>
         </div>
       }
     >
-      <PlantHealthScoreContent />
+      <OverallEquipmentEffectivenessContent />
     </Suspense>
   );
 }

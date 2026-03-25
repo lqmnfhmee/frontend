@@ -10,7 +10,10 @@ import {
   ShieldCheck,
   Wrench,
   Activity,
-  AlertTriangle
+  AlertTriangle,
+  ClipboardList,
+  CheckCircle2,
+  Clock
 } from "lucide-react";
 
 type Item = {
@@ -61,6 +64,12 @@ export default function RadialModuleCard({
       return <Activity size={18} />;
     if (label.includes("Deferred") || label.includes("High Risk"))
       return <AlertTriangle size={18} />;
+    if (label.includes("Open"))
+      return <ClipboardList size={18} />;
+    if (label.includes("Completed"))
+      return <CheckCircle2 size={18} />;
+    if (label.includes("Overdue"))
+      return <Clock size={18} />;
     return <Wrench size={18} />;
   };
 

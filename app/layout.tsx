@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EAIMS Dashboard",
+  title: "INTELLEX Dashboard",
   description: "Enterprise Asset Integrity Management System",
 };
 

@@ -131,7 +131,7 @@ export default function AssetPerformanceScore() {
                 Plant Health Contribution
               </p>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Contributes to Plant Health Score
+                Contributes to Overall Equipment Effectiveness
               </p>
             </div>
           </div>

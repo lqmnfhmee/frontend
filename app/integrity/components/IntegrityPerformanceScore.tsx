@@ -173,7 +173,7 @@ export default function IntegrityPerformanceScore() {
                       Plant Health Contribution
                     </p>
                     <p className="text-[8px] text-slate-500 dark:text-slate-400 mt-0.5">
-                      Contributes to Plant Health Score
+                      Contributes to Overall Equipment Effectiveness
                     </p>
                   </div>
                 </div>
