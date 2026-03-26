@@ -254,6 +254,22 @@ export default function Sidebar({ collapsed, mobileOpen, setMobileOpen }: Sideba
             </div>
           </div>
 
+          {/* MAINTENANCE MANAGEMENT */}
+          <div>
+            {!collapsed && (
+              <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3">
+                Maintenance Management
+              </p>
+            )}
+            <div className="space-y-2">
+              <SidebarItem
+                label="CMMS Dashboard"
+                href="/cmms"
+                collapsed={collapsed}
+              />
+            </div>
+          </div>
+
           {/* SETTINGS */}
           <div>
             {!collapsed && (
